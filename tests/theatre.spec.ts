@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import type { Page } from "@playwright/test";
 test("剧场纸门读取真实旧信，抽屉进入真实草稿", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/#/write");
@@ -67,42 +68,121 @@ test("纸艺舞台的悬挂星月、人物、书本、抽屉和纸门真实可�
     ),
   ).toBe(true);
 });
-test("星铃悬停摇摆，声音需主动启用且连续触碰受节流", async ({ page }) => {
+async function monitorChimes(page: Page) {
   await page.addInitScript(() => {
-    let count = 0;
-    const original = AudioContext.prototype.createOscillator;
-    AudioContext.prototype.createOscillator = function () {
-      count++;
-      return original.call(this);
+    const stats = { starts: 0, active: 0, maxActive: 0 };
+    Object.defineProperty(window, "__chimeStats", { value: stats });
+    const create = AudioContext.prototype.createBufferSource;
+    AudioContext.prototype.createBufferSource = function () {
+      const source = create.call(this),
+        start = source.start;
+      source.start = function (
+        ...args: Parameters<AudioBufferSourceNode["start"]>
+      ) {
+        if (!source.loop) {
+          stats.starts++;
+          stats.active++;
+          stats.maxActive = Math.max(stats.maxActive, stats.active);
+          source.addEventListener(
+            "ended",
+            () => {
+              stats.active--;
+            },
+            { once: true },
+          );
+        }
+        return start.apply(source, args);
+      };
+      return source;
     };
-    Object.defineProperty(window, "__noteCount", { get: () => count });
   });
+}
+async function stats(page: Page) {
+  return page.evaluate(
+    () =>
+      (
+        window as unknown as {
+          __chimeStats: { starts: number; active: number; maxActive: number };
+        }
+      ).__chimeStats,
+  );
+}
+
+test("星铃一次扰动只响一次，停留不重播，聚焦点击去重且并发有界", async ({
+  page,
+}) => {
+  await monitorChimes(page);
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/#/theatre");
-  const count = () =>
-    page.evaluate(
-      () => (window as unknown as { __noteCount: number }).__noteCount,
-    );
-  await page.getByRole("button", { name: "摇动左侧星铃", exact: true }).hover();
+  const left = page.getByRole("button", { name: "摇动左侧星铃", exact: true });
+  const right = page.getByRole("button", { name: "摇动右侧星铃", exact: true });
+  await left.hover();
   await expect(page.locator(".pendant-left")).toHaveClass(/swaying/);
-  expect(await count()).toBe(0);
+  expect((await stats(page)).starts).toBe(0);
   await page.getByLabel("音景设置", { exact: true }).click();
   await page.getByLabel("开启交互音效", { exact: true }).check();
   await page.getByLabel("音景设置", { exact: true }).click();
-  await page.waitForTimeout(1000);
-  const before = await count();
-  await page.getByRole("button", { name: "摇动右侧星铃", exact: true }).hover();
-  expect(await count()).toBeGreaterThan(before);
-  const after = await count();
-  await page.getByRole("button", { name: "摇动左侧星铃", exact: true }).hover();
-  expect(await count()).toBe(after);
+  await right.hover();
+  expect((await stats(page)).starts).toBe(1);
+  await right.focus();
+  await right.press("Enter");
+  expect((await stats(page)).starts).toBe(1);
+  const crossing = await left.boundingBox();
+  await page.mouse.move(crossing!.x + crossing!.width / 2, crossing!.y + 35);
+  expect((await stats(page)).starts).toBe(1);
   await page.waitForTimeout(1900);
-  await page.getByRole("button", { name: "摇动右侧星铃", exact: true }).hover();
-  expect(await count()).toBeGreaterThan(after);
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  expect(
-    await page
-      .locator(".pendant-left")
-      .evaluate((el) => getComputedStyle(el).animationName),
-  ).toBe("none");
+  await expect(page.locator(".pendant-right")).not.toHaveClass(/swaying/);
+  // Staying on the pendant and tiny pointer movements cannot strike again.
+  const box = await left.boundingBox();
+  await page.mouse.move(box!.x + box!.width / 2 + 1, box!.y + 30);
+  expect((await stats(page)).starts).toBe(1);
+  await right.hover();
+  expect((await stats(page)).starts).toBe(2);
+  await page.waitForTimeout(1900);
+  await left.focus();
+  expect((await stats(page)).starts).toBe(3);
+  await left.press("Enter");
+  expect((await stats(page)).starts).toBe(3);
+  expect((await stats(page)).maxActive).toBeLessThanOrEqual(2);
+  await page.waitForTimeout(2800);
+  expect((await stats(page)).active).toBe(0);
+});
+
+test.describe("触屏与减少动态效果", () => {
+  test.use({
+    hasTouch: true,
+    reducedMotion: "reduce",
+    viewport: { width: 390, height: 844 },
+  });
+  test("轻触不因焦点重复响，关闭音效或音量零后安静", async ({ page }) => {
+    await monitorChimes(page);
+    await page.goto("/#/theatre");
+    await page.getByLabel("音景设置", { exact: true }).tap();
+    await page.getByLabel("开启交互音效", { exact: true }).check();
+    await page.getByLabel("音景设置", { exact: true }).tap();
+    const left = page.getByRole("button", {
+      name: "摇动左侧星铃",
+      exact: true,
+    });
+    await left.tap();
+    await left.tap();
+    expect((await stats(page)).starts).toBe(1);
+    expect(
+      await page
+        .locator(".pendant-left")
+        .evaluate((e) => getComputedStyle(e).animationName),
+    ).toBe("none");
+    await page.getByLabel("音景设置", { exact: true }).tap();
+    await page.getByLabel("开启交互音效", { exact: true }).uncheck();
+    await page.getByLabel("音景设置", { exact: true }).tap();
+    await page.getByRole("button", { name: "摇动右侧星铃", exact: true }).tap();
+    expect((await stats(page)).starts).toBe(1);
+    await page.getByLabel("音景设置", { exact: true }).tap();
+    await page.getByLabel("开启交互音效", { exact: true }).check();
+    await page.getByLabel("音效音量", { exact: true }).fill("0");
+    await page.getByLabel("音景设置", { exact: true }).tap();
+    await page.waitForTimeout(1900);
+    await left.tap();
+    expect((await stats(page)).starts).toBe(1);
+  });
 });

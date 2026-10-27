@@ -1,5 +1,6 @@
 /** Original local interaction sounds. Licensed background music is in musicTrack.ts. */
-export const WIND_CHIME_COOLDOWN_MS = 1800;
+export const WIND_CHIME_COOLDOWN_MS = 1400;
+export const STAR_SWING_MS = 1800;
 export type VoiceKind = "music" | "effect";
 export interface Voice {
   source: AudioScheduledSourceNode;
@@ -158,40 +159,85 @@ export function scheduleQuietCue(
   );
 }
 
+export interface ChimeTouch {
+  variation?: number;
+  strength?: number;
+  pan?: number;
+}
+
+/** One mallet/noise excitation of damped glass modes, not a pitched melody. */
 export function scheduleWindChime(
   context: BaseAudioContext,
   destination: AudioNode,
   time: number,
   track?: TrackVoice,
+  touch: ChimeTouch = {},
 ) {
-  // Two uneven pairs: ding-ling ... ding-ling. Inharmonic upper modes give a
-  // hollow metal/glass ring; the second pair is quieter and farther away.
-  const strikes = [
-    { delay: 0, frequency: 587.3295, level: 0.16, pan: -0.3 },
-    { delay: 0.26, frequency: 783.9909, level: 0.12, pan: 0.25 },
-    { delay: 0.83, frequency: 659.2551, level: 0.095, pan: 0.16 },
-    { delay: 1.12, frequency: 880, level: 0.068, pan: -0.2 },
-  ];
-  strikes.forEach((s) => {
-    for (const [ratio, strength, duration] of [
-      [1, 1, 3.6],
-      [2.756, 0.16, 1.7],
-      [4.07, 0.035, 0.8],
-    ]) {
-      tone(
-        context,
-        destination,
-        "effect",
-        {
-          frequency: s.frequency * ratio,
-          time: time + s.delay,
-          duration,
-          peak: s.level * strength,
-          attack: 0.008 + (ratio > 1 ? 0.004 : 0),
-          pan: s.pan,
-        },
-        track,
-      );
+  const variation = Math.max(
+    0,
+    Math.min(0.999999, touch.variation ?? Math.random()),
+  );
+  const rate = context.sampleRate,
+    length = Math.ceil(rate * 2.6);
+  const raw = new Float32Array(length);
+  const hit = new Float32Array(Math.ceil(rate * 0.003));
+  let seed = 1 + Math.floor(variation * 0x7ffffffe);
+  for (let i = 0; i < hit.length; i++) {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    hit[i] = (seed / 2147483648 - 1) * Math.sin((Math.PI * i) / hit.length);
+  }
+  const fundamental = 760 * (0.992 + variation * 0.016);
+  for (const [ratio, weight, decay] of [
+    [1, 1, 0.56],
+    [2.67, 0.18, 0.19],
+    [4.08, 0.055, 0.09],
+    [5.43, 0.018, 0.05],
+  ]) {
+    const angle = (2 * Math.PI * fundamental * ratio) / rate;
+    const radius = Math.exp(-1 / (decay * rate));
+    const feedback = 2 * radius * Math.cos(angle),
+      damping = radius * radius;
+    let previous = 0,
+      earlier = 0;
+    for (let i = 0; i < length; i++) {
+      const sample = feedback * previous - damping * earlier + (hit[i] ?? 0);
+      earlier = previous;
+      previous = sample;
+      raw[i] += sample * weight * Math.sin(angle);
     }
-  });
+  }
+  let peak = 0;
+  for (const sample of raw) peak = Math.max(peak, Math.abs(sample));
+  const secondary = variation < 0.22;
+  const secondDelay = secondary ? 0.25 + variation * 0.5 : 0;
+  const secondOffset = Math.round(secondDelay * rate);
+  const strength = Math.max(0.4, Math.min(1, touch.strength ?? 0.85));
+  const level = (0.115 * strength) / Math.max(peak, 0.000001);
+  const buffer = context.createBuffer(1, length, rate),
+    output = buffer.getChannelData(0);
+  for (let i = 0; i < length; i++) {
+    const echo =
+      secondary && i >= secondOffset ? raw[i - secondOffset] * 0.23 : 0;
+    const fade = Math.min(1, (length - i) / (rate * 0.16));
+    output[i] = (raw[i] + echo) * level * fade;
+  }
+  const source = context.createBufferSource(),
+    gain = context.createGain(),
+    pan = context.createStereoPanner();
+  source.buffer = buffer;
+  pan.pan.value = Math.max(-0.35, Math.min(0.35, touch.pan ?? 0));
+  source.connect(gain).connect(pan).connect(destination);
+  const untrack = track?.({ source, gain, kind: "effect" });
+  source.onended = () => {
+    source.disconnect();
+    gain.disconnect();
+    pan.disconnect();
+    untrack?.();
+  };
+  source.start(time);
+  return {
+    strikeCount: secondary ? 2 : 1,
+    lastStrike: secondDelay,
+    duration: buffer.duration,
+  };
 }

@@ -1,6 +1,135 @@
 import { test, expect } from "@playwright/test";
 test.use({ reducedMotion: "reduce" });
 
+test("配乐与星铃共用控制，切页不重载或叠加音乐，无外部音频请求", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const stats = { contexts: 0, music: 0, bell: 0 };
+    Object.defineProperty(window, "__mixStats", { value: stats });
+    const Native = window.AudioContext;
+    window.AudioContext = class extends Native {
+      constructor(options?: AudioContextOptions) {
+        super(options);
+        stats.contexts++;
+      }
+    };
+    const create = Native.prototype.createBufferSource;
+    Native.prototype.createBufferSource = function () {
+      const source = create.call(this),
+        start = source.start;
+      source.start = function (
+        ...args: Parameters<AudioBufferSourceNode["start"]>
+      ) {
+        if (source.loop) stats.music++;
+        else stats.bell++;
+        return start.apply(source, args);
+      };
+      return source;
+    };
+  });
+  const errors: string[] = [],
+    external: string[] = [];
+  let musicRequests = 0;
+  page.on("pageerror", (e) => errors.push(e.message));
+  page.on("console", (m) => {
+    if (m.type() === "error") errors.push(m.text());
+  });
+  page.on("request", (r) => {
+    if (r.url().includes("/audio/sleep-piano")) musicRequests++;
+    if (!r.url().startsWith("http://127.0.0.1:5173/")) external.push(r.url());
+  });
+  const inspect = () =>
+    page.evaluate(
+      () =>
+        (
+          window as unknown as {
+            __mixStats: { contexts: number; music: number; bell: number };
+          }
+        ).__mixStats,
+    );
+  await page.goto("/");
+  expect(musicRequests).toBe(0);
+  await page.getByLabel("音景设置", { exact: true }).click();
+  await page.getByRole("button", { name: "开启背景音乐", exact: true }).click();
+  await expect(page.locator(".audio-state")).toContainText("纯音乐播放中", {
+    timeout: 15000,
+  });
+  await page.getByLabel("开启交互音效", { exact: true }).check();
+  await page.getByLabel("音景设置", { exact: true }).click();
+  await page.goto("/#/theatre");
+  await page.getByRole("button", { name: "摇动右侧星铃", exact: true }).click();
+  expect(await inspect()).toEqual({ contexts: 1, music: 1, bell: 1 });
+  await page.goto("/#/archive");
+  await page.goto("/#/theatre");
+  expect((await inspect()).music).toBe(1);
+  expect(musicRequests).toBe(1);
+  expect(errors).toEqual([]);
+  expect(external).toEqual([]);
+});
+
+test("玻璃风铃每次一击或弱二击，没有预设旋律，尾音与静音正确", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const result = await page.evaluate(async () => {
+    const design = await import(
+      window.location.origin + "/src/lib/soundDesign.ts"
+    );
+    async function render(variation: number, muted = false) {
+      const context = new OfflineAudioContext(2, 7 * 32000, 32000);
+      context.createOscillator = () => {
+        throw new Error("bell must use contact excitation");
+      };
+      const level = context.createGain();
+      level.gain.value = 0.06;
+      if (muted) level.gain.setValueAtTime(0, 0.5);
+      level.connect(context.destination);
+      const room = design.createRoom(context, level, 5200, 0.23);
+      const event = design.scheduleWindChime(
+        context,
+        room.input,
+        0.05,
+        undefined,
+        { variation },
+      );
+      const samples = (await context.startRendering()).getChannelData(0);
+      function rms(a: number, b: number) {
+        const slice = samples.subarray(a * 32000, b * 32000);
+        return Math.sqrt(
+          slice.reduce((sum, v) => sum + v * v, 0) / slice.length,
+        );
+      }
+      let peak = 0;
+      for (const v of samples) peak = Math.max(peak, Math.abs(v));
+      return {
+        event,
+        peak,
+        finite: samples.every(Number.isFinite),
+        body: rms(0.05, 0.5),
+        tail: rms(2, 3),
+        muted: rms(1, 2),
+      };
+    }
+    return {
+      one: await render(0.6),
+      two: await render(0.1),
+      muted: await render(0.6, true),
+    };
+  });
+  expect(result.one.event.strikeCount).toBe(1);
+  expect(result.two.event.strikeCount).toBe(2);
+  expect(result.two.event.lastStrike).toBeLessThan(0.5);
+  for (const sound of [result.one, result.two]) {
+    expect(sound.finite).toBe(true);
+    expect(sound.peak).toBeGreaterThan(0.0001);
+    expect(sound.peak).toBeLessThan(0.025);
+    expect(sound.tail).toBeGreaterThan(0);
+    expect(sound.tail).toBeLessThan(sound.body * 0.2);
+  }
+  expect(result.muted.muted).toBe(0);
+});
+
 test("许可钢琴可解码、循环接缝连续且保持舒适信号范围", async ({ page }) => {
   await page.goto("/");
   const result = await page.evaluate(async () => {

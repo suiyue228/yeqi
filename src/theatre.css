@@ -305,7 +305,8 @@
   outline-offset: 5px;
 }
 .pendant.swaying {
-  animation: paper-pendulum 1.25s cubic-bezier(0.35, 0, 0.3, 1) both;
+  animation: paper-pendulum var(--star-swing-time, 1800ms)
+    cubic-bezier(0.37, 0, 0.63, 1) both;
 }
 .theatre-footlights {
   display: flex;
@@ -403,17 +404,20 @@
   0% {
     transform: translateZ(100px) rotate(0);
   }
-  22% {
-    transform: translateZ(100px) rotate(8deg);
+  12% {
+    transform: translateZ(100px) rotate(6deg);
   }
-  45% {
-    transform: translateZ(100px) rotate(-6deg);
+  34% {
+    transform: translateZ(100px) rotate(-3.6deg);
   }
-  66% {
-    transform: translateZ(100px) rotate(3.5deg);
+  56% {
+    transform: translateZ(100px) rotate(2deg);
   }
-  84% {
-    transform: translateZ(100px) rotate(-1.5deg);
+  76% {
+    transform: translateZ(100px) rotate(-0.9deg);
+  }
+  90% {
+    transform: translateZ(100px) rotate(0.3deg);
   }
   100% {
     transform: translateZ(100px) rotate(0);

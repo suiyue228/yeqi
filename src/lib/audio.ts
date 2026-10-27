@@ -5,7 +5,7 @@ import {
   scheduleWindChime,
   WIND_CHIME_COOLDOWN_MS,
 } from "./soundDesign";
-import type { TrackVoice } from "./soundDesign";
+import type { TrackVoice, ChimeTouch } from "./soundDesign";
 import { loadMusicBuffer, startMusic, MUSIC_LEVEL } from "./musicTrack";
 export type Sound =
   | "curtain"
@@ -65,6 +65,8 @@ class Soundscape {
   private listeners = new Set<() => void>();
   private context: AudioContext | null = null;
   private musicBus: GainNode | null = null;
+  private musicDuck: GainNode | null = null;
+  private chimeRoom: ReturnType<typeof createRoom> | null = null;
   private effectsBus: GainNode | null = null;
   private musicBuffer: AudioBuffer | null = null;
   private musicRequest = 0;
@@ -120,11 +122,13 @@ class Soundscape {
       this.context = new AudioContext();
       this.musicBus = this.context.createGain();
       this.effectsBus = this.context.createGain();
-      this.musicBus.connect(this.context.destination);
+      this.musicDuck = this.context.createGain();
+      this.musicBus.connect(this.musicDuck).connect(this.context.destination);
       this.effectsBus.connect(this.context.destination);
       this.musicBus.gain.value = 0;
       this.effectsBus.gain.value = 0;
       this.effectsRoom = createRoom(this.context, this.effectsBus, 4200, 0.7);
+      this.chimeRoom = createRoom(this.context, this.effectsBus, 5200, 0.23);
     }
     await this.context.resume();
     if (this.context.state !== "running")
@@ -171,7 +175,11 @@ class Soundscape {
       if (request !== this.musicRequest) return;
       const buffer = this.musicBuffer ?? (await loadMusicBuffer());
       this.musicBuffer = buffer;
-      if (request !== this.musicRequest || document.hidden) return;
+      if (request !== this.musicRequest) return;
+      if (document.hidden) {
+        this.pause();
+        return;
+      }
       this.configure({ music: true });
       if (this.state.playing) return;
       this.musicStartedAt = this.context!.currentTime + 0.05;
@@ -204,17 +212,19 @@ class Soundscape {
     try {
       await this.activate();
       this.effectsRoom!.reset();
+      this.chimeRoom!.reset();
       this.configure({ effects: true });
       this.play("chime");
     } catch (e) {
       this.emit({ error: e instanceof Error ? e.message : "音效暂不可用。" });
     }
   }
-  play(kind: Sound) {
+  play(kind: Sound, touch?: ChimeTouch) {
     if (
       !this.context ||
       !this.state.unlocked ||
       !this.state.preferences.effects ||
+      this.state.preferences.effectsVolume === 0 ||
       document.hidden
     )
       return;
@@ -230,14 +240,23 @@ class Soundscape {
       return;
     this.recent.set(kind, now);
     const c = this.context;
-    if (kind === "windchime")
+    if (kind === "windchime") {
       scheduleWindChime(
         c,
-        this.effectsRoom!.input,
+        this.chimeRoom!.input,
         c.currentTime + 0.015,
         this.trackVoice,
+        touch,
       );
-    else
+      if (this.state.playing && this.musicDuck) {
+        const gain = this.musicDuck.gain,
+          now = c.currentTime;
+        gain.cancelAndHoldAtTime(now);
+        gain.linearRampToValueAtTime(0.85, now + 0.06);
+        gain.setValueAtTime(0.85, now + 0.4);
+        gain.linearRampToValueAtTime(1, now + 1.1);
+      }
+    } else
       scheduleQuietCue(
         c,
         this.effectsRoom!.input,
@@ -250,6 +269,7 @@ class Soundscape {
     try {
       await this.activate();
       this.effectsRoom!.reset();
+      this.chimeRoom!.reset();
       this.configure({ effects: true });
       this.play("chime");
     } catch (e) {
@@ -257,6 +277,10 @@ class Soundscape {
     }
   }
   private stopMusic() {
+    if (this.context && this.musicDuck) {
+      this.musicDuck.gain.cancelAndHoldAtTime(this.context.currentTime);
+      this.musicDuck.gain.setTargetAtTime(1, this.context.currentTime, 0.08);
+    }
     if (this.context && this.musicStartedAt !== null) {
       this.musicPosition =
         (this.musicPosition +
@@ -283,6 +307,7 @@ class Soundscape {
     }
     this.voices.clear();
     this.effectsRoom?.reset();
+    this.chimeRoom?.reset();
     this.emit({ unlocked: false });
     this.updateLevels();
     void this.context?.suspend().catch(() => {});

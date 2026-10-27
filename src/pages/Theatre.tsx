@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { PointerEvent } from "react";
+import type { PointerEvent, CSSProperties } from "react";
 import type { Entry } from "../types";
 import type { Draft, Wish } from "../lib/workspace";
 import { RoomHeader } from "../components/RoomHeader";
@@ -11,6 +11,7 @@ import {
   PaperBook,
 } from "../components/PaperTheatreArt";
 import { audio } from "../lib/audio";
+import { STAR_SWING_MS } from "../lib/soundDesign";
 const sayings = [
   "我是缄，替没说完的话守一盏灯。你可以只坐一会儿。",
   "没写完的句子，也有留下来的资格。",
@@ -42,6 +43,7 @@ export function Theatre({
   const stage = useRef<HTMLDivElement>(null),
     frame = useRef<number | null>(null),
     timers = useRef<Record<string, number>>({});
+  const lastSway = useRef<Record<string, number>>({});
   useEffect(
     () => () => {
       if (frame.current !== null) cancelAnimationFrame(frame.current);
@@ -50,13 +52,20 @@ export function Theatre({
     [],
   );
   function sway(id: string) {
+    const now = performance.now();
+    if (now - (lastSway.current[id] ?? -Infinity) < STAR_SWING_MS) return;
+    lastSway.current[id] = now;
     setSwinging((old) => (old.includes(id) ? old : [...old, id]));
     window.clearTimeout(timers.current[id]);
     timers.current[id] = window.setTimeout(
       () => setSwinging((old) => old.filter((x) => x !== id)),
-      1250,
+      STAR_SWING_MS,
     );
-    audio.play("windchime");
+    if (id !== "moon")
+      audio.play("windchime", {
+        pan: id === "left" ? -0.2 : 0.2,
+        strength: 0.85,
+      });
   }
   function tilt(event: PointerEvent<HTMLDivElement>) {
     if (
@@ -94,6 +103,7 @@ export function Theatre({
         <div
           ref={stage}
           className="paper-stage"
+          style={{ "--star-swing-time": `${STAR_SWING_MS}ms` } as CSSProperties}
           data-phase={phase}
           onPointerMove={tilt}
           onPointerLeave={resetTilt}
@@ -174,7 +184,9 @@ export function Theatre({
                 key={id}
                 className={`pendant pendant-${id} ${swinging.includes(id) ? "swaying" : ""}`}
                 aria-label={`摇动${id === "left" ? "左" : "右"}侧星铃`}
-                onPointerEnter={() => sway(id)}
+                onPointerEnter={(event) => {
+                  if (event.pointerType !== "touch") sway(id);
+                }}
                 onFocus={() => sway(id)}
                 onClick={() => {
                   sway(id);
@@ -205,6 +217,7 @@ export function Theatre({
               onPointerEnter={() => sway("moon")}
               onClick={() => {
                 sway("moon");
+                audio.play("index");
                 setPhase((phase + 1) % 3);
                 setMessage(
                   `悬挂月亮与幕后纸窗一起变成${["残月", "半月", "满月"][(phase + 1) % 3]}。`,
