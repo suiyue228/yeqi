@@ -1,0 +1,111 @@
+/* Slow cloth, stitched vines, a closed beat, then the reveal. */
+.ritual-transition::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #120f18;
+  z-index: -1;
+  pointer-events: none;
+}
+.ritual-closing::before {
+  animation: lining-close var(--ritual-close) ease both;
+}
+.ritual-opening::before {
+  animation: lining-open var(--ritual-reveal) ease both;
+}
+.ritual-closing .ritual-wing {
+  animation-duration: var(--ritual-close);
+  animation-timing-function: cubic-bezier(0.25, 0.05, 0.25, 1);
+}
+.ritual-opening .ritual-wing {
+  animation-duration: var(--ritual-reveal);
+  animation-timing-function: cubic-bezier(0.3, 0, 0.18, 1);
+}
+.ritual-closing .ritual-emblem {
+  animation-duration: var(--ritual-close);
+}
+.ritual-opening .ritual-emblem {
+  animation-duration: 650ms;
+}
+.curtain-embroidery {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.72;
+}
+.ritual-wing-right .curtain-embroidery {
+  transform: scaleX(-1);
+}
+.ritual-curtain .ritual-wing {
+  border-radius: 0;
+  background: #392543;
+  box-shadow:
+    inset 22px 0 #21152f,
+    inset 24px 0 #92735f,
+    inset 58px 0 #49305d,
+    inset 60px 0 #92735f66,
+    inset 95px 0 #392543;
+}
+.ritual-curtain .ritual-wing-right {
+  border-radius: 0;
+  box-shadow:
+    inset -22px 0 #21152f,
+    inset -24px 0 #92735f,
+    inset -58px 0 #49305d,
+    inset -60px 0 #92735f66,
+    inset -95px 0 #392543;
+}
+.ritual-curtain .ritual-wing::before {
+  border-radius: 0;
+  border: 1px dashed #c8a9bd99;
+  inset: 24px 19px;
+}
+.ritual-emblem {
+  padding: 27px 20px;
+  background: #21152ff2;
+  border: 1px solid #92735f88;
+  clip-path: polygon(
+    9% 0,
+    91% 0,
+    100% 12%,
+    100% 88%,
+    91% 100%,
+    9% 100%,
+    0 88%,
+    0 12%
+  );
+}
+.ritual-letter .ritual-emblem {
+  background: #e5cfd2;
+}
+.ritual-cabinet .curtain-embroidery {
+  opacity: 0.23;
+}
+.ritual-oracle .curtain-embroidery {
+  opacity: 0.17;
+}
+@keyframes lining-close {
+  from {
+    opacity: 0;
+  }
+  55%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes lining-open {
+  0%,
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ritual-transition {
+    display: none;
+  }
+}

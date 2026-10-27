@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { RitualKind, RitualState } from "../components/RitualTransition";
+import { RITUAL_SWAP, RITUAL_TOTAL } from "../lib/ritual";
 const current = () => window.location.hash.slice(1) || "/";
 interface Destination {
   next: string;
@@ -66,13 +67,13 @@ export function useRoute() {
           // Finishing early during the reveal must not push this URL twice.
           destination.current = { next, position: position.current };
           setTransition({ kind, phase: "opening" });
-        }, 340),
+        }, RITUAL_SWAP),
       );
       timers.current.push(
         window.setTimeout(() => {
           setTransition(null);
           destination.current = null;
-        }, 900),
+        }, RITUAL_TOTAL),
       );
     },
     [clearTimers, commit],

@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
 test.use({ reducedMotion: "no-preference" });
+test.setTimeout(60000);
 async function finished(page: Page) {
   await expect(page.getByTestId("ritual-transition")).toHaveCount(0);
   await expect(page.locator(".app-shell")).not.toHaveAttribute("inert", "");
