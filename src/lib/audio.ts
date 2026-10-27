@@ -1,16 +1,12 @@
 /** Original instrumental score and small synthesized foley. No audio/network assets. */
 import {
   createRoom,
-  createMusicBed,
-  MUSIC_LEVEL,
-  MUSIC_CUTOFF,
-  MUSIC_WET,
-  MUSIC_LOOP_SECONDS,
   scheduleQuietCue,
   scheduleWindChime,
   WIND_CHIME_COOLDOWN_MS,
 } from "./soundDesign";
 import type { TrackVoice } from "./soundDesign";
+import { loadMusicBuffer, startMusic, MUSIC_LEVEL } from "./musicTrack";
 export type Sound =
   | "curtain"
   | "drawer"
@@ -30,6 +26,7 @@ interface Preferences {
 interface AudioState {
   preferences: Preferences;
   playing: boolean;
+  loading: boolean;
   unlocked: boolean;
   error: string;
 }
@@ -61,6 +58,7 @@ class Soundscape {
   private state: AudioState = {
     preferences: load(),
     playing: false,
+    loading: false,
     unlocked: false,
     error: "",
   };
@@ -68,7 +66,8 @@ class Soundscape {
   private context: AudioContext | null = null;
   private musicBus: GainNode | null = null;
   private effectsBus: GainNode | null = null;
-  private musicRoom: ReturnType<typeof createRoom> | null = null;
+  private musicBuffer: AudioBuffer | null = null;
+  private musicRequest = 0;
   private effectsRoom: ReturnType<typeof createRoom> | null = null;
   private musicPosition = 0;
   private musicStartedAt: number | null = null;
@@ -125,12 +124,6 @@ class Soundscape {
       this.effectsBus.connect(this.context.destination);
       this.musicBus.gain.value = 0;
       this.effectsBus.gain.value = 0;
-      this.musicRoom = createRoom(
-        this.context,
-        this.musicBus,
-        MUSIC_CUTOFF,
-        MUSIC_WET,
-      );
       this.effectsRoom = createRoom(this.context, this.effectsBus, 4200, 0.7);
     }
     await this.context.resume();
@@ -160,31 +153,45 @@ class Soundscape {
       }
   }
   async toggleMusic() {
+    if (this.state.loading) {
+      this.musicRequest++;
+      this.configure({ music: false });
+      this.emit({ loading: false });
+      return;
+    }
     if (this.state.playing) {
       this.configure({ music: false });
       this.stopMusic();
       return;
     }
+    const request = ++this.musicRequest;
+    this.emit({ loading: true, error: "" });
     try {
       await this.activate();
+      if (request !== this.musicRequest) return;
+      const buffer = this.musicBuffer ?? (await loadMusicBuffer());
+      this.musicBuffer = buffer;
+      if (request !== this.musicRequest || document.hidden) return;
       this.configure({ music: true });
       if (this.state.playing) return;
-      this.musicRoom!.reset();
       this.musicStartedAt = this.context!.currentTime + 0.05;
-      createMusicBed(
+      startMusic(
         this.context!,
-        this.musicRoom!.input,
+        this.musicBus!,
+        buffer,
         this.musicStartedAt,
         this.musicPosition,
         this.trackVoice,
       );
-      this.emit({ playing: true });
+      this.emit({ playing: true, loading: false });
       this.updateLevels();
     } catch (e) {
-      this.emit({
-        error: e instanceof Error ? e.message : "声音暂不可用。",
-        playing: false,
-      });
+      if (request === this.musicRequest)
+        this.emit({
+          error: e instanceof Error ? e.message : "声音暂不可用。",
+          playing: false,
+          loading: false,
+        });
     }
   }
   async toggleEffects() {
@@ -254,7 +261,7 @@ class Soundscape {
       this.musicPosition =
         (this.musicPosition +
           Math.max(0, this.context.currentTime - this.musicStartedAt)) %
-        MUSIC_LOOP_SECONDS;
+        (this.musicBuffer?.duration ?? 1);
       this.musicStartedAt = null;
     }
     this.fade("music");
@@ -262,6 +269,8 @@ class Soundscape {
     this.updateLevels();
   }
   pause = () => {
+    this.musicRequest++;
+    this.emit({ loading: false });
     this.stopMusic();
     for (const [voice, group] of this.voices) {
       try {
@@ -273,7 +282,6 @@ class Soundscape {
       }
     }
     this.voices.clear();
-    this.musicRoom?.reset();
     this.effectsRoom?.reset();
     this.emit({ unlocked: false });
     this.updateLevels();

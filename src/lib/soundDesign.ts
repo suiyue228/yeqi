@@ -1,8 +1,4 @@
-/** Original, local-only score. Times are seconds; no samples or remote assets. */
-export const MUSIC_LOOP_SECONDS = 32;
-export const MUSIC_LEVEL = 0.09;
-export const MUSIC_CUTOFF = 240;
-export const MUSIC_WET = 0.18;
+/** Original local interaction sounds. Licensed background music is in musicTrack.ts. */
 export const WIND_CHIME_COOLDOWN_MS = 1800;
 export type VoiceKind = "music" | "effect";
 export interface Voice {
@@ -116,54 +112,6 @@ function tone(
   };
   oscillator.start(time);
   oscillator.stop(time + duration + 0.06);
-}
-
-const musicBuffers = new WeakMap<BaseAudioContext, AudioBuffer>();
-function musicBuffer(context: BaseAudioContext) {
-  const cached = musicBuffers.get(context);
-  if (cached) return cached;
-  // A single low-bandwidth loop lives on the audio thread. Integer cycle counts
-  // and periodic timbre curves make both value and slope continuous at its seam.
-  const rate = 12000;
-  const buffer = context.createBuffer(1, rate * MUSIC_LOOP_SECONDS, rate);
-  const samples = buffer.getChannelData(0);
-  for (let i = 0; i < samples.length; i++) {
-    const phase = (2 * Math.PI * i) / samples.length;
-    samples[i] =
-      0.034 * Math.sin(phase * 2092) +
-      0.012 * (1 + 0.025 * Math.cos(phase)) * Math.sin(phase * 3138 + 0.3) +
-      0.006 * (1 + 0.02 * Math.sin(phase)) * Math.sin(phase * 4184 + 1.2) +
-      0.0015 * Math.sin(phase * 6276 + 0.7);
-  }
-  musicBuffers.set(context, buffer);
-  return buffer;
-}
-
-export function createMusicBed(
-  context: BaseAudioContext,
-  destination: AudioNode,
-  time: number,
-  offset = 0,
-  track?: TrackVoice,
-) {
-  const source = context.createBufferSource(),
-    gain = context.createGain();
-  source.buffer = musicBuffer(context);
-  source.loop = true;
-  gain.gain.setValueAtTime(0, time);
-  gain.gain.setValueCurveAtTime(
-    new Float32Array([0, 0.038, 0.146, 0.309, 0.5, 0.691, 0.854, 0.962, 1]),
-    time,
-    6,
-  );
-  source.connect(gain).connect(destination);
-  const untrack = track?.({ source, gain, kind: "music" });
-  source.onended = () => {
-    source.disconnect();
-    gain.disconnect();
-    untrack?.();
-  };
-  source.start(time, offset % MUSIC_LOOP_SECONDS);
 }
 
 export type QuietCue =

@@ -1,5 +1,6 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { audio } from "../lib/audio";
+import { MUSIC_TRACK } from "../lib/musicTrack";
 export function AudioControls() {
   const state = useSyncExternalStore(audio.subscribe, audio.getSnapshot);
   useEffect(() => {
@@ -15,9 +16,9 @@ export function AudioControls() {
         ♫ <span>{state.playing ? "月下曲正在流淌" : "音景 · 静候开启"}</span>
       </summary>
       <div className="audio-panel">
-        <span className="eyebrow">NOCTURNE / 原创月下曲</span>
+        <span className="eyebrow">MOONLIGHT / 月下钢琴</span>
         <p>
-          连续低缓的音床，陪你安静落笔。
+          柔和的钢琴，陪你在月光里慢慢写。
           <br />
           声音由你开启，随时可以关掉。
         </p>
@@ -25,12 +26,24 @@ export function AudioControls() {
           className="button outline-button"
           onClick={() => void audio.toggleMusic()}
         >
-          {state.playing
-            ? "关闭背景音乐"
-            : state.preferences.music
-              ? "恢复背景音乐"
-              : "开启背景音乐"}
+          {state.loading
+            ? "取消加载背景音乐"
+            : state.playing
+              ? "关闭背景音乐"
+              : state.preferences.music
+                ? "恢复背景音乐"
+                : "开启背景音乐"}
         </button>
+        <p className="music-credit">
+          <a href={MUSIC_TRACK.source} target="_blank" rel="noreferrer">
+            {MUSIC_TRACK.title} — {MUSIC_TRACK.artist}
+          </a>
+          <br />
+          <a href={MUSIC_TRACK.license} target="_blank" rel="noreferrer">
+            CC BY 4.0
+          </a>{" "}
+          · 已做音量与循环衔接处理
+        </p>
         <label>
           音乐音量
           <input
@@ -74,13 +87,15 @@ export function AudioControls() {
           />
         </label>
         <p className="audio-state" aria-live="polite">
-          {state.playing
-            ? "纯音乐播放中"
-            : state.unlocked
-              ? "背景音乐已关闭"
-              : state.preferences.music || state.preferences.effects
-                ? "偏好已记住，点击音乐或恢复交互音效以继续。"
-                : "尚未开启声音"}
+          {state.loading
+            ? "正在准备月下钢琴，可随时取消。"
+            : state.playing
+              ? "纯音乐播放中"
+              : state.unlocked
+                ? "背景音乐已关闭"
+                : state.preferences.music || state.preferences.effects
+                  ? "偏好已记住，点击音乐或恢复交互音效以继续。"
+                  : "尚未开启声音"}
           {state.error && <span role="alert">{state.error}</span>}
         </p>
       </div>

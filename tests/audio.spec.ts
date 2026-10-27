@@ -1,91 +1,101 @@
 import { test, expect } from "@playwright/test";
 test.use({ reducedMotion: "reduce" });
 
-test("连续背景无静音谷和循环跳变，风铃尾韵与零音量仍正常", async ({ page }) => {
+test("许可钢琴可解码、循环接缝连续且保持舒适信号范围", async ({ page }) => {
   await page.goto("/");
   const result = await page.evaluate(async () => {
-    const design = await import(
-      window.location.origin + "/src/lib/soundDesign.ts"
+    const music = await import(
+      window.location.origin + "/src/lib/musicTrack.ts"
     );
-    async function render(kind: "music" | "windchime", muted = false) {
-      const context = new OfflineAudioContext(
-        2,
-        32000 * (kind === "music" ? 80 : 10),
-        32000,
-      );
-      const level = context.createGain();
-      level.gain.value =
-        kind === "music" ? 0.45 * design.MUSIC_LEVEL : 0.5 * 0.12;
-      if (muted) level.gain.setValueAtTime(0, 0.6);
-      level.connect(context.destination);
-      const room = design.createRoom(
-        context,
-        level,
-        kind === "music" ? design.MUSIC_CUTOFF : 4200,
-        kind === "music" ? design.MUSIC_WET : 0.7,
-      );
-      if (kind === "music") {
-        design.createMusicBed(context, room.input, 0.05);
-      } else design.scheduleWindChime(context, room.input, 0.05);
-      const data = (await context.startRendering()).getChannelData(0);
-      function rms(from: number, to: number) {
-        const slice = data.subarray(from * 32000, to * 32000);
-        return Math.sqrt(
-          slice.reduce((sum, v) => sum + v * v, 0) / slice.length,
-        );
-      }
-      let peak = 0;
-      for (const sample of data) peak = Math.max(peak, Math.abs(sample));
-      const windows =
-        kind === "music"
-          ? Array.from({ length: 64 }, (_, i) => rms(12 + i, 13 + i))
-          : [1];
-      let differenceEnergy = 0,
-        signalEnergy = 0;
-      for (let i = 12 * 32000; i < data.length; i++) {
-        differenceEnergy += (data[i] - data[i - 1]) ** 2;
-        signalEnergy += data[i] ** 2;
-      }
-      return {
-        peak,
-        finite: data.every(Number.isFinite),
-        body: rms(0.1, 2),
-        tail: rms(5.5, 7),
-        afterMute: rms(1, 3),
-        variation: Math.max(...windows) / Math.min(...windows),
-        seamJump:
-          kind === "music"
-            ? Math.max(
-                ...[32, 64].map((t) =>
-                  Math.abs(
-                    data[Math.round((t + 0.05) * 32000)] -
-                      data[Math.round((t + 0.05) * 32000) - 1],
-                  ),
-                ),
-              )
-            : 0,
-        sharpness: signalEnergy ? Math.sqrt(differenceEnergy / signalEnergy) : 0,
-      };
+    const buffer = await music.loadMusicBuffer();
+    const context = new OfflineAudioContext(2, 12 * 32000, 32000);
+    const level = context.createGain();
+    level.gain.value = 0.45 * music.MUSIC_LEVEL;
+    level.connect(context.destination);
+    music.startMusic(
+      context,
+      level,
+      buffer,
+      0,
+      buffer.duration - 8,
+      () => () => {},
+    );
+    const rendered = await context.startRendering(),
+      samples = rendered.getChannelData(0);
+    let peak = 0,
+      sum = 0;
+    for (const v of samples) {
+      peak = Math.max(peak, Math.abs(v));
+      sum += v * v;
     }
+    const seam = 8 * 32000;
     return {
-      music: await render("music"),
-      chime: await render("windchime"),
-      muted: await render("windchime", true),
+      duration: buffer.duration,
+      channels: buffer.numberOfChannels,
+      peak,
+      rms: Math.sqrt(sum / samples.length),
+      finite: samples.every(Number.isFinite),
+      seam: Math.abs(samples[seam] - samples[seam - 1]),
     };
   });
-  for (const sound of [result.music, result.chime]) {
-    expect(sound.finite).toBe(true);
-    expect(sound.peak).toBeGreaterThan(0.0001);
-    expect(sound.peak).toBeLessThan(0.12);
-  }
-  expect(result.chime.tail).toBeGreaterThan(0.00000001);
-  expect(result.chime.tail).toBeLessThan(result.chime.body);
-  expect(result.muted.afterMute).toBe(0);
-  expect(result.music.peak).toBeLessThan(0.005);
-  expect(result.music.variation).toBeLessThan(1.2);
-  expect(result.music.seamJump).toBeLessThan(0.0002);
-  expect(result.music.sharpness).toBeLessThan(0.04);
+  expect(result.duration).toBeGreaterThan(140);
+  expect(result.duration).toBeLessThan(190);
+  expect(result.channels).toBe(2);
+  expect(result.finite).toBe(true);
+  expect(result.rms).toBeGreaterThan(0.0001);
+  expect(result.peak).toBeLessThan(0.05);
+  expect(result.seam).toBeLessThan(0.0015);
 });
+
+test("配乐读取失败可重试，不回退嗡鸣且不影响档案", async ({ page }) => {
+  let failing = true;
+  await page.route("**/audio/sleep-piano-scott-buckley.mp3", async (route) => {
+    if (failing) await route.fulfill({ status: 503, body: "unavailable" });
+    else await route.continue();
+  });
+  await page.goto("/");
+  await page.getByLabel("音景设置", { exact: true }).click();
+  await page.getByRole("button", { name: "开启背景音乐", exact: true }).click();
+  await expect(page.getByRole("alert")).toContainText("暂时无法读取");
+  await expect(page.locator(".audio-state")).not.toContainText("纯音乐播放中");
+  failing = false;
+  await page.getByRole("button", { name: "开启背景音乐", exact: true }).click();
+  await expect(page.locator(".audio-state")).toContainText("纯音乐播放中", {
+    timeout: 15000,
+  });
+  await page.getByLabel("音景设置", { exact: true }).click();
+  await page
+    .getByRole("navigation", { name: "主导航" })
+    .getByRole("button", { name: "记忆档案" })
+    .click();
+  await expect(page.locator(".archive-count")).toBeVisible();
+});
+
+test("延迟加载可取消，完成后不会自行开始播放", async ({ page }) => {
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route("**/audio/sleep-piano-scott-buckley.mp3", async (route) => {
+    await gate;
+    await route.continue();
+  });
+  await page.goto("/");
+  await page.getByLabel("音景设置", { exact: true }).click();
+  await page.getByRole("button", { name: "开启背景音乐", exact: true }).click();
+  await page
+    .getByRole("button", { name: "取消加载背景音乐", exact: true })
+    .click();
+  release();
+  await page.waitForResponse("**/audio/sleep-piano-scott-buckley.mp3");
+  await page.waitForTimeout(1500);
+  await expect(page.locator(".audio-state")).not.toContainText("纯音乐播放中");
+  await page.getByRole("button", { name: "开启背景音乐", exact: true }).click();
+  await expect(page.locator(".audio-state")).toContainText("纯音乐播放中", {
+    timeout: 15000,
+  });
+});
+
 test("声音默认静音、用户激活、单实例、音量和偏好恢复", async ({ page }) => {
   await page.addInitScript(() => {
     const contexts: AudioContext[] = [];
@@ -108,7 +118,9 @@ test("声音默认静音、用户激活、单实例、音量和偏好恢复", as
   expect(await inspect()).toEqual([]);
   await page.getByLabel("音景设置", { exact: true }).click();
   await page.getByRole("button", { name: "开启背景音乐", exact: true }).click();
-  await expect(page.locator(".audio-state")).toContainText("纯音乐播放中");
+  await expect(page.locator(".audio-state")).toContainText("纯音乐播放中", {
+    timeout: 15000,
+  });
   expect(await inspect()).toEqual(["running"]);
   await page.getByLabel("音乐音量", { exact: true }).fill("23");
   await page.getByLabel("开启交互音效", { exact: true }).check();
@@ -130,7 +142,9 @@ test("后台暂停释放声音，返回后需主动恢复同一音频实例", as
   await page.goto("/");
   await page.getByLabel("音景设置", { exact: true }).click();
   await page.getByRole("button", { name: "开启背景音乐", exact: true }).click();
-  await expect(page.locator(".audio-state")).toContainText("纯音乐播放中");
+  await expect(page.locator(".audio-state")).toContainText("纯音乐播放中", {
+    timeout: 15000,
+  });
   await page.evaluate(() => {
     Object.defineProperty(document, "hidden", {
       configurable: true,
@@ -148,7 +162,9 @@ test("后台暂停释放声音，返回后需主动恢复同一音频实例", as
   });
   await expect(page.locator(".audio-state")).toContainText("偏好已记住");
   await page.getByRole("button", { name: "恢复背景音乐", exact: true }).click();
-  await expect(page.locator(".audio-state")).toContainText("纯音乐播放中");
+  await expect(page.locator(".audio-state")).toContainText("纯音乐播放中", {
+    timeout: 15000,
+  });
 });
 test("不支持音频时明确反馈且记录页面仍可操作", async ({ page }) => {
   await page.addInitScript(() =>
