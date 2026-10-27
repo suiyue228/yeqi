@@ -12,8 +12,14 @@ import { RitualTransition } from "./components/RitualTransition";
 import { ConfirmDialog } from "./components/ConfirmDialog";
 import { audio } from "./lib/audio";
 import { Rooms } from "./pages/Rooms";
+import { useWorkspace } from "./hooks/useWorkspace";
+import { Calendar } from "./pages/Calendar";
+import { Drafts } from "./pages/Drafts";
+import { Wishes } from "./pages/Wishes";
+import { Collection } from "./pages/Collection";
 export default function App() {
   const data = useEntries();
+  const workspace = useWorkspace();
   const {
     path,
     navigate,
@@ -52,27 +58,63 @@ export default function App() {
   }
   function backup() {
     try {
-      data.exportData();
+      data.exportData(workspace.backup);
       setNotice("记忆备份已生成，请在浏览器下载中妥善保存。");
       setActionError("");
     } catch (e) {
       setActionError(e instanceof Error ? e.message : "导出失败，请重试。");
     }
   }
+  function rawBackup() {
+    try {
+      data.exportData();
+      setNotice("原始记忆数据已导出，请妥善保管。");
+    } catch (e) {
+      setActionError(e instanceof Error ? e.message : "无法导出原始数据。");
+    }
+  }
   const id = path.split("/")[2];
   const entry = data.entries.find((e) => e.id === id);
+  const draft = workspace.drafts.find((d) => d.id === id);
+  function favorite(id: string) {
+    try {
+      workspace.toggleFavorite(id);
+      audio.play("favorite");
+      setActionError("");
+    } catch (e) {
+      setActionError(e instanceof Error ? e.message : "未能更新收藏。");
+    }
+  }
   let page;
   if (path === "/")
     page = <Home entries={data.entries} navigate={navigate} echo={echo} />;
-  else if (path === "/write" || (path.startsWith("/edit/") && entry))
+  else if (
+    path === "/write" ||
+    (path.startsWith("/edit/") && entry) ||
+    (path.startsWith("/draft/") && draft)
+  )
     page = (
       <Editor
         key={path}
         entry={path.startsWith("/edit/") ? entry : undefined}
+        draft={path.startsWith("/draft/") ? draft : undefined}
+        saveDraft={(d) => {
+          workspace.saveDraft(d);
+          audio.play("save");
+          setNotice("碎片已存入草稿匣，可随时回来续写。");
+        }}
+        draftBlocked={!!workspace.error}
         save={(e) => {
           data.save(e);
           audio.play("save");
           setNotice("梦笺已封存，月亮替你记得。");
+          if (path.startsWith("/draft/")) {
+            try {
+              workspace.removeDraft(id);
+            } catch {
+              setNotice("正式梦笺已保存；草稿副本暂未移除，请在草稿匣处理。");
+            }
+          }
         }}
         navigate={navigate}
         setDirty={setDirty}
@@ -80,8 +122,48 @@ export default function App() {
       />
     );
   else if (path === "/archive")
-    page = <Archive entries={data.entries} navigate={navigate} />;
+    page = (
+      <Archive
+        entries={data.entries}
+        navigate={navigate}
+        favoriteIds={workspace.favoriteIds}
+        favorite={favorite}
+        favoriteBlocked={!!workspace.error}
+      />
+    );
   else if (path === "/rooms") page = <Rooms navigate={navigate} echo={echo} />;
+  else if (path === "/calendar")
+    page = <Calendar entries={data.entries} navigate={navigate} />;
+  else if (path === "/drafts")
+    page = (
+      <Drafts
+        drafts={workspace.drafts}
+        save={workspace.saveDraft}
+        remove={workspace.removeDraft}
+        navigate={navigate}
+        blocked={!!workspace.error}
+      />
+    );
+  else if (path === "/wishes")
+    page = (
+      <Wishes
+        wishes={workspace.wishes}
+        add={workspace.addWish}
+        toggle={workspace.toggleWish}
+        navigate={navigate}
+        blocked={!!workspace.error}
+      />
+    );
+  else if (path === "/collection")
+    page = (
+      <Collection
+        entries={data.entries}
+        favoriteIds={workspace.favoriteIds}
+        toggle={favorite}
+        navigate={navigate}
+        blocked={!!workspace.error}
+      />
+    );
   else if (path === "/privacy") page = <Privacy backup={backup} />;
   else
     page = (
@@ -96,6 +178,9 @@ export default function App() {
         }}
         echo={echo}
         blocked={!!data.error}
+        favorite={favorite}
+        isFavorite={!!entry && workspace.favoriteIds.includes(entry.id)}
+        favoriteBlocked={!!workspace.error}
       />
     );
   return (
@@ -110,6 +195,13 @@ export default function App() {
         {data.error && (
           <div className="storage-alert" role="alert">
             {data.error}
+            <button onClick={rawBackup}>导出备份</button>
+            <button onClick={backup}>导出全部恢复资料</button>
+          </div>
+        )}
+        {workspace.error && (
+          <div className="storage-alert" role="alert">
+            {workspace.error}
             <button onClick={backup}>导出备份</button>
           </div>
         )}

@@ -27,14 +27,27 @@ export function useEntries() {
   function remove(id: string) {
     persist(snapshot.entries.filter((e) => e.id !== id));
   }
-  function exportData() {
+  function exportData(workspace?: unknown) {
     const raw = snapshot.error
-      ? snapshot.raw
+      ? workspace
+        ? JSON.stringify(
+            {
+              schemaVersion: 1,
+              exportedAt: new Date().toISOString(),
+              entriesRecoveryRaw: snapshot.raw,
+              workspace,
+              warning: snapshot.error,
+            },
+            null,
+            2,
+          )
+        : snapshot.raw
       : JSON.stringify(
           {
             schemaVersion: 1,
             exportedAt: new Date().toISOString(),
             entries: snapshot.entries,
+            ...(workspace ? { workspace } : {}),
           },
           null,
           2,

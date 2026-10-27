@@ -18,14 +18,14 @@ export const ROOMS = [
     name: "心情月历",
     subtitle: "让日子与心天气，在月光里连成轨迹。",
     symbol: "◫",
-    ready: false,
+    ready: true,
   },
   {
     path: "/drafts",
     name: "草稿匣",
     subtitle: "留住还没想好的句子与碎片。",
     symbol: "✉",
-    ready: false,
+    ready: true,
   },
   {
     path: "/echo",
@@ -39,14 +39,14 @@ export const ROOMS = [
     name: "心愿瓶",
     subtitle: "收好那些仍在等待发芽的愿望。",
     symbol: "♧",
-    ready: false,
+    ready: true,
   },
   {
     path: "/collection",
     name: "秘密收藏",
     subtitle: "把重要的记忆，留在一只独立藏匣。",
     symbol: "◇",
-    ready: false,
+    ready: true,
   },
   {
     path: "/theatre",

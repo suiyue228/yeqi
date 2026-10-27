@@ -11,6 +11,9 @@ export function Reader({
   remove,
   echo,
   blocked,
+  favorite,
+  isFavorite,
+  favoriteBlocked,
 }: {
   entry?: Entry;
   isEcho: boolean;
@@ -18,6 +21,9 @@ export function Reader({
   remove: (id: string) => void;
   echo: () => void;
   blocked: boolean;
+  favorite: (id: string) => void;
+  isFavorite: boolean;
+  favoriteBlocked: boolean;
 }) {
   const [confirm, setConfirm] = useState(false);
   const [error, setError] = useState("");
@@ -112,6 +118,14 @@ export function Reader({
         </footer>
       </article>
       <div className="reader-actions">
+        <button
+          className="text-button"
+          aria-pressed={isFavorite}
+          disabled={favoriteBlocked}
+          onClick={() => favorite(entry.id)}
+        >
+          {isFavorite ? "◆ 已收藏，取消收藏" : "◇ 收藏这封梦笺"}
+        </button>
         <button
           className="text-button danger-text"
           onClick={() => setConfirm(true)}

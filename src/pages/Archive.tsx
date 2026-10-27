@@ -4,12 +4,19 @@ import type { Entry, Mood } from "../types";
 import { filterEntries } from "../lib/entries";
 import { EntrySlip } from "../components/EntrySlip";
 import { CabinetCrest } from "../components/SceneArt";
+import { audio } from "../lib/audio";
 export function Archive({
   entries,
   navigate,
+  favoriteIds,
+  favorite,
+  favoriteBlocked,
 }: {
   entries: Entry[];
   navigate: (path: string) => void;
+  favoriteIds: string[];
+  favorite: (id: string) => void;
+  favoriteBlocked: boolean;
 }) {
   const [query, setQuery] = useState("");
   const [mood, setMood] = useState<Mood | "">("");
@@ -67,7 +74,10 @@ export function Archive({
               <select
                 aria-label="心天气"
                 value={mood}
-                onChange={(e) => setMood(e.target.value as Mood | "")}
+                onChange={(e) => {
+                  setMood(e.target.value as Mood | "");
+                  audio.play("index");
+                }}
               >
                 <option value="">全部心情</option>
                 {MOODS.map((m) => (
@@ -82,7 +92,10 @@ export function Archive({
               <select
                 aria-label="标签"
                 value={tag}
-                onChange={(e) => setTag(e.target.value)}
+                onChange={(e) => {
+                  setTag(e.target.value);
+                  audio.play("index");
+                }}
               >
                 <option value="">全部标签</option>
                 {tags.map((t) => (
@@ -119,12 +132,22 @@ export function Archive({
         {found.length ? (
           <div className="archive-letters">
             {found.map((entry, i) => (
-              <EntrySlip
-                key={entry.id}
-                entry={entry}
-                index={i}
-                onOpen={() => navigate(`/entry/${entry.id}`)}
-              />
+              <div className="drawer-unit" key={entry.id}>
+                <EntrySlip
+                  entry={entry}
+                  index={i}
+                  onOpen={() => navigate(`/entry/${entry.id}`)}
+                />
+                <button
+                  className="favorite-toggle"
+                  disabled={favoriteBlocked}
+                  aria-pressed={favoriteIds.includes(entry.id)}
+                  aria-label={`${favoriteIds.includes(entry.id) ? "取消收藏" : "收藏"}：${entry.title || "无题梦笺"}`}
+                  onClick={() => favorite(entry.id)}
+                >
+                  {favoriteIds.includes(entry.id) ? "◆ 已收藏" : "◇ 收藏"}
+                </button>
+              </div>
             ))}
           </div>
         ) : (
@@ -150,6 +173,9 @@ export function Archive({
         )}
       </div>
       <p className="cabinet-colophon">
+        <button className="text-button" onClick={() => navigate("/rooms")}>
+          ← 返回夜栖地图
+        </button>
         每一只抽屉，都藏着另一个时间的你。<span aria-hidden="true"> ◈ </span>
       </p>
     </div>

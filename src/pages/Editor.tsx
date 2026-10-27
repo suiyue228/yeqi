@@ -5,30 +5,75 @@ import type { Entry, Mood } from "../types";
 import { localInput, MAX_BODY, parseTags, validDate } from "../lib/entries";
 import { DeskRelic } from "../components/SceneArt";
 import { audio } from "../lib/audio";
+import type { Draft } from "../lib/workspace";
 interface Props {
   entry?: Entry;
   save: (entry: Entry) => void;
   navigate: (path: string, force?: boolean) => void;
   setDirty: (value: boolean) => void;
   blocked: boolean;
+  draft?: Draft;
+  saveDraft: (draft: Draft) => void;
+  draftBlocked: boolean;
 }
-export function Editor({ entry, save, navigate, setDirty, blocked }: Props) {
-  const [title, setTitle] = useState(entry?.title || "");
-  const [body, setBody] = useState(entry?.body || "");
-  const [mood, setMood] = useState<Mood>(entry?.mood || "mist");
-  const [tags, setTags] = useState(entry?.tags.join("，") || "");
-  const [date, setDate] = useState(() => localInput(entry?.occurredAt));
+export function Editor({
+  entry,
+  draft,
+  saveDraft,
+  draftBlocked,
+  save,
+  navigate,
+  setDirty,
+  blocked,
+}: Props) {
+  const initial = entry || draft;
+  const [title, setTitle] = useState(initial?.title || "");
+  const [body, setBody] = useState(initial?.body || "");
+  const [mood, setMood] = useState<Mood>(initial?.mood || "mist");
+  const [tags, setTags] = useState(initial?.tags.join("，") || "");
+  const [date, setDate] = useState(() => localInput(initial?.occurredAt));
   const [initialDate] = useState(date);
   const [error, setError] = useState("");
   const dirty =
-    title !== (entry?.title || "") ||
-    body !== (entry?.body || "") ||
-    mood !== (entry?.mood || "mist") ||
-    tags !== (entry?.tags.join("，") || "") ||
+    title !== (initial?.title || "") ||
+    body !== (initial?.body || "") ||
+    mood !== (initial?.mood || "mist") ||
+    tags !== (initial?.tags.join("，") || "") ||
     date !== initialDate;
   useEffect(() => {
     setDirty(dirty);
   }, [dirty, setDirty]);
+  function keepDraft() {
+    setError("");
+    const parsedTags = parseTags(tags);
+    if (!body.trim()) {
+      setError("先写下一点内容，再存入草稿匣。");
+      return;
+    }
+    if (
+      parsedTags.length > 8 ||
+      parsedTags.some((t) => t.length > 20) ||
+      !validDate(date)
+    ) {
+      setError("请检查标签数量、长度和有效日期。");
+      return;
+    }
+    try {
+      saveDraft({
+        id: draft?.id || crypto.randomUUID(),
+        title: title.trim(),
+        body: body.trim(),
+        mood,
+        tags: parsedTags,
+        occurredAt: new Date(date).toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
+      setDirty(false);
+      navigate("/drafts", true);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "草稿未能保存。");
+    }
+  }
   function submit(event: FormEvent) {
     event.preventDefault();
     setError("");
@@ -75,7 +120,11 @@ export function Editor({ entry, save, navigate, setDirty, blocked }: Props) {
         <DeskRelic />
         <span className="eyebrow">CHAPTER II · 致月亮的一封信</span>
         <h1 id="page-title" tabIndex={-1}>
-          {entry ? "重新读懂，那时的自己。" : "今夜，你想留下什么？"}
+          {entry
+            ? "重新读懂，那时的自己。"
+            : draft
+              ? "把未完的句子，接着写下去。"
+              : "今夜，你想留下什么？"}
         </h1>
         <p>把此刻摊在纸上。这里的每一种情绪，都值得被轻轻接住。</p>
       </div>
@@ -181,9 +230,19 @@ export function Editor({ entry, save, navigate, setDirty, blocked }: Props) {
           <button
             type="button"
             className="text-button"
-            onClick={() => navigate(entry ? `/entry/${entry.id}` : "/")}
+            onClick={() =>
+              navigate(entry ? `/entry/${entry.id}` : draft ? "/drafts" : "/")
+            }
           >
             ← 放下信笺
+          </button>
+          <button
+            type="button"
+            className="text-button save-draft-button"
+            disabled={draftBlocked}
+            onClick={keepDraft}
+          >
+            {draft ? "保存草稿修改" : "存入草稿匣"}
           </button>
           <span className="draft-note">
             {dirty ? "尚未封存 · 离开前记得保存" : "仅保存在当前浏览器"}
@@ -193,7 +252,8 @@ export function Editor({ entry, save, navigate, setDirty, blocked }: Props) {
             type="submit"
             disabled={blocked}
           >
-            封存这段记忆 <span aria-hidden="true">✦</span>
+            {draft ? "转为正式记录" : "封存这段记忆"}{" "}
+            <span aria-hidden="true">✦</span>
           </button>
         </div>
       </form>
