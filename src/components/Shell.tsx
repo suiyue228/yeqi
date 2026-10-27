@@ -57,6 +57,14 @@ export function Shell({ path, navigate, echo, backup, children, busy }: Props) {
             <span aria-hidden="true">✧</span>
             <span>今夜回响</span>
           </button>
+          <button
+            className={`nav-item ${path === "/rooms" ? "active" : ""}`}
+            onClick={() => navigate("/rooms")}
+          >
+            <small>05</small>
+            <span aria-hidden="true">⌘</span>
+            <span>夜栖地图</span>
+          </button>
         </nav>
         <div className="sidebar-bottom">
           <span className="private-mark">◈ 只属于你的夜晚</span>

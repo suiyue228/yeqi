@@ -111,6 +111,16 @@ export function Home({
           月光不问来处 · 树洞收留心事
         </span>
       </section>
+      <section className="threshold-links" aria-label="探索独立空间">
+        <p>
+          不必每次来，都写一封信。
+          <br />
+          还有其他房间，等你停留。
+        </p>
+        <button className="text-button" onClick={() => navigate("/rooms")}>
+          展开夜栖地图 ⟶
+        </button>
+      </section>
       <section className="recent-section">
         <div className="collection-ribbon" aria-hidden="true">
           <span>III / THE CABINET</span>

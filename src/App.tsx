@@ -11,6 +11,7 @@ import { Privacy } from "./pages/Privacy";
 import { RitualTransition } from "./components/RitualTransition";
 import { ConfirmDialog } from "./components/ConfirmDialog";
 import { audio } from "./lib/audio";
+import { Rooms } from "./pages/Rooms";
 export default function App() {
   const data = useEntries();
   const {
@@ -80,6 +81,7 @@ export default function App() {
     );
   else if (path === "/archive")
     page = <Archive entries={data.entries} navigate={navigate} />;
+  else if (path === "/rooms") page = <Rooms navigate={navigate} echo={echo} />;
   else if (path === "/privacy") page = <Privacy backup={backup} />;
   else
     page = (

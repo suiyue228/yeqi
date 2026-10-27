@@ -1,0 +1,58 @@
+export const ROOMS = [
+  {
+    path: "/write",
+    name: "写信笺",
+    subtitle: "把此刻，正式封存给月亮。",
+    symbol: "✎",
+    ready: true,
+  },
+  {
+    path: "/archive",
+    name: "记忆档案馆",
+    subtitle: "循着字词与标签，找回旧日。",
+    symbol: "▤",
+    ready: true,
+  },
+  {
+    path: "/calendar",
+    name: "心情月历",
+    subtitle: "让日子与心天气，在月光里连成轨迹。",
+    symbol: "◫",
+    ready: false,
+  },
+  {
+    path: "/drafts",
+    name: "草稿匣",
+    subtitle: "留住还没想好的句子与碎片。",
+    symbol: "✉",
+    ready: false,
+  },
+  {
+    path: "/echo",
+    name: "今夜回响",
+    subtitle: "不必寻找，让一封旧信来找你。",
+    symbol: "✧",
+    ready: true,
+  },
+  {
+    path: "/wishes",
+    name: "心愿瓶",
+    subtitle: "收好那些仍在等待发芽的愿望。",
+    symbol: "♧",
+    ready: false,
+  },
+  {
+    path: "/collection",
+    name: "秘密收藏",
+    subtitle: "把重要的记忆，留在一只独立藏匣。",
+    symbol: "◇",
+    ready: false,
+  },
+  {
+    path: "/theatre",
+    name: "纸艺小剧场",
+    subtitle: "拨动星铃，与守灯人共坐片刻。",
+    symbol: "☾",
+    ready: false,
+  },
+] as const;
