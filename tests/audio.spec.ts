@@ -1,9 +1,7 @@
 import { test, expect } from "@playwright/test";
 test.use({ reducedMotion: "reduce" });
 
-test("新音景实际渲染平缓有限，风铃有衰减余韵且音量零覆盖混响", async ({
-  page,
-}) => {
+test("连续背景无静音谷和循环跳变，风铃尾韵与零音量仍正常", async ({ page }) => {
   await page.goto("/");
   const result = await page.evaluate(async () => {
     const design = await import(
@@ -12,27 +10,22 @@ test("新音景实际渲染平缓有限，风铃有衰减余韵且音量零覆�
     async function render(kind: "music" | "windchime", muted = false) {
       const context = new OfflineAudioContext(
         2,
-        32000 * (kind === "music" ? 40 : 10),
+        32000 * (kind === "music" ? 80 : 10),
         32000,
       );
       const level = context.createGain();
-      level.gain.value = kind === "music" ? 0.45 * 0.16 : 0.5 * 0.12;
+      level.gain.value =
+        kind === "music" ? 0.45 * design.MUSIC_LEVEL : 0.5 * 0.12;
       if (muted) level.gain.setValueAtTime(0, 0.6);
       level.connect(context.destination);
       const room = design.createRoom(
         context,
         level,
-        kind === "music" ? 1100 : 4200,
-        kind === "music" ? 0.52 : 0.7,
+        kind === "music" ? design.MUSIC_CUTOFF : 4200,
+        kind === "music" ? design.MUSIC_WET : 0.7,
       );
       if (kind === "music") {
-        for (let step = 0; step * design.MUSIC_STEP_SECONDS < 40; step++)
-          design.scheduleMusicStep(
-            context,
-            room.input,
-            step,
-            0.05 + step * design.MUSIC_STEP_SECONDS,
-          );
+        design.createMusicBed(context, room.input, 0.05);
       } else design.scheduleWindChime(context, room.input, 0.05);
       const data = (await context.startRendering()).getChannelData(0);
       function rms(from: number, to: number) {
@@ -43,12 +36,35 @@ test("新音景实际渲染平缓有限，风铃有衰减余韵且音量零覆�
       }
       let peak = 0;
       for (const sample of data) peak = Math.max(peak, Math.abs(sample));
+      const windows =
+        kind === "music"
+          ? Array.from({ length: 64 }, (_, i) => rms(12 + i, 13 + i))
+          : [1];
+      let differenceEnergy = 0,
+        signalEnergy = 0;
+      for (let i = 12 * 32000; i < data.length; i++) {
+        differenceEnergy += (data[i] - data[i - 1]) ** 2;
+        signalEnergy += data[i] ** 2;
+      }
       return {
         peak,
         finite: data.every(Number.isFinite),
         body: rms(0.1, 2),
         tail: rms(5.5, 7),
         afterMute: rms(1, 3),
+        variation: Math.max(...windows) / Math.min(...windows),
+        seamJump:
+          kind === "music"
+            ? Math.max(
+                ...[32, 64].map((t) =>
+                  Math.abs(
+                    data[Math.round((t + 0.05) * 32000)] -
+                      data[Math.round((t + 0.05) * 32000) - 1],
+                  ),
+                ),
+              )
+            : 0,
+        sharpness: signalEnergy ? Math.sqrt(differenceEnergy / signalEnergy) : 0,
       };
     }
     return {
@@ -65,6 +81,10 @@ test("新音景实际渲染平缓有限，风铃有衰减余韵且音量零覆�
   expect(result.chime.tail).toBeGreaterThan(0.00000001);
   expect(result.chime.tail).toBeLessThan(result.chime.body);
   expect(result.muted.afterMute).toBe(0);
+  expect(result.music.peak).toBeLessThan(0.005);
+  expect(result.music.variation).toBeLessThan(1.2);
+  expect(result.music.seamJump).toBeLessThan(0.0002);
+  expect(result.music.sharpness).toBeLessThan(0.04);
 });
 test("声音默认静音、用户激活、单实例、音量和偏好恢复", async ({ page }) => {
   await page.addInitScript(() => {

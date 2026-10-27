@@ -1,9 +1,12 @@
 /** Original, local-only score. Times are seconds; no samples or remote assets. */
-export const MUSIC_STEP_SECONDS = 3.6;
+export const MUSIC_LOOP_SECONDS = 32;
+export const MUSIC_LEVEL = 0.09;
+export const MUSIC_CUTOFF = 240;
+export const MUSIC_WET = 0.18;
 export const WIND_CHIME_COOLDOWN_MS = 1800;
 export type VoiceKind = "music" | "effect";
 export interface Voice {
-  oscillator: OscillatorNode;
+  source: AudioScheduledSourceNode;
   gain: GainNode;
   kind: VoiceKind;
 }
@@ -104,7 +107,7 @@ function tone(
   gain.gain.exponentialRampToValueAtTime(0.00001, time + duration);
   gain.gain.linearRampToValueAtTime(0, time + duration + 0.04);
   oscillator.connect(gain).connect(pan).connect(destination);
-  const untrack = track?.({ oscillator, gain, kind });
+  const untrack = track?.({ source: oscillator, gain, kind });
   oscillator.onended = () => {
     oscillator.disconnect();
     gain.disconnect();
@@ -115,62 +118,52 @@ function tone(
   oscillator.stop(time + duration + 0.06);
 }
 
-export function scheduleMusicStep(
+const musicBuffers = new WeakMap<BaseAudioContext, AudioBuffer>();
+function musicBuffer(context: BaseAudioContext) {
+  const cached = musicBuffers.get(context);
+  if (cached) return cached;
+  // A single low-bandwidth loop lives on the audio thread. Integer cycle counts
+  // and periodic timbre curves make both value and slope continuous at its seam.
+  const rate = 12000;
+  const buffer = context.createBuffer(1, rate * MUSIC_LOOP_SECONDS, rate);
+  const samples = buffer.getChannelData(0);
+  for (let i = 0; i < samples.length; i++) {
+    const phase = (2 * Math.PI * i) / samples.length;
+    samples[i] =
+      0.034 * Math.sin(phase * 2092) +
+      0.012 * (1 + 0.025 * Math.cos(phase)) * Math.sin(phase * 3138 + 0.3) +
+      0.006 * (1 + 0.02 * Math.sin(phase)) * Math.sin(phase * 4184 + 1.2) +
+      0.0015 * Math.sin(phase * 6276 + 0.7);
+  }
+  musicBuffers.set(context, buffer);
+  return buffer;
+}
+
+export function createMusicBed(
   context: BaseAudioContext,
   destination: AudioNode,
-  step: number,
   time: number,
+  offset = 0,
   track?: TrackVoice,
 ) {
-  // Long overlapping minor/add9 voicings, with no pulse or percussive bass.
-  const chords = [
-    [146.8324, 174.6141, 220, 329.6276],
-    [130.8128, 174.6141, 220, 293.6648],
-    [116.5409, 146.8324, 220, 261.6256],
-    [130.8128, 164.8138, 195.9977, 293.6648],
-  ];
-  if (step % 8 === 0) {
-    const chord = chords[Math.floor(step / 8) % chords.length];
-    chord.forEach((frequency, i) => {
-      for (const detune of [-3, 3])
-        tone(
-          context,
-          destination,
-          "music",
-          {
-            frequency,
-            time: time + i * 0.28,
-            duration: 34,
-            attack: 7,
-            peak: i === 0 ? 0.031 : 0.023,
-            detune,
-            pan: (i - 1.5) * 0.14,
-          },
-          track,
-        );
-    });
-  }
-  // Deliberate rests make the foreground a distant reply, not a catchy loop.
-  const melody = [
-    -1, 329.6276, -1, -1, 293.6648, -1, 220, -1, -1, 261.6256, -1, -1, 293.6648,
-    -1, -1, 220,
-  ];
-  const frequency = melody[step % melody.length];
-  if (frequency > 0)
-    tone(
-      context,
-      destination,
-      "music",
-      {
-        frequency,
-        time,
-        duration: 10,
-        attack: 1.5,
-        peak: 0.042,
-        pan: step % 4 === 1 ? -0.18 : 0.18,
-      },
-      track,
-    );
+  const source = context.createBufferSource(),
+    gain = context.createGain();
+  source.buffer = musicBuffer(context);
+  source.loop = true;
+  gain.gain.setValueAtTime(0, time);
+  gain.gain.setValueCurveAtTime(
+    new Float32Array([0, 0.038, 0.146, 0.309, 0.5, 0.691, 0.854, 0.962, 1]),
+    time,
+    6,
+  );
+  source.connect(gain).connect(destination);
+  const untrack = track?.({ source, gain, kind: "music" });
+  source.onended = () => {
+    source.disconnect();
+    gain.disconnect();
+    untrack?.();
+  };
+  source.start(time, offset % MUSIC_LOOP_SECONDS);
 }
 
 export type QuietCue =

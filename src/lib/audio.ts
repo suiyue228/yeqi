@@ -1,8 +1,11 @@
 /** Original instrumental score and small synthesized foley. No audio/network assets. */
 import {
   createRoom,
-  MUSIC_STEP_SECONDS,
-  scheduleMusicStep,
+  createMusicBed,
+  MUSIC_LEVEL,
+  MUSIC_CUTOFF,
+  MUSIC_WET,
+  MUSIC_LOOP_SECONDS,
   scheduleQuietCue,
   scheduleWindChime,
   WIND_CHIME_COOLDOWN_MS,
@@ -67,11 +70,10 @@ class Soundscape {
   private effectsBus: GainNode | null = null;
   private musicRoom: ReturnType<typeof createRoom> | null = null;
   private effectsRoom: ReturnType<typeof createRoom> | null = null;
-  private timer: number | null = null;
-  private step = 0;
-  private nextNote = 0;
+  private musicPosition = 0;
+  private musicStartedAt: number | null = null;
   private voices = new Map<
-    OscillatorNode,
+    AudioScheduledSourceNode,
     { kind: "music" | "effect"; gain: GainNode }
   >();
   private recent = new Map<Sound, number>();
@@ -102,7 +104,7 @@ class Soundscape {
     const { preferences, playing, unlocked } = this.state;
     // These gains follow dry AND reverberant signals: muting cannot leave a tail.
     this.musicBus?.gain.setTargetAtTime(
-      playing ? preferences.musicVolume * 0.16 : 0,
+      playing ? preferences.musicVolume * MUSIC_LEVEL : 0,
       c.currentTime,
       0.08,
     );
@@ -123,7 +125,12 @@ class Soundscape {
       this.effectsBus.connect(this.context.destination);
       this.musicBus.gain.value = 0;
       this.effectsBus.gain.value = 0;
-      this.musicRoom = createRoom(this.context, this.musicBus, 1100, 0.52);
+      this.musicRoom = createRoom(
+        this.context,
+        this.musicBus,
+        MUSIC_CUTOFF,
+        MUSIC_WET,
+      );
       this.effectsRoom = createRoom(this.context, this.effectsBus, 4200, 0.7);
     }
     await this.context.resume();
@@ -132,10 +139,10 @@ class Soundscape {
     this.emit({ unlocked: true, error: "" });
     this.updateLevels();
   }
-  private trackVoice: TrackVoice = ({ oscillator, gain, kind }) => {
-    this.voices.set(oscillator, { gain, kind });
+  private trackVoice: TrackVoice = ({ source, gain, kind }) => {
+    this.voices.set(source, { gain, kind });
     return () => {
-      this.voices.delete(oscillator);
+      this.voices.delete(source);
     };
   };
   private fade(kind?: "music" | "effect") {
@@ -152,21 +159,6 @@ class Soundscape {
         }
       }
   }
-  private schedule = () => {
-    const c = this.context;
-    if (!c || c.state !== "running") return;
-    while (this.nextNote < c.currentTime + 0.45) {
-      scheduleMusicStep(
-        c,
-        this.musicRoom!.input,
-        this.step,
-        this.nextNote,
-        this.trackVoice,
-      );
-      this.nextNote += MUSIC_STEP_SECONDS;
-      this.step++;
-    }
-  };
   async toggleMusic() {
     if (this.state.playing) {
       this.configure({ music: false });
@@ -176,15 +168,18 @@ class Soundscape {
     try {
       await this.activate();
       this.configure({ music: true });
-      if (this.timer !== null) return;
+      if (this.state.playing) return;
       this.musicRoom!.reset();
-      // Restart the current harmony softly after a pause, without an empty bar.
-      this.step -= this.step % 8;
-      this.nextNote = this.context!.currentTime + 0.1;
+      this.musicStartedAt = this.context!.currentTime + 0.05;
+      createMusicBed(
+        this.context!,
+        this.musicRoom!.input,
+        this.musicStartedAt,
+        this.musicPosition,
+        this.trackVoice,
+      );
       this.emit({ playing: true });
       this.updateLevels();
-      this.schedule();
-      this.timer = window.setInterval(this.schedule, 250);
     } catch (e) {
       this.emit({
         error: e instanceof Error ? e.message : "声音暂不可用。",
@@ -255,8 +250,13 @@ class Soundscape {
     }
   }
   private stopMusic() {
-    if (this.timer !== null) window.clearInterval(this.timer);
-    this.timer = null;
+    if (this.context && this.musicStartedAt !== null) {
+      this.musicPosition =
+        (this.musicPosition +
+          Math.max(0, this.context.currentTime - this.musicStartedAt)) %
+        MUSIC_LOOP_SECONDS;
+      this.musicStartedAt = null;
+    }
     this.fade("music");
     this.emit({ playing: false });
     this.updateLevels();
@@ -281,3 +281,6 @@ class Soundscape {
   };
 }
 export const audio = new Soundscape();
+// Release the previous graph when a development edit replaces this module.
+// Otherwise a suspended/playing old instance can outlive the new controls.
+import.meta.hot?.dispose(() => audio.pause());

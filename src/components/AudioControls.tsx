@@ -17,7 +17,7 @@ export function AudioControls() {
       <div className="audio-panel">
         <span className="eyebrow">NOCTURNE / 原创月下曲</span>
         <p>
-          低缓的和声与稀疏琴音，陪你慢慢写。
+          连续低缓的音床，陪你安静落笔。
           <br />
           声音由你开启，随时可以关掉。
         </p>
