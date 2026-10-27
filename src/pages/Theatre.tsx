@@ -56,7 +56,7 @@ export function Theatre({
       () => setSwinging((old) => old.filter((x) => x !== id)),
       1250,
     );
-    audio.play("chime");
+    audio.play("windchime");
   }
   function tilt(event: PointerEvent<HTMLDivElement>) {
     if (

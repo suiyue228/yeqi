@@ -96,6 +96,9 @@ test("星铃悬停摇摆，声音需主动启用且连续触碰受节流", async
   const after = await count();
   await page.getByRole("button", { name: "摇动左侧星铃", exact: true }).hover();
   expect(await count()).toBe(after);
+  await page.waitForTimeout(1900);
+  await page.getByRole("button", { name: "摇动右侧星铃", exact: true }).hover();
+  expect(await count()).toBeGreaterThan(after);
   await page.emulateMedia({ reducedMotion: "reduce" });
   expect(
     await page

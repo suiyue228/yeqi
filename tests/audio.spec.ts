@@ -1,5 +1,71 @@
 import { test, expect } from "@playwright/test";
 test.use({ reducedMotion: "reduce" });
+
+test("新音景实际渲染平缓有限，风铃有衰减余韵且音量零覆盖混响", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const result = await page.evaluate(async () => {
+    const design = await import(
+      window.location.origin + "/src/lib/soundDesign.ts"
+    );
+    async function render(kind: "music" | "windchime", muted = false) {
+      const context = new OfflineAudioContext(
+        2,
+        32000 * (kind === "music" ? 40 : 10),
+        32000,
+      );
+      const level = context.createGain();
+      level.gain.value = kind === "music" ? 0.45 * 0.16 : 0.5 * 0.12;
+      if (muted) level.gain.setValueAtTime(0, 0.6);
+      level.connect(context.destination);
+      const room = design.createRoom(
+        context,
+        level,
+        kind === "music" ? 1100 : 4200,
+        kind === "music" ? 0.52 : 0.7,
+      );
+      if (kind === "music") {
+        for (let step = 0; step * design.MUSIC_STEP_SECONDS < 40; step++)
+          design.scheduleMusicStep(
+            context,
+            room.input,
+            step,
+            0.05 + step * design.MUSIC_STEP_SECONDS,
+          );
+      } else design.scheduleWindChime(context, room.input, 0.05);
+      const data = (await context.startRendering()).getChannelData(0);
+      function rms(from: number, to: number) {
+        const slice = data.subarray(from * 32000, to * 32000);
+        return Math.sqrt(
+          slice.reduce((sum, v) => sum + v * v, 0) / slice.length,
+        );
+      }
+      let peak = 0;
+      for (const sample of data) peak = Math.max(peak, Math.abs(sample));
+      return {
+        peak,
+        finite: data.every(Number.isFinite),
+        body: rms(0.1, 2),
+        tail: rms(5.5, 7),
+        afterMute: rms(1, 3),
+      };
+    }
+    return {
+      music: await render("music"),
+      chime: await render("windchime"),
+      muted: await render("windchime", true),
+    };
+  });
+  for (const sound of [result.music, result.chime]) {
+    expect(sound.finite).toBe(true);
+    expect(sound.peak).toBeGreaterThan(0.0001);
+    expect(sound.peak).toBeLessThan(0.12);
+  }
+  expect(result.chime.tail).toBeGreaterThan(0.00000001);
+  expect(result.chime.tail).toBeLessThan(result.chime.body);
+  expect(result.muted.afterMute).toBe(0);
+});
 test("声音默认静音、用户激活、单实例、音量和偏好恢复", async ({ page }) => {
   await page.addInitScript(() => {
     const contexts: AudioContext[] = [];
