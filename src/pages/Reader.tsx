@@ -3,6 +3,7 @@ import type { Entry } from "../types";
 import { moodOf } from "../types";
 import { formatDate } from "../lib/entries";
 import { ConfirmDialog } from "../components/ConfirmDialog";
+import { EchoDial, MoonPhases } from "../components/SceneArt";
 export function Reader({
   entry,
   isEcho,
@@ -22,8 +23,10 @@ export function Reader({
   const [error, setError] = useState("");
   if (!entry)
     return (
-      <div className="page full-empty">
-        <span aria-hidden="true">☾</span>
+      <div
+        className={`page full-empty ${isEcho ? "echo-empty" : "missing-letter"}`}
+      >
+        {isEcho ? <EchoDial empty /> : <span aria-hidden="true">☾</span>}
         <h1 id="page-title" tabIndex={-1}>
           {isEcho ? "今夜，还没有回响。" : "这封梦笺不在这里。"}
         </h1>
@@ -62,18 +65,22 @@ export function Reader({
       </div>
       {isEcho && (
         <div className="echo-heading">
-          <span aria-hidden="true">✧</span>
-          <p>
-            月亮替你翻到了这一页。
-            <br />
-            听听那时的自己，留下了什么。
-          </p>
-          <button className="text-button" onClick={echo}>
-            再听一段回响 ⟶
-          </button>
+          <EchoDial />
+          <div className="oracle-description">
+            <span className="eyebrow">THE LUNAR ORACLE · 月下抽笺台</span>
+            <p>
+              月亮替你翻到了这一页。
+              <br />
+              听听那时的自己，留下了什么。
+            </p>
+            <button className="text-button" onClick={echo}>
+              再听一段回响 ⟶
+            </button>
+          </div>
         </div>
       )}
       <article className={`reading-paper mood-${entry.mood}`}>
+        <div className="letter-fold" aria-hidden="true" />
         <header>
           <div className="reader-meta">
             <time dateTime={entry.occurredAt}>
@@ -86,9 +93,7 @@ export function Reader({
           <h1 id="page-title" tabIndex={-1}>
             {entry.title || "一封无题梦笺"}
           </h1>
-          <span className="reader-divider" aria-hidden="true">
-            ──── ✦ ────
-          </span>
+          <MoonPhases />
         </header>
         <div className="entry-body">{entry.body}</div>
         <div className="reader-tags">

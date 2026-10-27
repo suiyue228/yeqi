@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { MOODS } from "../types";
 import type { Entry, Mood } from "../types";
 import { localInput, MAX_BODY, parseTags, validDate } from "../lib/entries";
+import { DeskRelic } from "../components/SceneArt";
 interface Props {
   entry?: Entry;
   save: (entry: Entry) => void;
@@ -70,6 +71,7 @@ export function Editor({ entry, save, navigate, setDirty, blocked }: Props) {
   return (
     <div className="page writing-page">
       <div className="page-intro">
+        <DeskRelic />
         <span className="eyebrow">CHAPTER II · 致月亮的一封信</span>
         <h1 id="page-title" tabIndex={-1}>
           {entry ? "重新读懂，那时的自己。" : "今夜，你想留下什么？"}
@@ -77,9 +79,15 @@ export function Editor({ entry, save, navigate, setDirty, blocked }: Props) {
         <p>把此刻摊在纸上。这里的每一种情绪，都值得被轻轻接住。</p>
       </div>
       <form className="writing-paper" onSubmit={submit} noValidate>
+        <div className="manuscript-corners" aria-hidden="true">
+          <span>✥</span>
+          <span>✥</span>
+        </div>
         <div className="paper-head">
           <span>DEAR MOON,</span>
-          <span aria-hidden="true">☾</span>
+          <span className="paper-moon-seal" aria-hidden="true">
+            ☾
+          </span>
           <span>一封只属于你的梦笺</span>
         </div>
         <label className="sr-only" htmlFor="entry-title">
@@ -108,10 +116,14 @@ export function Editor({ entry, save, navigate, setDirty, blocked }: Props) {
         <div className="word-count">
           {body.length.toLocaleString()} / 20,000 字
         </div>
-        <fieldset className="mood-field">
+        <fieldset className="mood-field" data-mood={mood}>
           <legend>
             此刻的心天气 <span>选一个最贴近你的感受</span>
           </legend>
+          <div className="mood-astrolabe" aria-hidden="true">
+            <span>☾</span>
+            <i>✦</i>
+          </div>
           <div className="mood-options">
             {MOODS.map((m) => (
               <label

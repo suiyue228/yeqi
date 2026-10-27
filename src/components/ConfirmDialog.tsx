@@ -1,39 +1,50 @@
 import { useEffect, useRef } from "react";
+import { ReleaseSeal } from "./SceneArt";
 export function ConfirmDialog({
   onCancel,
   onConfirm,
   error,
+  mode = "delete",
 }: {
   onCancel: () => void;
   onConfirm: () => void;
   error: string;
+  mode?: "delete" | "discard";
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const previous = document.activeElement as HTMLElement;
     ref.current?.showModal();
     return () => {
+      ref.current?.close();
       previous?.focus();
     };
   }, []);
   return (
     <dialog
       ref={ref}
-      className="confirm-dialog"
+      className={`confirm-dialog ritual-dialog dialog-${mode}`}
       onCancel={(e) => {
         e.preventDefault();
         onCancel();
       }}
       aria-labelledby="confirm-title"
     >
-      <span className="dialog-moon" aria-hidden="true">
-        ☾
+      <span className="eyebrow">
+        {mode === "delete" ? "THE HOLLOW KEEPS NO ASHES" : "AN UNSEALED LETTER"}
       </span>
-      <h2 id="confirm-title">让这段记忆，随风离开？</h2>
+      <ReleaseSeal />
+      <h2 id="confirm-title">
+        {mode === "delete" ? "把这封梦笺，交还树洞？" : "这封信，还没有封好。"}
+      </h2>
       <p>
-        删除后无法从网站找回。
+        {mode === "delete"
+          ? "投入树洞后，将永久删除这段记录。"
+          : "离开后，尚未保存的内容将被放弃。"}
         <br />
-        如果仍想留住它，可以先取消并导出备份。
+        {mode === "delete"
+          ? "若仍有不舍，请先取消并导出备份。"
+          : "可以继续落笔，再把心事交给月亮。"}
       </p>
       {error && (
         <p role="alert" className="form-error">
@@ -42,10 +53,10 @@ export function ConfirmDialog({
       )}
       <div className="dialog-actions">
         <button className="button outline-button" onClick={onCancel} autoFocus>
-          再留一会儿
+          {mode === "delete" ? "再留一会儿" : "继续写信"}
         </button>
         <button className="button danger-button" onClick={onConfirm}>
-          确认删除
+          {mode === "delete" ? "确认删除" : "放弃修改并离开"}
         </button>
       </div>
     </dialog>

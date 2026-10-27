@@ -5,10 +5,11 @@ type Props = {
   echo: () => void;
   backup: () => void;
   children: ReactNode;
+  busy: boolean;
 };
-export function Shell({ path, navigate, echo, backup, children }: Props) {
+export function Shell({ path, navigate, echo, backup, children, busy }: Props) {
   return (
-    <div className="app-shell">
+    <div className="app-shell" inert={busy}>
       <a
         className="skip-link"
         href="#main-content"
@@ -60,10 +61,12 @@ export function Shell({ path, navigate, echo, backup, children }: Props) {
           <span className="private-mark">◈ 只属于你的夜晚</span>
           <button onClick={backup}>↓ 导出记忆</button>
           <button onClick={() => navigate("/privacy")}>隐私与备份</button>
-          <small>VOL. 01 / 月下树洞</small>
+          <small>NOCTURNE / 月下树洞</small>
         </div>
       </aside>
-      <div className="world">
+      <div
+        className={`world scene-${path === "/" ? "home" : path.split("/")[1]}`}
+      >
         <header className="topline">
           <span>
             MOONLIT TREEHOLE <i>／</i> 私 人 记 忆 藏 所

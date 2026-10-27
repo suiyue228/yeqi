@@ -16,6 +16,9 @@ export function EntrySlip({
       className={`entry-slip slip-${index % 3} mood-${entry.mood}`}
       onClick={onOpen}
     >
+      <span className="drawer-index" aria-hidden="true">
+        MEM. {String(index + 1).padStart(3, "0")} <i>✦</i>
+      </span>
       <span className="slip-meta">
         <span>{formatDate(entry.occurredAt)}</span>
         <span>
@@ -31,6 +34,10 @@ export function EntrySlip({
             : "封存于月光里"}
         </span>
         <span aria-hidden="true">↗</span>
+      </span>
+      <span className="drawer-handle" aria-hidden="true">
+        <i />
+        <i />
       </span>
     </button>
   );

@@ -1,5 +1,50 @@
 # 夜栖开发进度
 
+## 当前状态：已按用户要求暂停 / 视觉与仪式交互升级 WIP
+
+本节为最新交接记录，优先于下方 MVP 第一版历史记录。用户因额度将耗尽，明确要求立即暂停；后续收到恢复指令前，不继续开发或优化。
+
+### 已保存并实现，尚未正式验收
+- 首页新增帷幕、蕾丝横边、剧场题签；原创尖拱月影门、蛾翼、眼形吊饰、钥匙、阶梯、少量白花/蘑菇。门中钥匙可进入书写。
+- 全局深夜紫场景底色、章节书签式导航；档案增加柜体、铭牌、抽屉编号和拉手；书写增加书本/烛台/羽毛笔/墨水、月印和心情月相装置；阅读增加折角和月相分隔，回响增加独立星盘。
+- 新增统一仪式过渡：写作/编辑为帷幕，档案为柜门，阅读为信件，回响为星盘，其他为月影门；340ms 合拢后换页，560ms 展开，总计约 900ms，期间应用 inert。
+- 未保存离开改为自定义主题 dialog，关闭/刷新仍使用浏览器 beforeunload；删除确认加入信笺归还树洞图形。
+- 新增 prefers-reduced-motion 跳过过渡和动画、切换完成后标题焦点逻辑。以上实现均需继续回归，不能认定全部可靠。
+- 没有新增依赖，没有改动记录类型、持久化模块或存储 key，没有迁移/清空用户数据。
+
+### 本阶段已验证
+- `scripts/project.ps1 build`：通过 TypeScript 严格检查和 Vite 构建，46 模块；CSS 58.10 kB / gzip 12.25 kB，JS 263.98 kB / gzip 83.83 kB。
+- `scripts/project.ps1 test`：原有数据/存储单元测试 9/9 通过。
+- `node work/visual-v2.mjs`：临时独立 Edge 浏览器、减少动态效果模式，打开页面、填写/保存一条临时记录、阅读、打开/取消删除框、进入回响/档案，生成 12 张 outputs/v2-*.png；监听 pageerror 得到空数组。不是完整功能回归，也未检查所有 console.error。
+- 已实际查看 v2-home、v2-home-mobile、v2-writing、v2-archive、v2-echo 五张截图；其他截图只生成，尚未逐张查看。
+- `git diff --check` 在暂停检查时通过。文件均已写盘，新增 SVG 位于源码，不依赖未保存的外部素材。
+
+### 已发现、尚未修复
+1. 书写纸张层叠错误：`src/scenes.css` 中 `.writing-paper::after` 的紫色底纸覆盖了象牙色纸面，文字对比度下降。恢复后优先修复层叠，保持正文纸面为浅色；可改为多层 box-shadow 或移除覆盖背景。
+2. 手机首页帷幕下缘与章节眉题局部重叠。恢复后调整幕布比例及标题/插画位置；不要只继续堆装饰。
+3. 旧浏览器测试仍期待 window.confirm，但草稿离开已改成主题 dialog；`tests/app.spec.ts` 尚未同步，预计相关用例需更新。
+
+### 尚未验证 / 未完成
+- 本阶段尚未运行完整 `test:e2e`；下方 MVP 的 8/8 结果仅属于旧版本，不能套用于当前 WIP。
+- 正常动态模式的帷幕/柜门/信件/星盘过渡、连续点击、浏览器前进后退、切换中减少动态效果、焦点/inert 恢复仍需专项验证。
+- 新草稿确认的取消/确认/返回、删除失败保留记录、移动端全部流程和各宽度溢出需要回归。
+- 视觉密度、普通阅读/回响移动截图、删除框尚未逐项验收；代码已实现不表示交互已验证。
+- 设计/交互规范和 README 目前只补了 WIP 状态；正式规范整理、最终报告及正式阶段提交留待恢复后完成。
+
+### 本阶段修改文件
+- 修改：`src/App.tsx`、`src/main.tsx`、`src/hooks/useRoute.ts`。
+- 修改：`src/components/ConfirmDialog.tsx`、`EntrySlip.tsx`、`Shell.tsx`、`StageArt.tsx`。
+- 修改：`src/pages/Home.tsx`、`Editor.tsx`、`Archive.tsx`、`Reader.tsx`。
+- 新增：`src/components/SceneArt.tsx`、`RitualTransition.tsx`、`src/scenes.css`。
+- 文档：`PROGRESS.md`、`docs/DESIGN_SPEC.md`、`docs/INTERACTION_SPEC.md`、`README.md`。
+- 临时截图和检查脚本位于被忽略的 `outputs/`、`work/`，保留在本机，不纳入 Git。
+
+### Git 检查点与恢复顺序
+- 暂停前基线：main，`e74e04d`（Initial commit: Moonlit Treehole MVP）。
+- 本次仅建立 WIP 检查点，提交信息 `WIP: preserve gothic scene and ritual transition iteration`；实际哈希用 `git log -1 --oneline` 查看。
+- 未执行 reset/clean/删除，没有配置远程、推送或发布。当前开发服务保持运行，避免用户刷新后无法访问。
+- 额度恢复并获用户恢复指令后：先读 AGENTS、本文和两份规范，检查 Git → 修复上述两个已知视觉问题 → 更新离开确认测试 → 验证正常/减少动态效果与焦点/返回 → 执行数据测试、构建、完整浏览器回归和响应式视觉检查 → 完成正式文档与阶段提交。不要转去开发导入、草稿恢复等新功能。
+
 ## 2026-10-27 / MVP 第一版
 
 ### 已完成

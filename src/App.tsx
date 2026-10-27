@@ -8,21 +8,32 @@ import { Editor } from "./pages/Editor";
 import { Archive } from "./pages/Archive";
 import { Reader } from "./pages/Reader";
 import { Privacy } from "./pages/Privacy";
+import { RitualTransition } from "./components/RitualTransition";
+import { ConfirmDialog } from "./components/ConfirmDialog";
 export default function App() {
   const data = useEntries();
-  const { path, navigate, setDirty } = useRoute();
+  const {
+    path,
+    navigate,
+    setDirty,
+    transition,
+    departure,
+    confirmDeparture,
+    cancelDeparture,
+  } = useRoute();
   const [notice, setNotice] = useState("");
   const [actionError, setActionError] = useState("");
   const lastEcho = useRef<string | undefined>(undefined);
   const previousPath = useRef(path);
   useEffect(() => {
+    if (transition) return;
     if (previousPath.current !== path)
       document
         .querySelector<HTMLElement>("#page-title")
         ?.focus({ preventScroll: true });
     previousPath.current = path;
     window.scrollTo(0, 0);
-  }, [path]);
+  }, [path, transition]);
   useEffect(() => {
     if (!notice) return;
     const timer = setTimeout(() => setNotice(""), 6000);
@@ -84,23 +95,40 @@ export default function App() {
       />
     );
   return (
-    <Shell path={path} navigate={navigate} echo={echo} backup={backup}>
-      {data.error && (
-        <div className="storage-alert" role="alert">
-          {data.error}
-          <button onClick={backup}>导出备份</button>
+    <>
+      <Shell
+        path={path}
+        navigate={navigate}
+        echo={echo}
+        backup={backup}
+        busy={!!transition}
+      >
+        {data.error && (
+          <div className="storage-alert" role="alert">
+            {data.error}
+            <button onClick={backup}>导出备份</button>
+          </div>
+        )}
+        {actionError && (
+          <div className="storage-alert" role="alert">
+            {actionError}
+            <button onClick={() => setActionError("")}>关闭提示</button>
+          </div>
+        )}
+        {page}
+        <div className={`toast ${notice ? "visible" : ""}`} role="status">
+          {notice}
         </div>
+      </Shell>
+      <RitualTransition state={transition} />
+      {departure && (
+        <ConfirmDialog
+          mode="discard"
+          onCancel={cancelDeparture}
+          onConfirm={confirmDeparture}
+          error=""
+        />
       )}
-      {actionError && (
-        <div className="storage-alert" role="alert">
-          {actionError}
-          <button onClick={() => setActionError("")}>关闭提示</button>
-        </div>
-      )}
-      {page}
-      <div className={`toast ${notice ? "visible" : ""}`} role="status">
-        {notice}
-      </div>
-    </Shell>
+    </>
   );
 }

@@ -3,6 +3,7 @@ import { moodOf } from "../types";
 import { filterEntries, formatDate } from "../lib/entries";
 import { StageArt } from "../components/StageArt";
 import { EntrySlip } from "../components/EntrySlip";
+import { MoonPhases, TheaterFrame } from "../components/SceneArt";
 export function Home({
   entries,
   navigate,
@@ -19,8 +20,14 @@ export function Home({
   return (
     <div className="page home-page">
       <section className="home-stage" aria-labelledby="page-title">
+        <TheaterFrame />
+        <div className="stage-playbill" aria-hidden="true">
+          <span>夜 栖 秘 密 剧 场</span>
+          <i>✦</i>
+          <span>THE MIDNIGHT THEATRE</span>
+        </div>
         <div className="stage-heading">
-          <span className="eyebrow">CHAPTER I · 记忆之门</span>
+          <span className="eyebrow">ACT I · 月影深处，门为你留</span>
           <h1 id="page-title" tabIndex={-1}>
             今夜，
             <br />
@@ -34,7 +41,17 @@ export function Home({
         </div>
         <div className="art-window">
           <StageArt />
-          <span className="art-caption">一 扇 为 你 留 着 的 门</span>
+          <button
+            className="gate-key"
+            onClick={() => navigate("/write")}
+            aria-label="推开月影门，写下心情"
+          >
+            <svg viewBox="0 0 50 50" aria-hidden="true">
+              <circle cx="25" cy="13" r="8" />
+              <path d="M25 21v23h10v-7H25m0-7h7" />
+            </svg>
+            <small>推 开 月 影 门</small>
+          </button>
         </div>
         <div className="stage-actions">
           <button
@@ -50,9 +67,7 @@ export function Home({
           <small>不必写得漂亮，真实就好。</small>
         </div>
         <aside className="night-index" aria-label="今夜索引">
-          <span className="index-star" aria-hidden="true">
-            ✦
-          </span>
+          <MoonPhases />
           <h2>今 夜 索 引</h2>
           <span className="micro">NIGHT INDEX</span>
           <div className="index-date">
@@ -97,6 +112,11 @@ export function Home({
         </span>
       </section>
       <section className="recent-section">
+        <div className="collection-ribbon" aria-hidden="true">
+          <span>III / THE CABINET</span>
+          <i>✧</i>
+          <span>月下未寄出的信</span>
+        </div>
         <div className="section-heading">
           <div>
             <span className="eyebrow">LETTERS TO THE MOON</span>
