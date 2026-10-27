@@ -10,6 +10,7 @@ import { Reader } from "./pages/Reader";
 import { Privacy } from "./pages/Privacy";
 import { RitualTransition } from "./components/RitualTransition";
 import { ConfirmDialog } from "./components/ConfirmDialog";
+import { audio } from "./lib/audio";
 export default function App() {
   const data = useEntries();
   const {
@@ -69,6 +70,7 @@ export default function App() {
         entry={path.startsWith("/edit/") ? entry : undefined}
         save={(e) => {
           data.save(e);
+          audio.play("save");
           setNotice("梦笺已封存，月亮替你记得。");
         }}
         navigate={navigate}

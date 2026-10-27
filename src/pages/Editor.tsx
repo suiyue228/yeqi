@@ -4,6 +4,7 @@ import { MOODS } from "../types";
 import type { Entry, Mood } from "../types";
 import { localInput, MAX_BODY, parseTags, validDate } from "../lib/entries";
 import { DeskRelic } from "../components/SceneArt";
+import { audio } from "../lib/audio";
 interface Props {
   entry?: Entry;
   save: (entry: Entry) => void;
@@ -135,7 +136,10 @@ export function Editor({ entry, save, navigate, setDirty, blocked }: Props) {
                   name="mood"
                   value={m.id}
                   checked={mood === m.id}
-                  onChange={() => setMood(m.id)}
+                  onChange={() => {
+                    setMood(m.id);
+                    audio.play("index");
+                  }}
                 />
                 <span className="mood-symbol" aria-hidden="true">
                   {m.symbol}

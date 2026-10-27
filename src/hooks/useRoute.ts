@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { RitualKind, RitualState } from "../components/RitualTransition";
 import { RITUAL_SWAP, RITUAL_TOTAL } from "../lib/ritual";
+import { audio } from "../lib/audio";
 const current = () => window.location.hash.slice(1) || "/";
 interface Destination {
   next: string;
@@ -53,6 +54,16 @@ export function useRoute() {
     (next: string, historyPosition?: number) => {
       clearTimers();
       destination.current = { next, position: historyPosition };
+      const soundKind = kindFor(next);
+      audio.play(
+        soundKind === "cabinet"
+          ? "drawer"
+          : soundKind === "letter"
+            ? "letter"
+            : soundKind === "oracle"
+              ? "chime"
+              : "curtain",
+      );
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         commit(next, historyPosition);
         destination.current = null;

@@ -1,0 +1,112 @@
+.topline {
+  position: relative;
+  gap: 15px;
+}
+.topline > span:nth-child(2) {
+  margin-left: auto;
+}
+.audio-console {
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--lilac);
+  flex-shrink: 0;
+  z-index: 12;
+}
+.audio-console summary {
+  cursor: pointer;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  border-bottom: 1px solid #92735f77;
+}
+.audio-console summary::-webkit-details-marker {
+  display: none;
+}
+.audio-panel {
+  position: absolute;
+  right: 0;
+  top: 52px;
+  width: 290px;
+  max-width: calc(100vw - 36px);
+  padding: 24px;
+  background: #21172d;
+  border: 1px solid #92735f;
+  box-shadow: 6px 6px #120f18;
+  z-index: 12;
+}
+.audio-panel p {
+  font-size: 11px;
+  line-height: 1.9;
+  letter-spacing: 0.3px;
+  color: #d6bfd4;
+  margin: 17px 0;
+}
+.audio-panel label {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 18px 0;
+  font-size: 11px;
+}
+.audio-panel label:not(.sound-checkbox) {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 9px;
+}
+.audio-panel input[type="range"] {
+  width: 100%;
+  accent-color: #d8bce8;
+  min-height: 25px;
+}
+.audio-panel input[type="checkbox"] {
+  accent-color: #b83d43;
+  width: 18px;
+  height: 18px;
+}
+.audio-panel .button {
+  font-size: 11px;
+  color: #f3d7df;
+  width: 100%;
+  letter-spacing: 1px;
+}
+.audio-panel .eyebrow {
+  color: #f3d978;
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+.audio-panel .audio-state {
+  font-size: 10px;
+  color: #bca1c1;
+  margin-bottom: 0;
+}
+.audio-state > span {
+  display: block;
+  color: #efb2bb;
+}
+@media (max-width: 1000px) {
+  .topline > span:nth-child(2) {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .audio-console {
+    font-size: 9px;
+  }
+  .audio-console summary {
+    min-height: 36px;
+  }
+  .audio-panel {
+    top: 42px;
+  }
+  .topline {
+    letter-spacing: 0.7px;
+  }
+  .topline > span:first-child {
+    font-size: 6px;
+  }
+  .audio-console summary span {
+    max-width: 110px;
+  }
+}

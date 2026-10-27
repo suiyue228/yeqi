@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { AudioControls } from "./AudioControls";
 type Props = {
   path: string;
   navigate: (path: string) => void;
@@ -74,6 +75,7 @@ export function Shell({ path, navigate, echo, backup, children, busy }: Props) {
           <span>
             <b aria-hidden="true">✦</b> 此处，容得下所有心事
           </span>
+          <AudioControls />
         </header>
         <main id="main-content">{children}</main>
         <footer className="world-footer">

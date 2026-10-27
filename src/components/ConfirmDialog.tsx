@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { ReleaseSeal } from "./SceneArt";
+import { audio } from "../lib/audio";
 export function ConfirmDialog({
   onCancel,
   onConfirm,
@@ -17,6 +18,7 @@ export function ConfirmDialog({
   useEffect(() => {
     const dialog = ref.current;
     dialog?.showModal();
+    audio.play("delete");
     return () => {
       dialog?.close();
       if (returnFocus.current?.isConnected) returnFocus.current.focus();
