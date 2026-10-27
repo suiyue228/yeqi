@@ -78,6 +78,7 @@ class Soundscape {
     { kind: "music" | "effect"; gain: GainNode }
   >();
   private recent = new Map<Sound, number>();
+  private chimeVoices = new Set<AudioScheduledSourceNode>();
   subscribe = (listener: () => void) => {
     this.listeners.add(listener);
     return () => {
@@ -222,9 +223,11 @@ class Soundscape {
   play(kind: Sound, touch?: ChimeTouch) {
     if (
       !this.context ||
+      this.context.state !== "running" ||
       !this.state.unlocked ||
       !this.state.preferences.effects ||
       this.state.preferences.effectsVolume === 0 ||
+      (kind === "windchime" && this.chimeVoices.size >= 2) ||
       document.hidden
     )
       return;
@@ -245,7 +248,14 @@ class Soundscape {
         c,
         this.chimeRoom!.input,
         c.currentTime + 0.015,
-        this.trackVoice,
+        (voice) => {
+          this.chimeVoices.add(voice.source);
+          const untrack = this.trackVoice(voice);
+          return () => {
+            this.chimeVoices.delete(voice.source);
+            untrack();
+          };
+        },
         touch,
       );
       if (this.state.playing && this.musicDuck) {
@@ -306,6 +316,7 @@ class Soundscape {
       }
     }
     this.voices.clear();
+    this.chimeVoices.clear();
     this.effectsRoom?.reset();
     this.chimeRoom?.reset();
     this.emit({ unlocked: false });
