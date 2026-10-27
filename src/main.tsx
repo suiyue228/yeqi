@@ -7,6 +7,7 @@ import "./ritual.css";
 import "./audio.css";
 import "./rooms.css";
 import "./modules.css";
+import "./theatre.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />

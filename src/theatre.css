@@ -1,0 +1,660 @@
+.theatre-page {
+  max-width: 1340px;
+}
+.theatre-page > .module-intro {
+  padding-bottom: 34px;
+}
+.theatre-shell {
+  position: relative;
+  border: 14px solid #100d15;
+  background: #120f18;
+  outline: 1px solid #92735f;
+  box-shadow:
+    0 9px #92735f,
+    0 13px #120f18,
+    10px 20px #100d1566;
+  padding: 46px 10px 9px;
+  isolation: isolate;
+}
+.theatre-titleplate {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
+  z-index: 4;
+  color: #f3d7df;
+}
+.theatre-titleplate > span {
+  font: 14px var(--serif);
+  letter-spacing: 6px;
+}
+.theatre-titleplate small {
+  display: block;
+  font:
+    7px Georgia,
+    serif;
+  letter-spacing: 2px;
+  color: #baa4bd;
+  margin-top: 7px;
+}
+.paper-stage {
+  position: relative;
+  perspective: 1100px;
+  aspect-ratio: 1.65;
+  min-height: 440px;
+  overflow: hidden;
+  background: #120f18;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+}
+.stage-volume {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition: transform 0.25s ease-out;
+}
+.paper-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.paper-layer > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.paper-sky {
+  transform: translateZ(-65px) scale(1.13);
+}
+.paper-woods {
+  transform: translateZ(10px);
+  filter: drop-shadow(5px 6px 0 #92735f) drop-shadow(10px 12px 0 #120f1877);
+}
+.paper-front {
+  transform: translateZ(65px) scale(0.94);
+  filter: drop-shadow(3px 5px 0 #92735f) drop-shadow(8px 10px 0 #120f1877);
+}
+.stage-mechanism {
+  position: absolute;
+  background: transparent;
+  padding: 0;
+  border: 0;
+  color: #f3d7df;
+  transform: translateZ(40px);
+  font-family: var(--serif);
+}
+.stage-mechanism > small {
+  display: block;
+  font: 9px var(--serif);
+  letter-spacing: 3px;
+  color: #f3d7df;
+  text-shadow: 1px 1px #120f18;
+  padding-top: 7px;
+}
+.paper-keeper {
+  width: 18%;
+  left: 53%;
+  bottom: 11%;
+  z-index: 2;
+  filter: drop-shadow(4px 4px 0 #92735f) drop-shadow(9px 9px 0 #120f1866);
+}
+.paper-keeper svg {
+  display: block;
+  width: 100%;
+  transition: transform 0.4s;
+  transform-origin: 50% 95%;
+}
+.paper-keeper:hover svg,
+.paper-keeper:focus-visible svg {
+  transform: translateY(-4px) rotate(-1.5deg);
+}
+.paper-keeper small {
+  margin-top: -5px;
+  letter-spacing: 2px;
+}
+.paper-door {
+  width: 14%;
+  height: 47%;
+  left: 34%;
+  bottom: 17%;
+  border: 5px solid #120f18;
+  border-radius: 50% 50% 0 0;
+  background: #30204c;
+  box-shadow:
+    4px 5px 0 #92735f,
+    9px 10px 0 #120f1855;
+  outline: 1px solid #92735f;
+  outline-offset: -10px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+.door-pane {
+  font:
+    55px Georgia,
+    serif;
+  color: #d8bce8;
+  display: block;
+  line-height: 1.4;
+}
+.door-pane i {
+  display: block;
+  width: 7px;
+  height: 15px;
+  background: #f3d978;
+  clip-path: polygon(0 0, 100% 0, 70% 50%, 90% 100%, 10% 100%, 30% 50%);
+  margin: 10px auto 0;
+}
+.paper-door small {
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+.paper-door:hover {
+  background: #49306f;
+}
+.paper-book {
+  width: 15%;
+  left: 15%;
+  bottom: 7%;
+  z-index: 3;
+  transform: translateZ(70px) rotate(-7deg);
+  filter: drop-shadow(4px 5px 0 #120f18);
+}
+.paper-book > svg {
+  display: block;
+  width: 100%;
+  transition: transform 0.3s;
+}
+.paper-book:hover > svg {
+  transform: rotate(4deg) translateY(-3px);
+}
+.paper-drawer {
+  width: 17%;
+  right: 8%;
+  bottom: 8%;
+  height: 78px;
+  z-index: 3;
+  transform: translateZ(75px) rotate(3deg);
+}
+.mini-drawer-front {
+  display: block;
+  position: absolute;
+  inset: 24px 0 0;
+  background: #92735f;
+  border: 5px solid #120f18;
+  outline: 1px solid #d8bce8;
+  outline-offset: -8px;
+  box-shadow: 5px 7px #120f18;
+  color: #120f18;
+  font-size: 9px;
+  letter-spacing: 2px;
+  padding: 23px 3px 9px;
+}
+.mini-drawer-front i {
+  position: absolute;
+  top: 8px;
+  left: calc(50% - 18px);
+  width: 36px;
+  height: 9px;
+  border: 2px solid #120f18;
+  border-top: 0;
+  border-radius: 0 0 9px 9px;
+}
+.drawer-paper {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 8px;
+  height: 50px;
+  background: #f3d7df;
+  border: 1px solid #120f18;
+  color: #49306f;
+  font-size: 24px;
+  line-height: 45px;
+  transition: transform 0.4s;
+  transform-origin: bottom;
+}
+.drawer-open .drawer-paper {
+  transform: translateY(-30px) rotate(-5deg);
+}
+.pendant {
+  position: absolute;
+  top: 0;
+  width: 74px;
+  height: 190px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #f3d7df;
+  transform: translateZ(100px);
+  transform-origin: 50% 0;
+  z-index: 4;
+  --cord: 105px;
+}
+.pendant-left {
+  left: 18%;
+}
+.pendant-right {
+  right: 10%;
+  height: 225px;
+  --cord: 140px;
+}
+.pendant-moon {
+  left: 67%;
+  height: 162px;
+  --cord: 75px;
+}
+.hanging-string {
+  position: absolute;
+  width: 1px;
+  left: 50%;
+  height: var(--cord);
+  top: 0;
+  background: #e6d3b9;
+  box-shadow: 1px 0 #120f18;
+}
+.hanging-string:before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 4px;
+  width: 7px;
+  height: 7px;
+  background: #92735f;
+  border-radius: 50%;
+  border: 1px solid #120f18;
+}
+.pendant svg {
+  position: absolute;
+  top: var(--cord);
+  left: 3px;
+  width: 68px;
+  height: 68px;
+  filter: drop-shadow(3px 3px 0 #92735f) drop-shadow(6px 7px 0 #120f1855);
+}
+.pendant small {
+  position: absolute;
+  top: calc(var(--cord) + 77px);
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 2px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.pendant:hover small,
+.pendant:focus-visible small {
+  opacity: 1;
+}
+.pendant:focus-visible {
+  outline: 0;
+}
+.pendant:focus-visible svg {
+  outline: 2px dashed #b83d43;
+  outline-offset: 5px;
+}
+.pendant.swaying {
+  animation: paper-pendulum 1.25s cubic-bezier(0.35, 0, 0.3, 1) both;
+}
+.theatre-footlights {
+  display: flex;
+  justify-content: space-around;
+  gap: 25px;
+  height: 18px;
+  align-items: center;
+  padding-top: 6px;
+}
+.theatre-footlights i {
+  width: 6px;
+  height: 6px;
+  background: #f3d978;
+  border: 1px solid #92735f;
+  transform: rotate(45deg);
+}
+.theatre-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 27px 1px 18px;
+  border-bottom: 1px solid #92735f88;
+}
+.theatre-controls > span {
+  font-size: 10px;
+  color: #bca5bf;
+  line-height: 1.9;
+}
+.theatre-controls button {
+  color: #f3d978;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.theatre-script {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 30px;
+  margin-top: 27px;
+}
+.keeper-lines {
+  padding: 30px 31px;
+  background: #dec9d8;
+  color: #120f18;
+  border: 1px solid #92735f;
+  box-shadow: 5px 6px #120f18;
+}
+.keeper-lines > .eyebrow {
+  color: #70506e;
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+.keeper-lines blockquote {
+  font: 23px var(--serif);
+  line-height: 1.9;
+  margin: 22px 0;
+  letter-spacing: 2px;
+}
+.keeper-lines p {
+  font-size: 11px;
+  line-height: 2;
+  color: #79596f;
+  margin: 0;
+}
+.prop-notes {
+  padding: 26px 28px;
+  border: 1px solid #92735f;
+  background: #30243b;
+}
+.prop-notes > .eyebrow {
+  font-size: 10px;
+  color: #f3d978;
+}
+.prop-notes p {
+  font: 15px var(--serif);
+  line-height: 2.2;
+  letter-spacing: 1px;
+  color: #d8bce8;
+  margin: 20px 0 8px;
+  overflow-wrap: anywhere;
+}
+.prop-notes b {
+  font-weight: 400;
+  color: #f3d978;
+}
+.prop-notes .text-button {
+  font-size: 11px;
+  color: #f3d978;
+}
+.stage-mechanism:focus-visible {
+  outline-color: #f3d978;
+  outline-offset: 6px;
+}
+@keyframes paper-pendulum {
+  0% {
+    transform: translateZ(100px) rotate(0);
+  }
+  22% {
+    transform: translateZ(100px) rotate(8deg);
+  }
+  45% {
+    transform: translateZ(100px) rotate(-6deg);
+  }
+  66% {
+    transform: translateZ(100px) rotate(3.5deg);
+  }
+  84% {
+    transform: translateZ(100px) rotate(-1.5deg);
+  }
+  100% {
+    transform: translateZ(100px) rotate(0);
+  }
+}
+@media (max-width: 1000px) {
+  .theatre-shell {
+    border-width: 11px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .paper-stage {
+    min-height: 430px;
+  }
+  .paper-keeper {
+    width: 21%;
+    left: 52%;
+  }
+  .paper-door {
+    width: 17%;
+    left: 30%;
+    height: 45%;
+  }
+  .pendant-left {
+    left: 12%;
+  }
+  .pendant-right {
+    right: 7%;
+  }
+  .pendant-moon {
+    left: 65%;
+  }
+  .theatre-script {
+    gap: 22px;
+  }
+  .keeper-lines {
+    padding: 25px;
+  }
+  .keeper-lines blockquote {
+    font-size: 20px;
+  }
+  .prop-notes {
+    padding: 25px;
+  }
+}
+@media (max-width: 760px) {
+  .theatre-page {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .theatre-page .module-intro h1 {
+    font-size: 26px;
+  }
+  .theatre-shell {
+    border-width: 7px;
+    padding: 49px 0 7px;
+    box-shadow:
+      0 7px #92735f,
+      0 10px #120f18,
+      6px 15px #100d1566;
+  }
+  .theatre-titleplate {
+    top: 8px;
+  }
+  .theatre-titleplate > span {
+    font-size: 11px;
+    letter-spacing: 4px;
+  }
+  .theatre-titleplate small {
+    font-size: 6px;
+    letter-spacing: 1px;
+    margin-top: 9px;
+  }
+  .paper-stage {
+    aspect-ratio: auto;
+    min-height: 425px;
+  }
+  .paper-sky {
+    transform: translateZ(-45px) scale(1.12);
+  }
+  .paper-woods {
+    transform: translateZ(8px) scale(0.96);
+  }
+  .paper-front {
+    transform: translateZ(35px) scale(0.95);
+  }
+  .paper-keeper {
+    width: 30%;
+    left: 49%;
+    bottom: 15%;
+    transform: translateZ(40px);
+    filter: drop-shadow(3px 3px 0 #92735f) drop-shadow(6px 7px 0 #120f1855);
+  }
+  .paper-keeper small {
+    font-size: 8px;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+  .paper-door {
+    left: 21%;
+    width: 24%;
+    height: 41%;
+    bottom: 21%;
+    border-width: 4px;
+    gap: 9px;
+  }
+  .door-pane {
+    font-size: 34px;
+  }
+  .paper-door small {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+  .door-pane i {
+    width: 6px;
+    height: 13px;
+  }
+  .paper-book {
+    width: 24%;
+    left: 6%;
+    bottom: 5%;
+    transform: translateZ(50px) rotate(-7deg);
+  }
+  .paper-book > small {
+    font-size: 7px;
+    letter-spacing: 1px;
+    padding-top: 6px;
+  }
+  .paper-drawer {
+    width: 26%;
+    right: 5%;
+    bottom: 7%;
+    height: 57px;
+    transform: translateZ(50px) rotate(3deg);
+  }
+  .mini-drawer-front {
+    inset: 16px 0 0;
+    font-size: 7px;
+    letter-spacing: 1px;
+    border-width: 3px;
+    padding-top: 20px;
+    outline-offset: -6px;
+  }
+  .mini-drawer-front i {
+    top: 7px;
+    left: calc(50% - 12px);
+    width: 24px;
+    height: 7px;
+  }
+  .drawer-paper {
+    height: 40px;
+    top: 0;
+    font-size: 20px;
+    line-height: 36px;
+  }
+  .drawer-open .drawer-paper {
+    transform: translateY(-25px) rotate(-5deg);
+  }
+  .pendant {
+    width: 52px;
+    --cord: 76px;
+    height: 145px;
+  }
+  .pendant svg {
+    left: 2px;
+    width: 48px;
+    height: 48px;
+  }
+  .pendant-left {
+    left: 7%;
+  }
+  .pendant-right {
+    right: 3%;
+    --cord: 122px;
+    height: 190px;
+  }
+  .pendant-moon {
+    left: 57%;
+    --cord: 57px;
+    height: 130px;
+  }
+  .pendant small {
+    font-size: 7px;
+    top: calc(var(--cord) + 55px);
+  }
+  .hanging-string {
+    box-shadow: none;
+  }
+  .pendant small {
+    opacity: 1;
+  }
+  .theatre-footlights {
+    height: 13px;
+    gap: 15px;
+  }
+  .theatre-footlights i {
+    width: 5px;
+    height: 5px;
+  }
+  .theatre-controls {
+    gap: 12px;
+    padding-top: 25px;
+  }
+  .theatre-controls > span {
+    font-size: 8px;
+    line-height: 2;
+  }
+  .theatre-controls button {
+    font-size: 9px;
+  }
+  .theatre-script {
+    display: block;
+    margin-top: 22px;
+  }
+  .keeper-lines {
+    padding: 26px 23px;
+  }
+  .keeper-lines blockquote {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+  .keeper-lines p {
+    font-size: 10px;
+  }
+  .prop-notes {
+    margin-top: 22px;
+    padding: 25px 23px;
+  }
+  .prop-notes p {
+    font-size: 14px;
+  }
+  .stage-mechanism:focus-visible {
+    outline-offset: 3px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage-volume {
+    transform: none !important;
+    transition: none !important;
+  }
+  .pendant.swaying {
+    animation: none !important;
+  }
+  .paper-keeper svg,
+  .drawer-paper {
+    transition: none !important;
+  }
+}

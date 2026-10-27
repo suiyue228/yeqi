@@ -53,6 +53,6 @@ export const ROOMS = [
     name: "纸艺小剧场",
     subtitle: "拨动星铃，与守灯人共坐片刻。",
     symbol: "☾",
-    ready: false,
+    ready: true,
   },
 ] as const;

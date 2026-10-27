@@ -17,6 +17,7 @@ import { Calendar } from "./pages/Calendar";
 import { Drafts } from "./pages/Drafts";
 import { Wishes } from "./pages/Wishes";
 import { Collection } from "./pages/Collection";
+import { Theatre } from "./pages/Theatre";
 export default function App() {
   const data = useEntries();
   const workspace = useWorkspace();
@@ -165,6 +166,16 @@ export default function App() {
       />
     );
   else if (path === "/privacy") page = <Privacy backup={backup} />;
+  else if (path === "/theatre")
+    page = (
+      <Theatre
+        entries={data.entries}
+        drafts={workspace.drafts}
+        wishes={workspace.wishes}
+        navigate={navigate}
+        echo={echo}
+      />
+    );
   else
     page = (
       <Reader

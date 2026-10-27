@@ -1,6 +1,6 @@
 # 夜栖 · 月下树洞
 
-> 当前统一任务书为 docs/MASTER_TASK.md，阶段执行索引为 docs/EXECUTION_PLAN.md。阶段0—4已完成，纸艺小剧场与整体验收继续按序推进；实际验证与剩余内容见 PROGRESS.md。
+> 当前统一任务书为 docs/MASTER_TASK.md，阶段执行索引为 docs/EXECUTION_PLAN.md。阶段0—5已完成，正在整体验收；实际验证与剩余内容见 PROGRESS.md。
 
 私人、本地优先的心情与日常记录网站。把情绪、梦境和生活碎片写成封存给月亮的梦笺。原创黑色月拱门、柔粉纸幕与片尾式纵向索引；书写、档案和阅读各有独立场景。
 
@@ -43,6 +43,8 @@ PowerShell 检查与构建：
 浏览器测试在 Windows 默认使用已安装的 Microsoft Edge，其他平台默认 Playwright Chromium。缺少浏览器时运行 `pnpm exec playwright install chromium`，PowerShell 设置 `$env:PLAYWRIGHT_CHANNEL = 'chromium'`；也可设置为 chrome。测试自动启动/停止 5173 服务，建议关闭占用该端口的其他项目。
 
 ## 功能与使用
+
+- 纸艺小剧场：悬挂星月、原创守灯人、书本、抽屉与纸门均有反馈；可切换月相、听星铃（先开启音效）、查看真实计数、继续草稿或回顾旧信。手机可点击，键盘可Tab/Enter，减少动态效果保持静态纸景。
 
 - 夜栖地图：独立选择写作、档案、月历、草稿、回响、心愿与收藏；未完成空间明确标筹备中。
 - 心情月历：按月翻阅、选择有心情标记的日期，打开当天真实记录。
