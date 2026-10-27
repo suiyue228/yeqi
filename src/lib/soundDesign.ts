@@ -1,6 +1,7 @@
 /** Original local interaction sounds. Licensed background music is in musicTrack.ts. */
 export const WIND_CHIME_COOLDOWN_MS = 1400;
 export const STAR_SWING_MS = 1800;
+export const STAR_BELL_ROOM = { cutoff: 4400, wet: 0.08 } as const;
 export type VoiceKind = "music" | "effect";
 export interface Voice {
   source: AudioScheduledSourceNode;
@@ -165,7 +166,7 @@ export interface ChimeTouch {
   pan?: number;
 }
 
-/** One mallet/noise excitation of damped glass modes, not a pitched melody. */
+/** A tiny, firm clapper excites a light bell; one contact, not a melody. */
 export function scheduleWindChime(
   context: BaseAudioContext,
   destination: AudioNode,
@@ -178,20 +179,20 @@ export function scheduleWindChime(
     Math.min(0.999999, touch.variation ?? Math.random()),
   );
   const rate = context.sampleRate,
-    length = Math.ceil(rate * 2.6);
+    length = Math.ceil(rate * 1.55);
   const raw = new Float32Array(length);
-  const hit = new Float32Array(Math.ceil(rate * 0.003));
+  const hit = new Float32Array(Math.ceil(rate * 0.0006));
   let seed = 1 + Math.floor(variation * 0x7ffffffe);
   for (let i = 0; i < hit.length; i++) {
     seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
-    hit[i] = (seed / 2147483648 - 1) * Math.sin((Math.PI * i) / hit.length);
+    const clapper = Math.sin((Math.PI * i) / hit.length) ** 2;
+    hit[i] = clapper * (1 + (seed / 2147483648 - 1) * 0.035);
   }
-  const fundamental = 760 * (0.992 + variation * 0.016);
+  const fundamental = 1280 * (0.994 + variation * 0.012);
   for (const [ratio, weight, decay] of [
-    [1, 1, 0.56],
-    [2.67, 0.18, 0.19],
-    [4.08, 0.055, 0.09],
-    [5.43, 0.018, 0.05],
+    [1, 1, 0.3],
+    [2.76, 0.24, 0.1],
+    [4.07, 0.045, 0.045],
   ]) {
     const angle = (2 * Math.PI * fundamental * ratio) / rate;
     const radius = Math.exp(-1 / (decay * rate));
@@ -212,13 +213,13 @@ export function scheduleWindChime(
   const secondDelay = secondary ? 0.25 + variation * 0.5 : 0;
   const secondOffset = Math.round(secondDelay * rate);
   const strength = Math.max(0.4, Math.min(1, touch.strength ?? 0.85));
-  const level = (0.115 * strength) / Math.max(peak, 0.000001);
+  const level = (0.105 * strength) / Math.max(peak, 0.000001);
   const buffer = context.createBuffer(1, length, rate),
     output = buffer.getChannelData(0);
   for (let i = 0; i < length; i++) {
     const echo =
-      secondary && i >= secondOffset ? raw[i - secondOffset] * 0.23 : 0;
-    const fade = Math.min(1, (length - i) / (rate * 0.16));
+      secondary && i >= secondOffset ? raw[i - secondOffset] * 0.18 : 0;
+    const fade = Math.min(1, (length - i) / (rate * 0.08));
     output[i] = (raw[i] + echo) * level * fade;
   }
   const source = context.createBufferSource(),

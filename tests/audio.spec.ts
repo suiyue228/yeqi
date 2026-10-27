@@ -85,7 +85,12 @@ test("玻璃风铃每次一击或弱二击，没有预设旋律，尾音与静�
       level.gain.value = 0.06;
       if (muted) level.gain.setValueAtTime(0, 0.5);
       level.connect(context.destination);
-      const room = design.createRoom(context, level, 5200, 0.23);
+      const room = design.createRoom(
+        context,
+        level,
+        design.STAR_BELL_ROOM.cutoff,
+        design.STAR_BELL_ROOM.wet,
+      );
       const event = design.scheduleWindChime(
         context,
         room.input,
@@ -102,6 +107,10 @@ test("玻璃风铃每次一击或弱二击，没有预设旋律，尾音与静�
       }
       let peak = 0;
       for (const v of samples) peak = Math.max(peak, Math.abs(v));
+      let crossings = 0;
+      for (let i = 0.2 * 32000; i < 0.45 * 32000; i++) {
+        if (samples[i - 1] <= 0 && samples[i] > 0) crossings++;
+      }
       return {
         event,
         peak,
@@ -109,6 +118,8 @@ test("玻璃风铃每次一击或弱二击，没有预设旋律，尾音与静�
         body: rms(0.05, 0.5),
         tail: rms(2, 3),
         muted: rms(1, 2),
+        ringFrequency: crossings / 0.25,
+        lateBody: rms(1.1, 1.4),
       };
     }
     return {
@@ -120,6 +131,10 @@ test("玻璃风铃每次一击或弱二击，没有预设旋律，尾音与静�
   expect(result.one.event.strikeCount).toBe(1);
   expect(result.two.event.strikeCount).toBe(2);
   expect(result.two.event.lastStrike).toBeLessThan(0.5);
+  expect(result.one.event.duration).toBeLessThanOrEqual(1.6);
+  expect(result.one.ringFrequency).toBeGreaterThan(1100);
+  expect(result.one.ringFrequency).toBeLessThan(1500);
+  expect(result.one.lateBody).toBeLessThan(result.one.body * 0.08);
   for (const sound of [result.one, result.two]) {
     expect(sound.finite).toBe(true);
     expect(sound.peak).toBeGreaterThan(0.0001);

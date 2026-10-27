@@ -1,9 +1,10 @@
-/** Original instrumental score and small synthesized foley. No audio/network assets. */
+/** Local soundscape: licensed piano and synthesized interaction sounds. */
 import {
   createRoom,
   scheduleQuietCue,
   scheduleWindChime,
   WIND_CHIME_COOLDOWN_MS,
+  STAR_BELL_ROOM,
 } from "./soundDesign";
 import type { TrackVoice, ChimeTouch } from "./soundDesign";
 import { loadMusicBuffer, startMusic, MUSIC_LEVEL } from "./musicTrack";
@@ -129,7 +130,12 @@ class Soundscape {
       this.musicBus.gain.value = 0;
       this.effectsBus.gain.value = 0;
       this.effectsRoom = createRoom(this.context, this.effectsBus, 4200, 0.7);
-      this.chimeRoom = createRoom(this.context, this.effectsBus, 5200, 0.23);
+      this.chimeRoom = createRoom(
+        this.context,
+        this.effectsBus,
+        STAR_BELL_ROOM.cutoff,
+        STAR_BELL_ROOM.wet,
+      );
     }
     await this.context.resume();
     if (this.context.state !== "running")
