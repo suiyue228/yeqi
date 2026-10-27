@@ -12,10 +12,21 @@ interface Departure {
   delta?: number;
 }
 function kindFor(path: string): RitualKind {
-  if (path.startsWith("/write") || path.startsWith("/edit")) return "curtain";
-  if (path.startsWith("/archive")) return "cabinet";
+  if (
+    path.startsWith("/write") ||
+    path.startsWith("/edit") ||
+    path.startsWith("/draft/") ||
+    path === "/theatre"
+  )
+    return "curtain";
+  if (
+    path.startsWith("/archive") ||
+    path === "/drafts" ||
+    path === "/collection"
+  )
+    return "cabinet";
   if (path.startsWith("/entry")) return "letter";
-  if (path.startsWith("/echo")) return "oracle";
+  if (path.startsWith("/echo") || path === "/calendar") return "oracle";
   return "gate";
 }
 export function useRoute() {

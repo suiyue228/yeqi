@@ -7,6 +7,7 @@ import { EchoDial, MoonPhases } from "../components/SceneArt";
 export function Reader({
   entry,
   isEcho,
+  hasMemories,
   navigate,
   remove,
   echo,
@@ -17,6 +18,7 @@ export function Reader({
 }: {
   entry?: Entry;
   isEcho: boolean;
+  hasMemories: boolean;
   navigate: (path: string) => void;
   remove: (id: string) => void;
   echo: () => void;
@@ -32,20 +34,38 @@ export function Reader({
       <div
         className={`page full-empty ${isEcho ? "echo-empty" : "missing-letter"}`}
       >
-        {isEcho ? <EchoDial empty /> : <span aria-hidden="true">☾</span>}
+        {isEcho ? (
+          <EchoDial empty={!hasMemories} />
+        ) : (
+          <span aria-hidden="true">☾</span>
+        )}
         <h1 id="page-title" tabIndex={-1}>
-          {isEcho ? "今夜，还没有回响。" : "这封梦笺不在这里。"}
+          {isEcho
+            ? hasMemories
+              ? "今夜，有旧信等你。"
+              : "今夜，还没有回响。"
+            : "这封梦笺不在这里。"}
         </h1>
         <p>
           {isEcho
-            ? "等你写下第一段记忆，月亮便会记得。"
+            ? hasMemories
+              ? "轻拨星盘，让一段真实的记忆来找你。"
+              : "等你写下第一段记忆，月亮便会记得。"
             : "它可能已被删除，或这个地址已经失效。"}
         </p>
         <button
           className="button ink-button"
-          onClick={() => navigate(isEcho ? "/write" : "/archive")}
+          onClick={() =>
+            isEcho && hasMemories
+              ? echo()
+              : navigate(isEcho ? "/write" : "/archive")
+          }
         >
-          {isEcho ? "写下第一段记忆" : "回到记忆档案"}
+          {isEcho
+            ? hasMemories
+              ? "抽一段今夜回响"
+              : "写下第一段记忆"
+            : "回到记忆档案"}
         </button>
       </div>
     );

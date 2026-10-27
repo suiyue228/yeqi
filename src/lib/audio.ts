@@ -250,6 +250,15 @@ class Soundscape {
       ),
     );
   }
+  async resumeEffects() {
+    try {
+      await this.activate();
+      this.configure({ effects: true });
+      this.play("chime");
+    } catch (e) {
+      this.emit({ error: e instanceof Error ? e.message : "无法恢复音效。" });
+    }
+  }
   private stopMusic() {
     if (this.timer !== null) window.clearInterval(this.timer);
     this.timer = null;
@@ -258,7 +267,16 @@ class Soundscape {
   }
   pause = () => {
     this.stopMusic();
-    this.fade();
+    for (const [voice, group] of this.voices) {
+      try {
+        voice.disconnect();
+        group.gain.disconnect();
+        voice.stop(this.context!.currentTime);
+      } catch {
+        /* already stopped */
+      }
+    }
+    this.voices.clear();
     this.emit({ unlocked: false });
     void this.context?.suspend().catch(() => {});
   };

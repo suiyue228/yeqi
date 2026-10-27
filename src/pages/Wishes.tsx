@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Wish } from "../lib/workspace";
 import { RoomHeader } from "../components/RoomHeader";
 import { audio } from "../lib/audio";
@@ -8,16 +8,21 @@ export function Wishes({
   toggle,
   navigate,
   blocked,
+  setDirty,
 }: {
   wishes: Wish[];
   add: (text: string) => void;
   toggle: (id: string) => void;
   navigate: (p: string) => void;
   blocked: boolean;
+  setDirty: (dirty: boolean) => void;
 }) {
   const [text, setText] = useState(""),
     [filter, setFilter] = useState("active"),
     [error, setError] = useState("");
+  useEffect(() => {
+    setDirty(!!text.trim());
+  }, [text, setDirty]);
   const shown = wishes.filter(
     (w) => filter === "all" || w.done === (filter === "done"),
   );

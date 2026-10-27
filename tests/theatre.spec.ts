@@ -1,4 +1,32 @@
 import { test, expect } from "@playwright/test";
+test("剧场纸门读取真实旧信，抽屉进入真实草稿", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/#/write");
+  await page
+    .getByLabel("心情正文（必填）", { exact: true })
+    .fill("纸门后面的真实记录");
+  await page
+    .getByRole("button", { name: "封存这段记忆", exact: false })
+    .click();
+  await expect(page.locator(".entry-body")).toHaveText("纸门后面的真实记录");
+  await page.goto("/#/drafts");
+  await page.getByLabel("快速碎片", { exact: true }).fill("抽屉里的真实碎片");
+  await page.getByRole("button", { name: "存入草稿匣", exact: false }).click();
+  await page.goto("/#/theatre");
+  await page.getByRole("button", { name: "拉开纸抽屉", exact: true }).click();
+  await expect(page.locator(".prop-notes")).toContainText("抽屉里的真实碎片");
+  await page
+    .getByRole("button", { name: "接着写这片草稿", exact: false })
+    .click();
+  await expect(
+    page.getByLabel("心情正文（必填）", { exact: true }),
+  ).toHaveValue("抽屉里的真实碎片");
+  await page.goto("/#/theatre");
+  await page
+    .getByRole("button", { name: "推开纸门，寻找一封旧信", exact: true })
+    .click();
+  await expect(page.locator(".entry-body")).toHaveText("纸门后面的真实记录");
+});
 test("纸艺舞台的悬挂星月、人物、书本、抽屉和纸门真实可交互", async ({
   page,
 }) => {

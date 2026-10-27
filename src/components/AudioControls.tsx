@@ -52,6 +52,14 @@ export function AudioControls() {
           />
           开启交互音效
         </label>
+        {state.preferences.effects && !state.unlocked && (
+          <button
+            className="text-button"
+            onClick={() => void audio.resumeEffects()}
+          >
+            恢复交互音效
+          </button>
+        )}
         <label>
           音效音量
           <input
@@ -71,7 +79,7 @@ export function AudioControls() {
             : state.unlocked
               ? "背景音乐已关闭"
               : state.preferences.music || state.preferences.effects
-                ? "偏好已记住，点击音乐或重新开启音效以恢复声音。"
+                ? "偏好已记住，点击音乐或恢复交互音效以继续。"
                 : "尚未开启声音"}
           {state.error && <span role="alert">{state.error}</span>}
         </p>

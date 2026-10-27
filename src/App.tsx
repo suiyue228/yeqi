@@ -140,6 +140,7 @@ export default function App() {
       <Drafts
         drafts={workspace.drafts}
         save={workspace.saveDraft}
+        setDirty={setDirty}
         remove={workspace.removeDraft}
         navigate={navigate}
         blocked={!!workspace.error}
@@ -150,6 +151,7 @@ export default function App() {
       <Wishes
         wishes={workspace.wishes}
         add={workspace.addWish}
+        setDirty={setDirty}
         toggle={workspace.toggleWish}
         navigate={navigate}
         blocked={!!workspace.error}
@@ -182,6 +184,7 @@ export default function App() {
         key={path}
         entry={entry}
         isEcho={path.startsWith("/echo")}
+        hasMemories={data.entries.length > 0}
         navigate={navigate}
         remove={(id) => {
           data.remove(id);

@@ -36,6 +36,33 @@ test("声音默认静音、用户激活、单实例、音量和偏好恢复", as
   await expect(page.getByLabel("音乐音量", { exact: true })).toHaveValue("23");
   await expect(page.getByLabel("开启交互音效", { exact: true })).toBeChecked();
   await expect(page.locator(".audio-state")).toContainText("偏好已记住");
+  await page.getByRole("button", { name: "恢复交互音效", exact: true }).click();
+  expect(await inspect()).toEqual(["running"]);
+  await expect(page.locator(".audio-state")).toContainText("背景音乐已关闭");
+});
+test("后台暂停释放声音，返回后需主动恢复同一音频实例", async ({ page }) => {
+  await page.goto("/");
+  await page.getByLabel("音景设置", { exact: true }).click();
+  await page.getByRole("button", { name: "开启背景音乐", exact: true }).click();
+  await expect(page.locator(".audio-state")).toContainText("纯音乐播放中");
+  await page.evaluate(() => {
+    Object.defineProperty(document, "hidden", {
+      configurable: true,
+      get: () => true,
+    });
+    document.dispatchEvent(new Event("visibilitychange"));
+  });
+  await expect(page.locator(".audio-state")).toContainText("偏好已记住");
+  await page.evaluate(() => {
+    Object.defineProperty(document, "hidden", {
+      configurable: true,
+      get: () => false,
+    });
+    document.dispatchEvent(new Event("visibilitychange"));
+  });
+  await expect(page.locator(".audio-state")).toContainText("偏好已记住");
+  await page.getByRole("button", { name: "恢复背景音乐", exact: true }).click();
+  await expect(page.locator(".audio-state")).toContainText("纯音乐播放中");
 });
 test("不支持音频时明确反馈且记录页面仍可操作", async ({ page }) => {
   await page.addInitScript(() =>

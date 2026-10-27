@@ -41,6 +41,8 @@
 }
 .paper-stage {
   position: relative;
+  width: 100%;
+  min-width: 0;
   perspective: 1100px;
   aspect-ratio: 1.65;
   min-height: 440px;
@@ -99,9 +101,10 @@
   left: 53%;
   bottom: 11%;
   z-index: 2;
-  filter: drop-shadow(4px 4px 0 #92735f) drop-shadow(9px 9px 0 #120f1866);
+  filter: none;
 }
 .paper-keeper svg {
+  filter: drop-shadow(4px 4px 0 #92735f) drop-shadow(9px 9px 0 #120f1866);
   display: block;
   width: 100%;
   transition: transform 0.4s;
@@ -164,9 +167,10 @@
   bottom: 7%;
   z-index: 3;
   transform: translateZ(70px) rotate(-7deg);
-  filter: drop-shadow(4px 5px 0 #120f18);
+  filter: none;
 }
 .paper-book > svg {
+  filter: drop-shadow(4px 5px 0 #120f18);
   display: block;
   width: 100%;
   transition: transform 0.3s;
@@ -501,6 +505,9 @@
     left: 49%;
     bottom: 15%;
     transform: translateZ(40px);
+    filter: none;
+  }
+  .paper-keeper svg {
     filter: drop-shadow(3px 3px 0 #92735f) drop-shadow(6px 7px 0 #120f1855);
   }
   .paper-keeper small {

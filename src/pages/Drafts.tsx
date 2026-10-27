@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Draft } from "../lib/workspace";
 import { RoomHeader } from "../components/RoomHeader";
 import { ConfirmDialog } from "../components/ConfirmDialog";
@@ -10,17 +10,22 @@ export function Drafts({
   remove,
   navigate,
   blocked,
+  setDirty,
 }: {
   drafts: Draft[];
   save: (d: Draft) => void;
   remove: (id: string) => void;
   navigate: (p: string) => void;
   blocked: boolean;
+  setDirty: (dirty: boolean) => void;
 }) {
   const [title, setTitle] = useState(""),
     [body, setBody] = useState(""),
     [error, setError] = useState(""),
     [deleting, setDeleting] = useState<string | null>(null);
+  useEffect(() => {
+    setDirty(!!(title.trim() || body.trim()));
+  }, [title, body, setDirty]);
   function quick() {
     setError("");
     if (!body.trim()) {
@@ -56,24 +61,22 @@ export function Drafts({
       <div className="drafts-layout">
         <section className="fragment-desk">
           <span className="eyebrow">A FRAGMENT IS ENOUGH</span>
-          <label>
-            草稿标题（可选）
-            <input
-              maxLength={80}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="给碎片一个小名字"
-            />
-          </label>
-          <label>
-            快速碎片
-            <textarea
-              maxLength={20000}
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-              placeholder="不必写完，也可以保存……"
-            />
-          </label>
+          <label htmlFor="fragment-title">草稿标题（可选）</label>
+          <input
+            id="fragment-title"
+            maxLength={80}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="给碎片一个小名字"
+          />
+          <label htmlFor="fragment-body">快速碎片</label>
+          <textarea
+            id="fragment-body"
+            maxLength={20000}
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            placeholder="不必写完，也可以保存……"
+          />
           <button
             className="button ink-button"
             disabled={blocked}
