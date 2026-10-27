@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { RitualKind, RitualState } from "../components/RitualTransition";
 const current = () => window.location.hash.slice(1) || "/";
+interface Destination {
+  next: string;
+  position?: number;
+}
+interface Departure {
+  next: string;
+  delta?: number;
+}
 function kindFor(path: string): RitualKind {
   if (path.startsWith("/write") || path.startsWith("/edit")) return "curtain";
   if (path.startsWith("/archive")) return "cabinet";
@@ -11,11 +19,13 @@ function kindFor(path: string): RitualKind {
 export function useRoute() {
   const [path, setPath] = useState(current);
   const [transition, setTransition] = useState<RitualState | null>(null);
-  const [departure, setDeparture] = useState<string | null>(null);
+  const [departure, setDeparture] = useState<Departure | null>(null);
   const dirty = useRef(false);
   const accepted = useRef(current());
   const timers = useRef<number[]>([]);
-  const destination = useRef<string | null>(null);
+  const destination = useRef<Destination | null>(null);
+  const position = useRef<number>(history.state?.yeqiPosition ?? 0);
+  const restoringHistory = useRef(false);
   const setDirty = useCallback((value: boolean) => {
     dirty.current = value;
   }, []);
@@ -23,18 +33,27 @@ export function useRoute() {
     timers.current.forEach(window.clearTimeout);
     timers.current = [];
   }, []);
-  const commit = useCallback((next: string) => {
+  const commit = useCallback((next: string, historyPosition?: number) => {
     dirty.current = false;
     accepted.current = next;
-    if (current() !== next) window.location.hash = next;
+    if (historyPosition === undefined) {
+      position.current += 1;
+      history.pushState(
+        { ...history.state, yeqiPosition: position.current },
+        "",
+        "#" + next,
+      );
+    } else {
+      position.current = historyPosition;
+    }
     setPath(next);
   }, []);
   const travel = useCallback(
-    (next: string) => {
+    (next: string, historyPosition?: number) => {
       clearTimers();
-      destination.current = next;
+      destination.current = { next, position: historyPosition };
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        commit(next);
+        commit(next, historyPosition);
         destination.current = null;
         setTransition(null);
         return;
@@ -43,7 +62,9 @@ export function useRoute() {
       setTransition({ kind, phase: "closing" });
       timers.current.push(
         window.setTimeout(() => {
-          commit(next);
+          commit(next, historyPosition);
+          // Finishing early during the reveal must not push this URL twice.
+          destination.current = { next, position: position.current };
           setTransition({ kind, phase: "opening" });
         }, 340),
       );
@@ -57,15 +78,40 @@ export function useRoute() {
     [clearTimers, commit],
   );
   useEffect(() => {
+    if (history.state?.yeqiPosition === undefined) {
+      history.replaceState(
+        { ...history.state, yeqiPosition: position.current },
+        "",
+      );
+    }
     const change = () => {
       const next = current();
-      if (next === accepted.current) return;
-      if (dirty.current) {
-        history.replaceState(null, "", "#" + accepted.current);
-        setDeparture(next);
+      if (restoringHistory.current) {
+        restoringHistory.current = false;
         return;
       }
-      travel(next);
+      if (next === accepted.current) {
+        clearTimers();
+        destination.current = null;
+        setTransition(null);
+        return;
+      }
+      const nextPosition = history.state?.yeqiPosition ?? position.current + 1;
+      if (history.state?.yeqiPosition === undefined) {
+        history.replaceState(
+          { ...history.state, yeqiPosition: nextPosition },
+          "",
+        );
+      }
+      if (dirty.current) {
+        const delta = nextPosition - position.current;
+        // Return to the original history entry while asking; never rewrite it.
+        restoringHistory.current = true;
+        history.go(-delta);
+        setDeparture({ next, delta });
+        return;
+      }
+      travel(next, nextPosition);
     };
     const unload = (event: BeforeUnloadEvent) => {
       if (dirty.current) {
@@ -77,7 +123,7 @@ export function useRoute() {
     const reduce = () => {
       if (media.matches && destination.current) {
         clearTimers();
-        commit(destination.current);
+        commit(destination.current.next, destination.current.position);
         destination.current = null;
         setTransition(null);
       }
@@ -95,7 +141,7 @@ export function useRoute() {
   function navigate(next: string, force = false) {
     if (next === accepted.current || destination.current) return;
     if (!force && dirty.current) {
-      setDeparture(next);
+      setDeparture({ next });
       return;
     }
     travel(next);
@@ -104,7 +150,8 @@ export function useRoute() {
     if (!departure) return;
     dirty.current = false;
     setDeparture(null);
-    travel(departure);
+    if (departure.delta !== undefined) history.go(departure.delta);
+    else travel(departure.next);
   }
   return {
     path,

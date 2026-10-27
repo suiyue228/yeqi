@@ -1,5 +1,8 @@
 import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
+// Functional regression uses the supported static mode. Normal-motion routing is
+// exercised separately, including its interaction lock and focus restoration.
+test.use({ reducedMotion: "reduce" });
 async function write(
   page: Page,
   title: string,
@@ -101,19 +104,23 @@ test("校验、未保存离开确认与浏览器返回", async ({ page }) => {
   await page.getByRole("button", { name: "封存这段记忆" }).click();
   await expect(page.getByRole("alert")).toContainText("至少留下一句话");
   await page.getByLabel("心情正文（必填）", { exact: true }).fill("还没写完");
-  page.once("dialog", (dialog) => dialog.dismiss());
   await page.getByRole("button", { name: "放下信笺" }).click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.getByRole("button", { name: "继续写信", exact: true }).click();
   await expect(page).toHaveURL(/write/);
   await expect(
     page.getByLabel("心情正文（必填）", { exact: true }),
   ).toHaveValue("还没写完");
-  page.once("dialog", (dialog) => dialog.accept());
   await page.getByRole("button", { name: "放下信笺" }).click();
+  await page
+    .getByRole("button", { name: "放弃修改并离开", exact: true })
+    .click();
   await expect(page.locator("#page-title")).toContainText("今夜");
   await page.goto("/#/write");
   await page.getByLabel("心情正文（必填）", { exact: true }).fill("退回也提醒");
-  page.once("dialog", (dialog) => dialog.dismiss());
   await page.goBack();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.keyboard.press("Escape");
   await expect(page).toHaveURL(/write/);
 });
 test("存储损坏保护、导出原文、容量失败保留输入", async ({ page }) => {
@@ -162,7 +169,7 @@ test("多标签页冲突不会覆盖新记录", async ({ page, context }) => {
   ).toHaveValue("还在写");
 });
 test("桌面、平板、手机布局和减少动态效果、键盘入口", async ({ page }) => {
-  for (const width of [1440, 1000, 768, 390, 360]) {
+  for (const width of [1440, 1000, 768, 640, 390, 360]) {
     await page.setViewportSize({ width, height: 1000 });
     for (const path of ["/", "/write", "/archive", "/privacy", "/echo"]) {
       await page.goto(`/#${path}`);

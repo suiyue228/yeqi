@@ -12,12 +12,14 @@ export function ConfirmDialog({
   mode?: "delete" | "discard";
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  // Capture the opener before React applies autoFocus to the dialog's button.
+  const returnFocus = useRef(document.activeElement as HTMLElement | null);
   useEffect(() => {
-    const previous = document.activeElement as HTMLElement;
-    ref.current?.showModal();
+    const dialog = ref.current;
+    dialog?.showModal();
     return () => {
-      ref.current?.close();
-      previous?.focus();
+      dialog?.close();
+      if (returnFocus.current?.isConnected) returnFocus.current.focus();
     };
   }, []);
   return (
