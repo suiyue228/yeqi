@@ -1,3 +1,8 @@
+## 字体专项 / 阶段3：信笺统一手写与排版完成
+- src/styles.css建立Display/Heading/UI/Handwriting/Accent变量，main接入同源字体；typography.css统一正文/标题输入、占位符、保存阅读、EntrySlip摘要及草稿编辑/预览。正文桌面19px/手机18px，行高2.05，正文最长38em；去掉紧密横线，浅纸深字。标题25px，不把日期/标签/筛选变成手写。
+- 实际创建并保存含中文、英文、数字、标点、空段和扩展字/emoji的记录，刷新和重新编辑内容不变。Edge底层字体检查确认阅读/摘要实际使用自带Moonlit Hand，而非只有CSS名称。字体请求故障时回退可读，输入/保存正常。
+- 已查看桌面书写/阅读截图outputs/type-handwriting-write.png和type-handwriting-read.png。新增2项字体流程测试均通过，严格类型/生产构建通过；全站/移动/性能尚待阶段5，未提前声称完成。
+- 没有修改记录数据、音频、存储、机关或插画。下一步阶段4少量专属标题和全站文字层级。
 ## 字体专项 / 阶段2：三组实字比较与本地资源完成
 - 实际渲染比较A朱雀+小赖、B朱雀+文楷、C小赖+小赖，查看outputs/type-font-comparison.png后选择A：朱雀有书卷式笔形对比，小赖的圆润不规则笔画更贴近日记；B更端正，C标题层级弱。选择属于实现决策，待用户审美验收。
 - 官方朱雀v0.212（技术预览，仅静态界面展示）与小赖v3.126，SIL OFL1.1全文/版权分别保留；WOFF2内部以Moonlit Display/Hand命名，不改轮廓，不冒充原创字体。原文件来源/SHA与每片SHA、字形范围在public/fonts/README.md和manifest.json。

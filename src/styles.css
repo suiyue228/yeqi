@@ -1,6 +1,6 @@
 @charset "UTF-8";
 :root {
-  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-family: var(--font-ui);
   color: #120f18;
   background: #120f18;
   font-synthesis: none;
@@ -14,7 +14,15 @@
   --star: #f3d978;
   --red: #b83d43;
   --line: #c7b7ba;
-  --serif: "Songti SC", "SimSun", "Noto Serif CJK SC", serif;
+  --font-display: "Moonlit Display", "Songti SC", "SimSun", serif;
+  --font-heading: var(--font-display);
+  --font-ui: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-handwriting: "Moonlit Hand", "KaiTi", "STKaiti", "Songti SC", serif;
+  --font-accent: Georgia, "Times New Roman", serif;
+  --serif: var(--font-heading);
+  --letter-size: 19px;
+  --letter-leading: 2.05;
+  --letter-measure: 38em;
 }
 * {
   box-sizing: border-box;

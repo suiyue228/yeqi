@@ -1,0 +1,90 @@
+/* Role-based typography; loaded after scene styles so handwritten content stays
+   the same in editor, reader, archive, calendar and collection previews. */
+.title-input,
+.body-input,
+.reading-paper h1,
+.entry-body,
+.entry-slip strong,
+.entry-slip p,
+.fragment-desk input,
+.fragment-desk textarea,
+.draft-fragment h3,
+.draft-fragment > p {
+  font-family: var(--font-handwriting);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.025em;
+}
+.body-input,
+.entry-body {
+  font-size: var(--letter-size);
+  line-height: var(--letter-leading);
+  color: #302534;
+  tab-size: 4;
+}
+.body-input {
+  /* Quiet paper, rather than a tightly ruled copybook. */
+  background: transparent;
+  padding-block: 18px;
+}
+.entry-body {
+  max-width: var(--letter-measure);
+  margin-inline: auto;
+}
+.title-input {
+  font-size: 25px;
+  line-height: 1.7;
+  max-width: calc(var(--letter-size) * 38);
+  margin-inline: auto;
+}
+.reading-paper h1 {
+  font-size: clamp(25px, 2.4vw, 31px);
+  line-height: 1.7;
+}
+.title-input::placeholder,
+.body-input::placeholder,
+.fragment-desk input::placeholder,
+.fragment-desk textarea::placeholder {
+  font-family: inherit;
+  color: #786472;
+  opacity: 1;
+}
+.entry-slip p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: #594454;
+}
+.entry-slip strong {
+  font-size: 21px;
+  line-height: 1.65;
+}
+.fragment-desk input,
+.fragment-desk textarea,
+.draft-fragment > p {
+  font-size: 18px;
+  line-height: 1.95;
+}
+.draft-fragment h3 {
+  font-size: 23px;
+}
+@media (min-width: 1001px) {
+  .body-input {
+    max-width: var(--letter-measure);
+    margin-inline: auto;
+  }
+}
+@media (max-width: 760px) {
+  :root {
+    --letter-size: 18px;
+  }
+  .title-input {
+    font-size: 21px;
+    letter-spacing: 0;
+  }
+  .entry-body {
+    letter-spacing: 0.015em;
+  }
+  .entry-slip p {
+    font-size: 15px;
+  }
+}
