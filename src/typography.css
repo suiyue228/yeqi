@@ -1,5 +1,168 @@
 /* Role-based typography; loaded after scene styles so handwritten content stays
    the same in editor, reader, archive, calendar and collection previews. */
+h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+h2,
+h3,
+.room-catalog strong,
+.night-index h2 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+}
+.eyebrow,
+.micro,
+.drawer-index,
+.slip-meta,
+.reader-meta,
+.word-count,
+.calendar-grid button,
+.index-date {
+  font-variant-numeric: tabular-nums;
+}
+.nav-item > span:last-child {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+.page-intro h1 {
+  letter-spacing: 0.075em;
+  text-wrap: balance;
+}
+.section-heading h2 {
+  letter-spacing: 0.08em;
+}
+.keeper-lines blockquote {
+  font-family: var(--font-handwriting);
+  font-size: 22px;
+  line-height: 1.95;
+  letter-spacing: 0.04em;
+}
+.theatre-titleplate > span,
+.prop-notes > .eyebrow {
+  font-family: var(--font-heading);
+}
+.theatre-titleplate > span {
+  font-size: 16px;
+}
+.scene-title {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 17px;
+}
+.title-caption {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  letter-spacing: 0.42em;
+  color: var(--lilac);
+}
+.scene-title h1 {
+  max-width: 100%;
+  margin: 5px 0 2px;
+  line-height: 1.5;
+}
+.title-initial {
+  font-size: 1.3em;
+  display: inline-block;
+  margin-right: 0.025em;
+  vertical-align: -0.035em;
+}
+.title-flourish {
+  display: block;
+  stroke: currentColor;
+  stroke-width: 0.85;
+  pointer-events: none;
+  width: 185px;
+  height: 25px;
+  color: var(--brown);
+}
+.scene-title--cabinet {
+  padding-left: 21px;
+  border-left: 3px double #92735f;
+  margin-bottom: 9px;
+}
+.scene-title--cabinet .title-flourish {
+  width: 225px;
+}
+.scene-title--theatre {
+  padding-top: 5px;
+  margin-bottom: 15px;
+}
+.scene-title--theatre .title-caption {
+  color: var(--star);
+  font-size: 15px;
+  letter-spacing: 0.36em;
+}
+.scene-title--theatre .title-flourish {
+  width: 260px;
+  max-width: 80%;
+  color: #a98db3;
+  margin-top: 3px;
+}
+/* A book-cover wordmark: staggered woodcut type, a narrow title strip,
+   and a botanical line that grows underneath the final character. */
+.stage-heading .moonlit-wordmark {
+  position: relative;
+  width: 253px;
+  margin: 20px 0 17px;
+  padding-bottom: 9px;
+  line-height: 1;
+  font-weight: 400;
+}
+.stage-heading .moonlit-wordmark span {
+  padding: 0;
+}
+.stage-heading .wordmark-name {
+  display: flex;
+  align-items: baseline;
+  gap: 0.08em;
+  font-size: 99px;
+  letter-spacing: -0.06em;
+  padding: 0 9px 0 1px;
+  height: 112px;
+}
+.stage-heading .wordmark-name > span:first-child {
+  transform: rotate(-5deg);
+}
+.stage-heading .wordmark-name > span:last-child {
+  transform: translateY(12px) rotate(3deg);
+  font-size: 0.93em;
+}
+.stage-heading .wordmark-subtitle {
+  width: fit-content;
+  font-size: 25px;
+  letter-spacing: 0.27em;
+  margin: 12px 0 0 5px;
+  padding: 7px 0 8px 13px;
+  border-left: 2px solid var(--red);
+}
+.moonlit-wordmark .title-flourish {
+  width: 244px;
+  height: 33px;
+  margin-top: -3px;
+  color: #5d405e;
+}
+.stage-heading .wordmark-colophon {
+  font-family: var(--font-accent);
+  font-size: 8px;
+  letter-spacing: 0.31em;
+  margin: 1px 0 0 20px;
+}
+.stage-heading .wordmark-invitation {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  letter-spacing: 0.09em;
+  margin-bottom: 7px;
+}
+.stage-heading .wordmark-note {
+  font-family: var(--font-handwriting);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  margin-bottom: 0;
+}
 .title-input,
 .body-input,
 .reading-paper h1,
@@ -77,6 +240,10 @@
   :root {
     --letter-size: 18px;
   }
+  .nav-item > span:last-child {
+    font-size: 10px;
+    letter-spacing: 0.015em;
+  }
   .title-input {
     font-size: 21px;
     letter-spacing: 0;
@@ -86,5 +253,68 @@
   }
   .entry-slip p {
     font-size: 15px;
+  }
+  .stage-heading .moonlit-wordmark {
+    width: 243px;
+    margin-top: 14px;
+    margin-bottom: 11px;
+  }
+  .stage-heading .wordmark-name {
+    font-size: 77px;
+    height: 87px;
+  }
+  .stage-heading .wordmark-subtitle {
+    font-size: 20px;
+    margin-top: 10px;
+    padding-block: 4px;
+  }
+  .moonlit-wordmark .title-flourish {
+    width: 209px;
+    height: 24px;
+  }
+  .stage-heading .wordmark-colophon {
+    font-size: 7px;
+    letter-spacing: 0.28em;
+    margin-top: 3px;
+  }
+  .stage-heading .wordmark-invitation {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .stage-heading .wordmark-note {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .title-caption,
+  .scene-title--theatre .title-caption {
+    font-size: 13px;
+    letter-spacing: 0.3em;
+  }
+  .scene-title--cabinet {
+    padding-left: 13px;
+  }
+  .scene-title h1 {
+    letter-spacing: 0.04em;
+  }
+  .keeper-lines blockquote {
+    font-size: 20px;
+  }
+}
+@media (min-width: 761px) and (max-width: 1200px) {
+  .stage-heading .wordmark-name {
+    font-size: 82px;
+    height: 94px;
+  }
+  .stage-heading .moonlit-wordmark {
+    width: 228px;
+  }
+  .stage-heading .wordmark-subtitle {
+    font-size: 22px;
+  }
+  .moonlit-wordmark .title-flourish {
+    width: 222px;
+  }
+  .stage-heading .wordmark-invitation {
+    font-size: 16px;
   }
 }

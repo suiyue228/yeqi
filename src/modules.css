@@ -61,8 +61,7 @@
 }
 .almanac-title > span {
   font:
-    43px Georgia,
-    serif;
+    43px var(--font-accent);
   color: #49306f;
 }
 .almanac-title h2 {
@@ -98,8 +97,7 @@
   border: 1px solid #92735f33;
   color: #806274;
   font:
-    18px Georgia,
-    serif;
+    18px var(--font-accent);
 }
 .calendar-grid button small {
   font-size: 12px;
@@ -232,8 +230,7 @@
 }
 .draft-fragment time {
   font:
-    10px Georgia,
-    serif;
+    10px var(--font-accent);
   color: #765c70;
 }
 .draft-fragment h3 {

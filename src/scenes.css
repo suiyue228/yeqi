@@ -126,8 +126,7 @@
   align-items: center;
   gap: 13px;
   font:
-    8px Georgia,
-    var(--serif);
+    8px var(--font-accent), var(--font-heading);
   letter-spacing: 2px;
   color: #d8bce8;
   background: #30204c;
@@ -258,8 +257,7 @@
   justify-content: center;
   gap: 10px;
   font:
-    17px Georgia,
-    serif;
+    17px var(--font-accent);
   color: #92735f;
   line-height: 1.2;
 }
@@ -299,8 +297,7 @@
   color: #bfa6be;
   letter-spacing: 3px;
   font:
-    8px Georgia,
-    var(--serif);
+    8px var(--font-accent), var(--font-heading);
 }
 .collection-ribbon i {
   font-style: normal;
@@ -351,8 +348,7 @@
   color: #f1dfbf;
   padding: 6px 9px;
   font:
-    8px Georgia,
-    serif;
+    8px var(--font-accent);
   letter-spacing: 1.5px;
   margin-bottom: 15px;
 }
@@ -463,8 +459,7 @@
   outline: 1px solid #92735f;
   outline-offset: 4px;
   font:
-    25px Georgia,
-    serif;
+    25px var(--font-accent);
   width: 42px;
   height: 42px;
   text-align: center;
@@ -504,8 +499,7 @@
 }
 .mood-astrolabe span {
   font:
-    26px Georgia,
-    serif;
+    26px var(--font-accent);
   color: var(--purple);
   transition: transform 0.5s;
 }
@@ -600,8 +594,7 @@
 }
 .cabinet-nameplate small {
   font:
-    8px Georgia,
-    serif;
+    8px var(--font-accent);
   letter-spacing: 2px;
   color: #c8b3c7;
 }
@@ -827,8 +820,7 @@
   display: block;
   text-align: center;
   font:
-    8px Georgia,
-    serif;
+    8px var(--font-accent);
   color: #bfa6bf;
   letter-spacing: 3px;
   margin-top: 14px;
@@ -1003,8 +995,7 @@
   position: absolute;
   top: 48%;
   font:
-    35px Georgia,
-    serif;
+    35px var(--font-accent);
   color: var(--star);
 }
 .ritual-wing-left:after {
@@ -1031,16 +1022,14 @@
 .ritual-emblem > span {
   display: block;
   font:
-    12px Georgia,
-    serif;
+    12px var(--font-accent);
   letter-spacing: 4px;
   color: var(--star);
 }
 .ritual-emblem > i {
   display: block;
   font:
-    65px Georgia,
-    serif;
+    65px var(--font-accent);
   font-style: normal;
   color: var(--star);
   margin: 16px auto;
@@ -1060,8 +1049,7 @@
 }
 .ritual-emblem small {
   font:
-    8px Georgia,
-    serif;
+    8px var(--font-accent);
   letter-spacing: 3px;
   color: var(--lilac);
 }

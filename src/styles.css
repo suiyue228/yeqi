@@ -144,13 +144,13 @@ p {
   letter-spacing: 4px;
 }
 .brand-moon {
-  font-family: Georgia, serif;
+  font-family: var(--font-accent);
   color: var(--star);
   font-size: 49px;
   line-height: 1;
 }
 .brand small {
-  font-family: Georgia, serif;
+  font-family: var(--font-accent);
   font-size: 9px;
   letter-spacing: 5px;
   color: var(--lilac);
@@ -185,7 +185,7 @@ p {
   align-self: center;
   color: #8b768c;
   font-size: 9px;
-  font-family: Georgia, serif;
+  font-family: var(--font-accent);
 }
 .nav-item > span:nth-child(2) {
   font-size: 23px;
@@ -275,7 +275,7 @@ p {
   gap: 20px;
 }
 .world-footer > span:last-child {
-  font-family: Georgia, var(--serif);
+  font-family: var(--font-accent), var(--font-heading);
 }
 .world-footer > span:last-child span {
   margin: 0 12px;
@@ -311,7 +311,7 @@ p {
   width: 320px;
 }
 .eyebrow {
-  font-family: Georgia, var(--serif);
+  font-family: var(--font-accent), var(--font-heading);
   font-size: 9px;
   letter-spacing: 2.6px;
   color: var(--purple);
@@ -453,8 +453,7 @@ p {
 }
 .micro {
   font:
-    8px Georgia,
-    serif;
+    8px var(--font-accent);
   letter-spacing: 2px;
   display: block;
   text-align: center;
@@ -465,7 +464,7 @@ p {
   margin-top: 27px;
   padding-top: 19px;
   text-align: center;
-  font-family: Georgia, serif;
+  font-family: var(--font-accent);
   font-size: 14px;
   letter-spacing: 1px;
 }
@@ -492,8 +491,7 @@ p {
 }
 .night-index dd {
   font:
-    28px Georgia,
-    serif;
+    28px var(--font-accent);
   margin: 0;
 }
 .night-index dd small {
@@ -585,7 +583,7 @@ p {
   font-size: 50px;
   color: var(--purple);
   transform: rotate(-12deg);
-  font-family: Georgia, serif;
+  font-family: var(--font-accent);
   line-height: 1;
 }
 .home-empty h3 {
@@ -736,8 +734,7 @@ p {
   justify-content: space-between;
   color: #8d7069;
   font:
-    9px Georgia,
-    var(--serif);
+    9px var(--font-accent), var(--font-heading);
   letter-spacing: 2px;
   padding-bottom: 20px;
   border-bottom: 1px solid #d0bdae;
@@ -968,8 +965,7 @@ textarea::placeholder {
 }
 .search-field > span:not(.sr-only) {
   font:
-    32px Georgia,
-    serif;
+    32px var(--font-accent);
   color: var(--purple);
 }
 .search-field input {
@@ -1055,8 +1051,7 @@ textarea::placeholder {
 .full-empty > span {
   display: block;
   font:
-    65px Georgia,
-    serif;
+    65px var(--font-accent);
   color: var(--purple);
   margin-bottom: 20px;
 }
@@ -1112,8 +1107,7 @@ textarea::placeholder {
 }
 .reader-divider {
   font:
-    14px Georgia,
-    serif;
+    14px var(--font-accent);
   color: #947886;
   letter-spacing: 6px;
   display: block;
@@ -1155,8 +1149,7 @@ textarea::placeholder {
 }
 .reader-foot > span:last-child {
   font:
-    35px Georgia,
-    serif;
+    35px var(--font-accent);
   color: var(--purple);
 }
 .reader-actions {
@@ -1281,8 +1274,7 @@ textarea::placeholder {
   display: block;
   color: var(--purple);
   font:
-    40px Georgia,
-    serif;
+    40px var(--font-accent);
   text-align: center;
 }
 .confirm-dialog h2 {

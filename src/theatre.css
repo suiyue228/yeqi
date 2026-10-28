@@ -33,8 +33,7 @@
 .theatre-titleplate small {
   display: block;
   font:
-    7px Georgia,
-    serif;
+    7px var(--font-accent);
   letter-spacing: 2px;
   color: #baa4bd;
   margin-top: 7px;
@@ -140,8 +139,7 @@
 }
 .door-pane {
   font:
-    55px Georgia,
-    serif;
+    55px var(--font-accent);
   color: #d8bce8;
   display: block;
   line-height: 1.4;

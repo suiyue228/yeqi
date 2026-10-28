@@ -5,6 +5,7 @@ import { filterEntries } from "../lib/entries";
 import { EntrySlip } from "../components/EntrySlip";
 import { CabinetCrest } from "../components/SceneArt";
 import { audio } from "../lib/audio";
+import { SceneTitle } from "../components/TitleArt";
 export function Archive({
   entries,
   navigate,
@@ -41,9 +42,11 @@ export function Archive({
       <div className="page-intro archive-intro">
         <div>
           <span className="eyebrow">CHAPTER III · 那些被月光收藏的日子</span>
-          <h1 id="page-title" tabIndex={-1}>
-            记忆，皆有回音。
-          </h1>
+          <SceneTitle
+            kind="cabinet"
+            title="记忆，皆有回音。"
+            caption="记忆档案馆"
+          />
           <p>不必急着向前。偶尔，也翻翻从前的自己。</p>
         </div>
         <CabinetCrest />

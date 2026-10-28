@@ -90,6 +90,7 @@ export function Theatre({
   return (
     <div className="page module-page theatre-page">
       <RoomHeader
+        titleArt="theatre"
         chapter="THE THEATRE OF FOLDED NIGHT · 纸艺小剧场"
         title="月下，有人替微光守夜。"
         intro="一座可以轻轻拨动的纸景。每一层剪影，都为你的停留留出一点深度。"

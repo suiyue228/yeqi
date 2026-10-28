@@ -4,6 +4,7 @@ import { filterEntries, formatDate } from "../lib/entries";
 import { StageArt } from "../components/StageArt";
 import { EntrySlip } from "../components/EntrySlip";
 import { MoonPhases, TheaterFrame } from "../components/SceneArt";
+import { MoonlitWordmark } from "../components/TitleArt";
 export function Home({
   entries,
   navigate,
@@ -28,16 +29,9 @@ export function Home({
         </div>
         <div className="stage-heading">
           <span className="eyebrow">ACT I · 月影深处，门为你留</span>
-          <h1 id="page-title" tabIndex={-1}>
-            今夜，
-            <br />
-            让心事<span>有处栖息。</span>
-          </h1>
-          <p>
-            那些无处安放的话，
-            <br />
-            月亮会替你好好收藏。
-          </p>
+          <MoonlitWordmark />
+          <p className="wordmark-invitation">今夜，让心事有处栖息。</p>
+          <p className="wordmark-note">月亮会替你，好好收藏。</p>
         </div>
         <div className="art-window">
           <StageArt />

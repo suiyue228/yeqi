@@ -27,8 +27,7 @@
 }
 .atlas-moon {
   font:
-    90px Georgia,
-    serif;
+    90px var(--font-accent);
   color: #f3d978;
 }
 .atlas-window {
@@ -54,8 +53,7 @@
 }
 .atlas-window small {
   font:
-    9px Georgia,
-    serif;
+    9px var(--font-accent);
   letter-spacing: 3px;
   line-height: 2.2;
   color: #c5a8cb;
@@ -97,8 +95,7 @@
 }
 .room-number {
   font:
-    10px Georgia,
-    serif;
+    10px var(--font-accent);
   color: #b196a9;
 }
 .room-icon {
