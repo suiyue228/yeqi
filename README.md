@@ -2,9 +2,11 @@
 
 > 当前统一任务书为 docs/MASTER_TASK.md，阶段执行索引为 docs/EXECUTION_PLAN.md。阶段0—6已完成实现与本机验收；具体审美待用户验收，跨浏览器与人工听检限制见 PROGRESS.md。
 
+本次字体专项原文为docs/TYPE_TASK.md，已完成中文字体分层、手写信笺与少量专属题字；最新结果以PROGRESS顶部为准。
+
 私人、本地优先的心情与日常记录网站。把情绪、梦境和生活碎片写成封存给月亮的梦笺。原创黑色月拱门、柔粉纸幕与片尾式纵向索引；书写、档案和阅读各有独立场景。
 
-技术栈：React 19、TypeScript 5.9、Vite 7、原生 CSS、SVG、localStorage。运行时只依赖 React 和 React DOM；不需要后端、账号、外部字体或图片 API。参考截图没有进入代码或公开资源。
+技术栈：React 19、TypeScript 5.9、Vite 7、原生 CSS、SVG、localStorage。运行时只依赖 React 和 React DOM；不需要后端、账号、外部字体服务或图片 API。许可字体随站保存；参考截图没有进入代码或公开资源。
 
 ## 安装与运行
 
@@ -17,7 +19,7 @@
 .\scripts\project.ps1 dev
 ```
 
-脚本寻找系统 pnpm 或 Codex 随附的 pnpm，不修改全局配置。打开终端打印的地址，通常是 http://127.0.0.1:5173，看到月拱门与「今夜，让心事有处栖息」即成功。按 Ctrl+C 停止服务不会清空日记。
+脚本寻找系统 pnpm 或 Codex 随附的 pnpm，不修改全局配置。打开终端打印的地址，通常是 http://127.0.0.1:5173，看到月拱门、「夜栖 · 月下树洞」题签与「今夜，让心事有处栖息」即成功。按 Ctrl+C 停止服务不会清空日记。
 
 常规环境等价命令：
 
@@ -73,6 +75,18 @@ PowerShell 检查与构建：
 
 首页星盘图形、蜡烛、花饰和档案拉手是装饰；可用入口都有明确文字。剧场中的星月、人物、书、抽屉和纸门是实际按钮。星盘不执行占卜，回响只随机读取真实记录。
 
+## 字体与手写信笺
+
+场景标题与目录使用朱雀仿宋v0.212，信笺使用小赖v3.126；两者均来自作者官方仓库并按SIL OFL1.1随站嵌入，详情、版权与完整许可在public/fonts/README.md及OFL文件。朱雀为上游技术预览，本项目仅用于已检查的固定界面字，不充当任意内容的完整字库。普通按钮、搜索筛选、日期输入与说明继续使用易读的设备字体；英文辅字用设备Georgia等。不要删除字体许可或把字体说成本项目原创。
+
+首页“夜栖”是可选择的真实文字与原创枝线组合；档案采用书册式题字，小剧场采用剧院招牌式题字。所有标题仍能聚焦；不依赖文字图片，不影响复制或无障碍名称。
+
+标题与正文输入、占位、详情、摘要、草稿预览统一手写风格；正文桌面19px/手机18px、2.05行高，保留段落空行并限制阅读行宽。保存/刷新/再编辑的内容与字体角色一致。普通标签和操作不会一并变成手写体。
+
+字体在public/fonts，fonts.css按unicode-range加载WOFF2，typography.css统一文字层级，styles.css定义五个font变量。展示字库3片约204KB，手写92片共约12.71MB，保留原44871个Unicode映射；**整套体积不等于一次下载量**：本机冷首页读取6片366,036字节，示例写作累计555,268字节，罕见字按需补片，缓存切页复用。字体失败或尚未读完时先显示系统回退字，不锁住输入，不连接第三方字体站或上传文字。
+
+日常安装/启动/构建无需额外工具。只有维护字体时才需要Python、fontTools/brotli及对应官方原TTF，用scripts/build-fonts.py重建子集和校验清单。新固定标题应重新核对展示字符；来源、复现命令与SHA在public/fonts/README.md。字体未覆盖的扩展字或emoji由设备字库回退，不保证所有Unicode字符都在自带字体中。
+
 ## 音乐与音效
 
 背景改用Scott Buckley《Sleep》的官方Piano Only钢琴录音（CC BY 4.0），替代持续低频音床。选曲依据是作曲者对梦境钢琴的说明，尚未人工听检。音景设置显示作品/作者/许可与处理说明；来源和文件SHA256见public/audio/README.md。MP3随站保存，约7.38MB，运行不连接外部音频站点。不要删除署名或把录音说成本项目原创演奏。
@@ -106,16 +120,20 @@ PowerShell 检查与构建：
 │   ├── MASTER_TASK.md           用户统一总任务书原文
 │   ├── EXECUTION_PLAN.md        阶段清单、状态、实施边界
 │   ├── AUDIO_TASK.md            本轮音频专项A—E范围、状态与验收边界
+│   ├── TYPE_TASK.md             字体/艺术字专项用户任务原文
 │   ├── DESIGN_SPEC.md           配色、构图、原创性、响应式、待确认决策
 │   └── INTERACTION_SPEC.md      页面关系、数据、流程、异常和无障碍
 ├── public/moon.svg              原创月亮 favicon
 ├── public/audio/                许可钢琴MP3与README署名/许可/校验说明
+├── public/fonts/                同源WOFF2分片、OFL许可、来源与SHA清单
 ├── src/
 │   ├── main.tsx                 React 启动入口
 │   ├── vite-env.d.ts            Vite客户端/热更新类型
 │   ├── App.tsx                  页面组装、导航、全局反馈
 │   ├── types.ts                 Entry 类型和心情定义
 │   ├── styles.css               CSS 变量、布局、动画、响应式
+│   ├── fonts.css                生成的字体声明与Unicode按需范围
+│   ├── typography.css           文字五角色、专属题字、手写与移动排版
 │   ├── scenes.css               场景增量样式与仪式过渡
 │   ├── ritual.css               慢速刺绣帷幕
 │   ├── audio.css                音景控制面板
@@ -131,6 +149,7 @@ PowerShell 检查与构建：
 │   │   ├── RitualTransition.tsx 五类过渡的显示层
 │   │   ├── AudioControls.tsx    音景开关/音量/恢复
 │   │   ├── RoomHeader.tsx       独立模块标题与地图返回
+│   │   ├── TitleArt.tsx         真实中文题字与原创SVG饰线
 │   │   └── PaperTheatreArt.tsx  原创纸窗/树影/守灯人/书本
 │   ├── pages/                   Home、Editor、Archive、Reader、Privacy、Rooms、
 │   │                            Calendar、Drafts、Wishes、Collection、Theatre
@@ -138,9 +157,10 @@ PowerShell 检查与构建：
 │   └── lib/                     entries/storage、workspace及其数据测试，
 │                                audio控制/musicTrack许可录音及循环/
 │                                soundDesign交互音色、ritual时序、rooms目录
-├── tests/                       app/ritual/audio/rooms/modules/theatre/quality
-│                                核心流程、真实音频实例、模块、响应式与异常
+├── tests/                       app/ritual/audio/rooms/modules/theatre/quality/typography
+│                                核心流程、音频、实际字体、模块、响应式与异常
 ├── scripts/project.ps1          Windows 安装/运行/验证兼容入口
+├── scripts/build-fonts.py        可选字体维护工具，日常构建无需运行
 ├── index.html                  页面元信息和挂载点
 ├── package.json                依赖、命令与环境要求
 ├── pnpm-lock.yaml              锁定真实依赖，必须入库
@@ -215,6 +235,10 @@ git show HEAD:src/App.tsx
 - 浏览器测试找不到 Edge：安装 Playwright Chromium 并按上方设置 PLAYWRIGHT_CHANNEL。
 
 ## 验证范围与当前限制
+
+2026-10-28字体专项：14项数据测试、39项完整Edge浏览器回归、严格类型/构建通过；末次手机标题断行后再次构建并复测字体/质量8项。覆盖真实中文字体使用、编辑/阅读/摘要一致、字体故障回退、切页缓存、360px长信、原有CRUD/检索/备份/存储/音频/过渡；六档宽度11路由无横向溢出。开发最终24张桌面/手机截图、生产创建/刷新恢复与字体200/304缓存检查通过，无外部请求或控制台错误。延迟字体时文本/光标/焦点未改变，本机冷首页字体CLS=0；不把一次本机测量当作弱网或全设备保证。
+
+字体的具体审美仍待用户体验；未检验真实iOS/Android、Safari/Firefox、实际中文IME或屏幕阅读器。下方音频专项结果作为历史保留，配乐和星铃本轮没有调音。
 
 最近的小铃铛定向修订：14项数据测试、12项音景/剧场浏览器回归和构建通过，补查铃声主共振范围与更快尾音衰减；未重跑全站35项或生产预览，也未人工试听。下段为前一轮专项整体验收记录。
 
