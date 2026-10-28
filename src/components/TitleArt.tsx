@@ -71,12 +71,20 @@ export function SceneTitle({
   kind: "cabinet" | "theatre";
   caption: string;
 }) {
+  const divider = kind === "cabinet" ? title.indexOf("，") + 1 : 0;
   return (
     <div className={`scene-title scene-title--${kind}`}>
       <span className="title-caption">{caption}</span>
       <h1 id="page-title" tabIndex={-1}>
         <span className="title-initial">{title.slice(0, 1)}</span>
-        {title.slice(1)}
+        {divider ? (
+          <>
+            {title.slice(1, divider)}
+            <span className="title-tail">{title.slice(divider)}</span>
+          </>
+        ) : (
+          title.slice(1)
+        )}
       </h1>
       <TitleFlourish kind={kind === "cabinet" ? "binding" : "valance"} />
     </div>

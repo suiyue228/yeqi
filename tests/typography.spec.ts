@@ -96,25 +96,54 @@ test("字体读取失败时仍能输入和保存，中英文内容完整", async
 });
 
 test("专属标题使用真实中文字体，首屏按需加载且切页复用", async ({ page }) => {
-  const fontRequests: string[] = [], external: string[] = [];
-  page.on("request", r => {
-    if (r.url().includes("/fonts/") && r.url().endsWith(".woff2")) fontRequests.push(r.url());
+  const fontRequests: string[] = [],
+    external: string[] = [];
+  page.on("request", (r) => {
+    if (r.url().includes("/fonts/") && r.url().endsWith(".woff2"))
+      fontRequests.push(r.url());
     if (!r.url().startsWith("http://127.0.0.1:5173/")) external.push(r.url());
   });
   await page.goto("/");
   await page.evaluate(() => document.fonts.ready);
-  await expect(page.getByRole("heading", { level: 1, name: "夜栖 · 月下树洞" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "夜栖 · 月下树洞" }),
+  ).toBeVisible();
   const real = await platformFonts(page, ".wordmark-name");
-  expect(real.some(f => f.isCustomFont && f.familyName === "Moonlit Display" && f.glyphCount === 2)).toBe(true);
-  const initialBytes = await page.evaluate(() => performance.getEntriesByType("resource").filter(r => r.name.includes("/fonts/")).reduce((sum, r) => sum + (r as PerformanceResourceTiming).encodedBodySize, 0));
+  expect(
+    real.some(
+      (f) =>
+        f.isCustomFont &&
+        f.familyName === "Moonlit Display" &&
+        f.glyphCount === 2,
+    ),
+  ).toBe(true);
+  const initialBytes = await page.evaluate(() =>
+    performance
+      .getEntriesByType("resource")
+      .filter((r) => r.name.includes("/fonts/"))
+      .reduce(
+        (sum, r) => sum + (r as PerformanceResourceTiming).encodedBodySize,
+        0,
+      ),
+  );
   expect(initialBytes).toBeGreaterThan(10000);
   expect(initialBytes).toBeLessThan(800000);
   expect(fontRequests.length).toBeLessThan(10);
-  await page.getByRole("navigation", { name: "主导航" }).getByRole("button", { name: "记忆档案", exact: false }).click();
+  await page
+    .getByRole("navigation", { name: "主导航" })
+    .getByRole("button", { name: "记忆档案", exact: false })
+    .click();
   await page.evaluate(() => document.fonts.ready);
-  expect((await platformFonts(page, ".scene-title h1")).every(f => f.isCustomFont && f.familyName === "Moonlit Display")).toBe(true);
+  expect(
+    (await platformFonts(page, ".scene-title h1")).every(
+      (f) => f.isCustomFont && f.familyName === "Moonlit Display",
+    ),
+  ).toBe(true);
   const count = fontRequests.length;
-  await page.getByRole("navigation", { name: "主导航" }).getByRole("button", { name: "记忆之门", exact: false }).click();
+  await page
+    .getByRole("navigation", { name: "主导航" })
+    .getByRole("button", { name: "记忆之门", exact: false })
+    .click();
   await page.evaluate(() => document.fonts.ready);
   expect(fontRequests.length).toBe(count);
   expect(external).toEqual([]);
@@ -124,13 +153,25 @@ test("窄屏长信输入和阅读不撑宽，标题仍可聚焦", async ({ page 
   await page.setViewportSize({ width: 360, height: 800 });
   await page.goto("/#/write");
   const long = "月光落在窗边，写下一点点温柔。Hello 123，晚安。\n".repeat(200);
-  await page.getByLabel("标题（可选）", { exact: true }).fill("一封慢慢写的长信");
+  await page
+    .getByLabel("标题（可选）", { exact: true })
+    .fill("一封慢慢写的长信");
   await page.getByLabel("心情正文（必填）", { exact: true }).fill(long);
   await page.evaluate(() => document.fonts.ready);
-  expect(await page.locator("#entry-body").evaluate(e => Number.parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(18);
-  await page.getByRole("button", { name: "封存这段记忆", exact: false }).click();
+  expect(
+    await page
+      .locator("#entry-body")
+      .evaluate((e) => Number.parseFloat(getComputedStyle(e).fontSize)),
+  ).toBeGreaterThanOrEqual(18);
+  await page
+    .getByRole("button", { name: "封存这段记忆", exact: false })
+    .click();
   await page.evaluate(() => document.fonts.ready);
   await expect(page.locator(".entry-body")).toHaveText(long.trim());
   await expect(page.locator("#page-title")).toBeFocused();
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
 });

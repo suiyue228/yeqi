@@ -115,7 +115,9 @@ test("校验、未保存离开确认与浏览器返回", async ({ page }) => {
   await page
     .getByRole("button", { name: "放弃修改并离开", exact: true })
     .click();
-  await expect(page.locator("#page-title")).toContainText("今夜");
+  await expect(
+    page.getByRole("heading", { level: 1, name: "夜栖 · 月下树洞" }),
+  ).toBeVisible();
   await page.goto("/#/write");
   await page.getByLabel("心情正文（必填）", { exact: true }).fill("退回也提醒");
   await page.goBack();
