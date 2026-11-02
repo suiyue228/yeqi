@@ -1,5 +1,12 @@
 # 夜栖 · 月下树洞
 
+## 小剧场组件升级（2026-11-03）
+纸艺小剧场的布景、守灯人、门、书、抽屉、信笺及星月现为13项生成图片，统一采用更简洁的紫色剪纸绘本风。三层景深、星月悬点、音效/静音、月相切换、真实计数、草稿续写和旧信回顾保持。标题与按钮名称仍是网页文字。启动后打开 http://127.0.0.1:5173/#/theatre 查看。
+
+资源位于public/art/theatre，普通/高清共26张WebP、618,470字节（约618KB），按尺寸选取，不在首页提前加载；完整提示词、来源、尺寸和SHA见该目录manifest.json与README.md。无需额外运行依赖。更新图片时须保留透明alpha、响应式尺寸和手机height:auto，不能把整座舞台合成不可交互的背景；详见docs/THEATRE_ART_TASK.md。
+
+本轮14项数据、完整41项Edge浏览器回归通过；最后比例与月图清晰度修正后剧场/质量10项及严格构建再次通过。实际检查1440/768/390/360截图、三月相和深浅底透明合成；图片失败时按钮/键盘/草稿入口仍可使用。真实手机、其他浏览器和具体审美仍待体验。下文其他专项保留为历史记录。
+
 ## 本轮图形升级（2026-11-02）
 书写页右上道具、档案馆柜徽、首页/档案/草稿空状态已换为三组同风格生成插画；主体场景和功能保持。public/art下有六张透明WebP（普通/高清各一档，共约166KB），浏览器按尺寸选图，运行不请求外部生图或图库。完整提示词、来源、尺寸和SHA在public/art/manifest.json，维护说明在public/art/README.md；清单和验收见docs/GRAPHICS_UPGRADE.md。无需安装额外运行依赖。心愿瓶候选光晕不符，未采用。
 
@@ -126,10 +133,12 @@ PowerShell 检查与构建：
 │   ├── EXECUTION_PLAN.md        阶段清单、状态、实施边界
 │   ├── AUDIO_TASK.md            本轮音频专项A—E范围、状态与验收边界
 │   ├── TYPE_TASK.md             字体/艺术字专项用户任务原文
+│   ├── THEATRE_ART_TASK.md       剧场13项图片范围、阶段与验收
 │   ├── DESIGN_SPEC.md           配色、构图、原创性、响应式、待确认决策
 │   └── INTERACTION_SPEC.md      页面关系、数据、流程、异常和无障碍
 ├── public/moon.svg              原创月亮 favicon
 ├── public/art/                  透明生成插画、来源/完整提示词与SHA清单
+│   └── theatre/                 剧场13项生成纸艺、26张响应式WebP
 ├── public/audio/                许可钢琴MP3与README署名/许可/校验说明
 ├── public/fonts/                同源WOFF2分片、OFL许可、来源与SHA清单
 ├── src/
@@ -158,14 +167,14 @@ PowerShell 检查与构建：
 │   │   ├── AudioControls.tsx    音景开关/音量/恢复
 │   │   ├── RoomHeader.tsx       独立模块标题与地图返回
 │   │   ├── TitleArt.tsx         真实中文题字与原创SVG饰线
-│   │   └── PaperTheatreArt.tsx  原创纸窗/树影/守灯人/书本
+│   │   └── PaperTheatreArt.tsx  剧场13项生成插画、尺寸和响应式源集
 │   ├── pages/                   Home、Editor、Archive、Reader、Privacy、Rooms、
 │   │                            Calendar、Drafts、Wishes、Collection、Theatre
 │   ├── hooks/                   useEntries、useRoute、useWorkspace
 │   └── lib/                     entries/storage、workspace及其数据测试，
 │                                audio控制/musicTrack许可录音及循环/
 │                                soundDesign交互音色、ritual时序、rooms目录
-├── tests/                       app/ritual/audio/rooms/modules/theatre/quality/typography
+├── tests/                       app/ritual/audio/rooms/modules/theatre/theatre-art/quality/typography
 │                                核心流程、音频、实际字体、模块、响应式与异常
 ├── scripts/project.ps1          Windows 安装/运行/验证兼容入口
 ├── scripts/build-fonts.py        可选字体维护工具，日常构建无需运行

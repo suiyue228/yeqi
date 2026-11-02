@@ -1,0 +1,293 @@
+{
+  "generatedOn": "2026-11-02",
+  "tool": "OpenAI built-in image_gen",
+  "processing": "Pillow: preserve generated alpha; resize scenery to 3:2, contain props without cropping or redrawing; WebP quality88 method6; 1x/2x responsive sizes. No background removal or painted edits.",
+  "assets": [
+    {
+      "name": "backdrop",
+      "transparent": false,
+      "sourceSHA256": "fb36fbdcb9fc038bf36bff06f46cb0a2ee47896dce2e4af69a8cf2dd57b6d989",
+      "files": [
+        {
+          "file": "backdrop-1x.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 19468,
+          "sha256": "9570900a4084d40b9f04d355c503bb16546b402f10e029b2402f24222dbeca64"
+        },
+        {
+          "file": "backdrop-2x.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 76294,
+          "sha256": "aaa8063bb76ed8766c273392fc93548bb9459005377eb3d3677982b8b5650a0a"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. Wide 3:2 landscape scenic back panel, fully opaque and edge-to-edge. One large symmetrical pointed gothic window centered in a muted plum night wall with elegant thin ivory window tracery limited to 3 arcs. The window inside is FLAT dusty lavender #76628D, EMPTY upper middle area with NO MOON or stars, to overlay a separate interactive moon later. Window spans x=20%..80%, top=8%, bottom=83%. Two broad soft-edged flat mauve paper hills form a simple stage floor along bottom 15%. No curtains, no trees, no characters or props. Quiet spacious moonlit atmosphere, no perspective room walls."
+    },
+    {
+      "name": "woods",
+      "transparent": true,
+      "sourceSHA256": "648cc9c18040dc2907ba6fdee7656a03593f6adba31eaf7bb3f065ece101bb10",
+      "files": [
+        {
+          "file": "woods-1x.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 43650,
+          "sha256": "17d95d791bbcc6692b2c8470c0351876b9df0ecabe54b31f2d3c1890011bbd56"
+        },
+        {
+          "file": "woods-2x.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 103040,
+          "sha256": "293b46adc3c346c16ceda9fe8f16d159c4750742eef18f7f3c0688122f4a7426"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside cutout, no exterior glow or shadow. Wide 3:2 landscape transparent scenery layer. A graceful spare crooked ink-black paper tree silhouette anchored at bottom left and one at bottom right, each occupying outer 20% width; slender plum cut edges, just three curved pointed branches each, sparse small ivory leaves or exactly one small pale mushroom at each foot. Entire central 55% width EMPTY and fully TRANSPARENT; no horizon, ground, sky, moon, curtains, arch or character. Two balanced side wings as ONE transparent scenery overlay, full frame with small safe margin."
+    },
+    {
+      "name": "curtain",
+      "transparent": true,
+      "sourceSHA256": "e4bdaaac20bb339260d2b0e4bdc41081baeacfc8347336ec8e173f06f3832b46",
+      "files": [
+        {
+          "file": "curtain-1x.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 40818,
+          "sha256": "142cde3f0b4fee2ddc8e7267cb1b6203b1a6bc0da5f9d1b42c79979b0eb9a011"
+        },
+        {
+          "file": "curtain-2x.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 103310,
+          "sha256": "ce6c030cefd820059d7e3407d960a2308c4e615337ddb6c4007df7b892e36e9c"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside cutout, no exterior glow or shadow. Wide 3:2 landscape transparent foreground proscenium frame. A flat purple folded-paper scalloped valance across the TOP 12% with only three elegant broad swags, thin dusty-ivory seam. Ink and plum side curtains pulled back along OUTER 7% left/right edges, with simple red ribbon ties. Very low ink paper sill along bottom 3%, one tiny ivory four-petal paper flower at each lower corner. At least central x12%..88% y18%..94% entirely EMPTY and TRANSPARENT, no backdrop, sky, trees, moon, characters, props or extra borders. Front-facing symmetric miniature theatre paper cutout, restrained simple folded shapes."
+    },
+    {
+      "name": "keeper",
+      "transparent": true,
+      "sourceSHA256": "12e2e76ce7ae1ab5c2028cf4df503243ec26af297da9cbf5f835ab8b87a7cf41",
+      "files": [
+        {
+          "file": "keeper-1x.webp",
+          "width": 256,
+          "height": 448,
+          "bytes": 17678,
+          "sha256": "3a8f625a64865a0dfc8ee2332a4a40d9b3a735a7819c90509d9bd4a18e96411f"
+        },
+        {
+          "file": "keeper-2x.webp",
+          "width": 512,
+          "height": 896,
+          "bytes": 41110,
+          "sha256": "9792e3fb756095fd99ef4478cf0c46c8993b80899581cf47ecce830973c85622"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside cutout, no exterior glow or shadow. Portrait 2:3 full-body paper puppet of an ORIGINAL lantern-headed night keeper. Their head is a small ivory faceted six-sided folded-paper lantern (NOT a human face or animal), exactly two tiny gently closed ink eyelids, no mouth, no hair, no hat or crown. Short elegant asymmetric purple cloak with 3 broad flat fold planes, small ivory collar, ONE tiny red diamond clasp, one thin lilac hem. Small black boots, relaxed gentle pose. Left hand holds a small muted-gold old key and right hand holds one simple blank pale-pink square letter. Full silhouette fills central 82% with transparent safe margins, all feet/arms included. Not scary, refined yet very simple, no patterned fabric, no gold embroidery, no scenery or standing platform."
+    },
+    {
+      "name": "door",
+      "transparent": true,
+      "sourceSHA256": "d92429754c7774c782d776cfcf2359891a244110ae2322bed59de1316b4edc6a",
+      "files": [
+        {
+          "file": "door-1x.webp",
+          "width": 192,
+          "height": 320,
+          "bytes": 7838,
+          "sha256": "c96212095241e7d337be95eb4be0036a27989d1b0c818e808b70827d15d8ca7a"
+        },
+        {
+          "file": "door-2x.webp",
+          "width": 384,
+          "height": 640,
+          "bytes": 18968,
+          "sha256": "e2e3499eab4937db27df4e8606d1b5f368234142b4fda76a017e87a0e885f58a"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside the subject; no external glow, shadows or background. Centered clean silhouette with 8% safe transparent margin. Portrait 2:3. One front-facing tall narrow arched purple paper door with an elegant pointed gothic crown. Three simple fold planes, thin ivory inner arch, a single small muted-gold crescent medallion and a tiny old keyhole. Clean quiet dark fairytale entrance; no walls, steps, plants, extra ornaments or scenery."
+    },
+    {
+      "name": "book",
+      "transparent": true,
+      "sourceSHA256": "c15b86fe76abb56cc69317270afde5b08dfd9791659b1f8dc981b3f804fdc1ac",
+      "files": [
+        {
+          "file": "book-1x.webp",
+          "width": 256,
+          "height": 160,
+          "bytes": 9512,
+          "sha256": "2218e5f90895224fb48c997600af7cf6a458ee44b4cf8ea5bc8b79e53cec9444"
+        },
+        {
+          "file": "book-2x.webp",
+          "width": 512,
+          "height": 320,
+          "bytes": 24516,
+          "sha256": "3ae56197a254aa6b4964788c2921f90a6d4aced055ea60aef8789cbf76679ade"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside the subject; no external glow, shadows or background. Centered clean silhouette with 8% safe transparent margin. Landscape 3:2. One open old paper journal, slightly asymmetric front-three-quarter angle, ivory blank pages with just three short fine ink strokes per page (not legible text), purple cover, tiny gold crescent in bottom margin, one slim vermilion ribbon bookmark. Clean elegant paper folds; no pen, stand, other props or scenery."
+    },
+    {
+      "name": "drawer",
+      "transparent": true,
+      "sourceSHA256": "86b3444689dc853984815c87de4dcf2dbd2a87b94a0b5b92be49dc2ec7d5e865",
+      "files": [
+        {
+          "file": "drawer-1x.webp",
+          "width": 256,
+          "height": 160,
+          "bytes": 4608,
+          "sha256": "95a720d37b0bc5c508aa3547f5341984b01c7c4515ddaf27013ddc0dd2249745"
+        },
+        {
+          "file": "drawer-2x.webp",
+          "width": 512,
+          "height": 320,
+          "bytes": 10718,
+          "sha256": "5c32866e9fac8d5ce8b29dda9b89d93f1f6c06e7917a3abccf138121640dfa3d"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside the subject; no external glow, shadows or background. Centered clean silhouette with 8% safe transparent margin. Landscape 3:2. One small closed paper archive drawer box, front-facing with a very slight view of top, broad matte muted mauve front, purple side panel, thin ivory inset line, a single small old-gold curved pull at center. NO text or label lettering, no paper sticking out, no extra drawers, no ornament except one tiny crescent near corner. Simple and clean."
+    },
+    {
+      "name": "letter",
+      "transparent": true,
+      "sourceSHA256": "711c1f8ad29fcff5bc366fb6bd3ecbbdaf28a4c77cb5f9c72de30a3e0be84b1a",
+      "files": [
+        {
+          "file": "letter-1x.webp",
+          "width": 192,
+          "height": 128,
+          "bytes": 5806,
+          "sha256": "18f5df6c1482cf9dd2f48a60649e3e30478410355fdffc18a7327fed2584e042"
+        },
+        {
+          "file": "letter-2x.webp",
+          "width": 384,
+          "height": 256,
+          "bytes": 13004,
+          "sha256": "e1d7120578bb06522950959212b36ff8ce7645385b3afe84fdf4420806b8e317"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside the subject; no external glow, shadows or background. Centered clean silhouette with 8% safe transparent margin. Landscape 3:2. One small closed ivory envelope, softly irregular paper edge, thin purple fold lines, exactly one tiny vermilion round wax seal embossed with a simple crescent; no lace, flowers, ribbons, handwriting or other objects. Quiet folded-paper keepsake."
+    },
+    {
+      "name": "star-gold",
+      "transparent": true,
+      "sourceSHA256": "99337c6562a13a448ad1f94ce275d1fc66af310171facc4a2eea1b4f419a5892",
+      "files": [
+        {
+          "file": "star-gold-1x.webp",
+          "width": 96,
+          "height": 96,
+          "bytes": 4096,
+          "sha256": "b1f7e74c3d8ee909c238f179b8e5d8aa0da29150e98f7b19f04e5c704a9c5f87"
+        },
+        {
+          "file": "star-gold-2x.webp",
+          "width": 192,
+          "height": 192,
+          "bytes": 8740,
+          "sha256": "b845ee110a69941365491c513ddd3a42366bb65f9785dac527ba8c8a2d019329"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside the subject; no external glow, shadows or background. Centered clean silhouette with 8% safe transparent margin. Square. One hanging-star ornament WITHOUT a cord or suspension loop: clean elegant five-point paper star, five graceful tapered points and only three broad faceted paper fold planes. Matte muted moon-yellow and ivory with a very thin ink/plum edge. No glitter, face, ornaments, extra stars, symbols, glow or cast shadows. Top point centered at top of silhouette."
+    },
+    {
+      "name": "star-lilac",
+      "transparent": true,
+      "sourceSHA256": "7c27cc497db5e7f54a2b38963be460e55aeee5180da2280e9bd34ddd52055359",
+      "files": [
+        {
+          "file": "star-lilac-1x.webp",
+          "width": 96,
+          "height": 96,
+          "bytes": 4370,
+          "sha256": "7735dd254bc4774f853e60e51f3d0ed94141dc7674cc38dd4c59bf2940ca6dff"
+        },
+        {
+          "file": "star-lilac-2x.webp",
+          "width": 192,
+          "height": 192,
+          "bytes": 9316,
+          "sha256": "461aa92fad0c0a9b8910e56c42c49253e8bdc261c4b9e2f36054836b670f7db7"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside the subject; no external glow, shadows or background. Centered clean silhouette with 8% safe transparent margin. Square. One hanging-star ornament WITHOUT a cord or suspension loop: clean elegant five-point paper star, five graceful tapered points and only three broad faceted paper fold planes. Matte dusty lilac and ivory with a very thin ink/plum edge. No glitter, face, ornaments, extra stars, symbols, glow or cast shadows. Top point centered at top of silhouette."
+    },
+    {
+      "name": "moon-crescent",
+      "transparent": true,
+      "sourceSHA256": "755ea83aea990c85610c622364dc69560bcb58d566b04d43190e805d17a50a6b",
+      "files": [
+        {
+          "file": "moon-crescent-1x.webp",
+          "width": 192,
+          "height": 192,
+          "bytes": 6208,
+          "sha256": "8e309e1f57ae03b5c8addd6ee56490a3ba84d55970026df60ab3b057e7bf6974"
+        },
+        {
+          "file": "moon-crescent-2x.webp",
+          "width": 384,
+          "height": 384,
+          "bytes": 13526,
+          "sha256": "0299aa92faabcd97fda0f950d0364129a716d29d3ab575d8e01caad1ed4f7e1d"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside the subject; no external glow, shadows or background. Centered clean silhouette with 8% safe transparent margin. Square. One elegant right-opening crescent moon paper ornament, a clearly readable slender crescent silhouette with clean tapered tips, matte ivory surface and one slim muted-gold offset cut edge. Only one subtle folded paper plane, no face, craters, patterns, holes, loop, cord, stars, glow or shadow. Entire crescent within centered square safe margin."
+    },
+    {
+      "name": "moon-half",
+      "transparent": true,
+      "sourceSHA256": "24d5dbac104d4b34b12c92a74fd96e3d66faa76090377ed32433c5e523c9d2d0",
+      "files": [
+        {
+          "file": "moon-half-1x.webp",
+          "width": 192,
+          "height": 192,
+          "bytes": 3984,
+          "sha256": "8a1d9106d261b1c8d07b922eecf543196a40aeb632df1913c191ae52e3b96198"
+        },
+        {
+          "file": "moon-half-2x.webp",
+          "width": 384,
+          "height": 384,
+          "bytes": 9126,
+          "sha256": "6841f20a187c0b277c3082598d42f68c67b910c5800cedccaaf1491578eebb56"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside the subject; no external glow, shadows or background. Centered clean silhouette with 8% safe transparent margin. Square. One HALF MOON paper ornament: a single clean right half-disk, straight vertical left edge at center and curved right edge. Matte ivory surface with a slim muted-gold cut edge, only one subtle folded plane. No full circle behind it, no crescent, no face, craters, patterns, holes, loop, cord, stars, glow or shadow. Half-moon centered as a whole object within square safe margin."
+    },
+    {
+      "name": "moon-full",
+      "transparent": true,
+      "sourceSHA256": "dda4737154eb5be28c3d0d640e8bb350fe6981668c10638ff6daecc1f87556c3",
+      "files": [
+        {
+          "file": "moon-full-1x.webp",
+          "width": 192,
+          "height": 192,
+          "bytes": 5534,
+          "sha256": "57a97ff5f04406127b86ab581dbec55c73b4c50e566697b9ca106721e8232e9d"
+        },
+        {
+          "file": "moon-full-2x.webp",
+          "width": 384,
+          "height": 384,
+          "bytes": 13232,
+          "sha256": "ca2de7b5833227b7331ab5b0ffb59a3327a98da9dfbd379e132b70a4c6cfc3f0"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside the subject; no external glow, shadows or background. Centered clean silhouette with 8% safe transparent margin. Square. One FULL MOON paper ornament: a clean perfectly round paper disk, matte ivory surface and one slim muted-gold cut edge. One subtle paper fold plane, no crescent cutout, face, craters, patterns, holes, loop, cord, stars, glow or shadow. Centered circle within square safe margin."
+    }
+  ]
+}

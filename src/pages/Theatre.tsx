@@ -9,6 +9,8 @@ import {
   PaperProscenium,
   KeeperArt,
   PaperBook,
+  TheatreImage,
+  HangingMoon,
 } from "../components/PaperTheatreArt";
 import { audio } from "../lib/audio";
 import { STAR_SWING_MS } from "../lib/soundDesign";
@@ -128,9 +130,7 @@ export function Theatre({
                 }
               }}
             >
-              <span className="door-pane" aria-hidden="true">
-                ☾<i />
-              </span>
+              <TheatreImage name="door" />
               <small>记 忆 之 门</small>
             </button>
             <button
@@ -170,12 +170,9 @@ export function Theatre({
                 audio.play("drawer");
               }}
             >
-              <span className="drawer-paper" aria-hidden="true">
-                ✉
-              </span>
-              <span className="mini-drawer-front">
-                <i />未 完 待 续
-              </span>
+              <TheatreImage name="letter" className="drawer-paper" />
+              <TheatreImage name="drawer" className="drawer-body" />
+              <small>未 完 待 续</small>
             </button>
             <div className="paper-layer paper-front">
               <PaperProscenium />
@@ -197,18 +194,9 @@ export function Theatre({
                 }}
               >
                 <span className="hanging-string" />
-                <svg viewBox="0 0 80 80" aria-hidden="true">
-                  <path
-                    d="m40 3 9 24 26 1-20 17 7 27-22-16-22 16 7-27L5 28l26-1Z"
-                    fill={id === "left" ? "#f3d978" : "#d8bce8"}
-                    stroke="#120f18"
-                    strokeWidth="3"
-                  />
-                  <path
-                    d="m40 3 0 53M5 28l50 17m20-17L25 45"
-                    stroke="#92735f"
-                  />
-                </svg>
+                <TheatreImage
+                  name={id === "left" ? "star-gold" : "star-lilac"}
+                />
                 <small>星铃</small>
               </button>
             ))}
@@ -226,44 +214,15 @@ export function Theatre({
               }}
             >
               <span className="hanging-string" />
-              <svg viewBox="0 0 80 80" aria-hidden="true">
-                {phase === 2 ? (
-                  <circle
-                    cx="40"
-                    cy="40"
-                    r="31"
-                    fill="#fff5e9"
-                    stroke="#92735f"
-                    strokeWidth="2"
-                  />
-                ) : phase === 1 ? (
-                  <path
-                    d="M40 9a31 31 0 0 1 0 62Z"
-                    fill="#fff5e9"
-                    stroke="#92735f"
-                    strokeWidth="2"
-                  />
-                ) : (
-                  <path
-                    d="M53 10a32 32 0 1 0 10 52C24 69 12 25 53 10Z"
-                    fill="#fff5e9"
-                    stroke="#92735f"
-                    strokeWidth="2"
-                  />
-                )}
-              </svg>
+              <HangingMoon phase={phase} />
               <small>{["残月", "半月", "满月"][phase]}</small>
             </button>
           </div>
         </div>
         <div className="theatre-footlights" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
+          {Array.from({ length: 7 }, (_, i) => (
+            <TheatreImage key={i} name="star-gold" />
+          ))}
         </div>
       </section>
       <div className="theatre-controls">

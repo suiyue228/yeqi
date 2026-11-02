@@ -32,8 +32,7 @@
 }
 .theatre-titleplate small {
   display: block;
-  font:
-    7px var(--font-accent);
+  font: 7px var(--font-accent);
   letter-spacing: 2px;
   color: #baa4bd;
   margin-top: 7px;
@@ -57,12 +56,47 @@
   transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
   transition: transform 0.25s ease-out;
 }
+.theatre-image {
+  display: block;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  max-width: 100%;
+}
+.paper-layer > .theatre-image {
+  object-fit: fill;
+}
+.paper-sky > .theatre-image.sky-moon {
+  position: absolute;
+  left: 40%;
+  top: 26%;
+  width: 20%;
+  height: 30%;
+  object-fit: contain;
+}
+.paper-sky > .theatre-image:first-child {
+  transition: filter 0.45s;
+}
+.paper-stage[data-phase="1"] .paper-sky > .theatre-image:first-child {
+  filter: brightness(1.07);
+}
+.paper-stage[data-phase="2"] .paper-sky > .theatre-image:first-child {
+  filter: brightness(1.14);
+}
+.paper-keeper > .theatre-image {
+  aspect-ratio: 256 / 448;
+  object-fit: contain;
+}
+.paper-keeper > .theatre-image.lantern-awake {
+  filter: brightness(1.14) drop-shadow(2px 3px 0 #120f1855);
+}
 .paper-layer {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
-.paper-layer > svg {
+.paper-layer > .theatre-image {
   width: 100%;
   height: 100%;
   display: block;
@@ -72,11 +106,11 @@
 }
 .paper-woods {
   transform: translateZ(10px);
-  filter: drop-shadow(5px 6px 0 #92735f) drop-shadow(10px 12px 0 #120f1877);
+  filter: drop-shadow(2px 3px 0 #120f1844);
 }
 .paper-front {
   transform: translateZ(65px) scale(0.94);
-  filter: drop-shadow(3px 5px 0 #92735f) drop-shadow(8px 10px 0 #120f1877);
+  filter: drop-shadow(2px 3px 0 #120f1844);
 }
 .stage-mechanism {
   position: absolute;
@@ -102,15 +136,15 @@
   z-index: 2;
   filter: none;
 }
-.paper-keeper svg {
-  filter: drop-shadow(4px 4px 0 #92735f) drop-shadow(9px 9px 0 #120f1866);
+.paper-keeper > .theatre-image {
+  filter: drop-shadow(2px 3px 0 #120f1855);
   display: block;
   width: 100%;
   transition: transform 0.4s;
   transform-origin: 50% 95%;
 }
-.paper-keeper:hover svg,
-.paper-keeper:focus-visible svg {
+.paper-keeper:hover > .theatre-image,
+.paper-keeper:focus-visible > .theatre-image {
   transform: translateY(-4px) rotate(-1.5deg);
 }
 .paper-keeper small {
@@ -122,42 +156,24 @@
   height: 47%;
   left: 34%;
   bottom: 17%;
-  border: 5px solid #120f18;
-  border-radius: 50% 50% 0 0;
-  background: #30204c;
-  box-shadow:
-    4px 5px 0 #92735f,
-    9px 10px 0 #120f1855;
-  outline: 1px solid #92735f;
-  outline-offset: -10px;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 22px;
+  justify-content: flex-end;
 }
-.door-pane {
-  font:
-    55px var(--font-accent);
-  color: #d8bce8;
-  display: block;
-  line-height: 1.4;
-}
-.door-pane i {
-  display: block;
-  width: 7px;
-  height: 15px;
-  background: #f3d978;
-  clip-path: polygon(0 0, 100% 0, 70% 50%, 90% 100%, 10% 100%, 30% 50%);
-  margin: 10px auto 0;
+.paper-door > .theatre-image {
+  width: 100%;
+  height: calc(100% - 15px);
+  transition: filter 0.3s;
 }
 .paper-door small {
   font-size: 8px;
   letter-spacing: 2px;
+  padding-top: 2px;
 }
-.paper-door:hover {
-  background: #49306f;
+.paper-door:hover > .theatre-image {
+  filter: brightness(1.12);
 }
 .paper-book {
   width: 15%;
@@ -167,63 +183,44 @@
   transform: translateZ(70px) rotate(-7deg);
   filter: none;
 }
-.paper-book > svg {
-  filter: drop-shadow(4px 5px 0 #120f18);
+.paper-book > .theatre-image {
+  filter: drop-shadow(2px 3px 0 #120f1844);
   display: block;
   width: 100%;
   transition: transform 0.3s;
 }
-.paper-book:hover > svg {
+.paper-book:hover > .theatre-image {
   transform: rotate(4deg) translateY(-3px);
 }
 .paper-drawer {
   width: 17%;
   right: 8%;
-  bottom: 8%;
-  height: 78px;
+  bottom: 7%;
+  aspect-ratio: 1.6;
   z-index: 3;
   transform: translateZ(75px) rotate(3deg);
 }
-.mini-drawer-front {
-  display: block;
-  position: absolute;
-  inset: 24px 0 0;
-  background: #92735f;
-  border: 5px solid #120f18;
-  outline: 1px solid #d8bce8;
-  outline-offset: -8px;
-  box-shadow: 5px 7px #120f18;
-  color: #120f18;
-  font-size: 9px;
-  letter-spacing: 2px;
-  padding: 23px 3px 9px;
-}
-.mini-drawer-front i {
-  position: absolute;
-  top: 8px;
-  left: calc(50% - 18px);
-  width: 36px;
-  height: 9px;
-  border: 2px solid #120f18;
-  border-top: 0;
-  border-radius: 0 0 9px 9px;
+.drawer-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 .drawer-paper {
   position: absolute;
-  left: 12%;
-  right: 12%;
-  top: 8px;
-  height: 50px;
-  background: #f3d7df;
-  border: 1px solid #120f18;
-  color: #49306f;
-  font-size: 24px;
-  line-height: 45px;
+  width: 70%;
+  height: 70%;
+  left: 15%;
+  top: -9%;
   transition: transform 0.4s;
   transform-origin: bottom;
+  z-index: 0;
 }
 .drawer-open .drawer-paper {
-  transform: translateY(-30px) rotate(-5deg);
+  transform: translateY(-28px) rotate(-5deg);
+}
+.paper-drawer > small {
+  padding-top: 0;
 }
 .pendant {
   position: absolute;
@@ -256,7 +253,7 @@
   position: absolute;
   width: 1px;
   left: 50%;
-  height: var(--cord);
+  height: calc(var(--cord) + 8px);
   top: 0;
   background: #e6d3b9;
   box-shadow: 1px 0 #120f18;
@@ -272,13 +269,13 @@
   border-radius: 50%;
   border: 1px solid #120f18;
 }
-.pendant svg {
+.pendant > .theatre-image {
   position: absolute;
   top: var(--cord);
   left: 3px;
   width: 68px;
   height: 68px;
-  filter: drop-shadow(3px 3px 0 #92735f) drop-shadow(6px 7px 0 #120f1855);
+  filter: drop-shadow(2px 2px 0 #120f1844);
 }
 .pendant small {
   position: absolute;
@@ -298,7 +295,7 @@
 .pendant:focus-visible {
   outline: 0;
 }
-.pendant:focus-visible svg {
+.pendant:focus-visible > .theatre-image {
   outline: 2px dashed #b83d43;
   outline-offset: 5px;
 }
@@ -314,12 +311,9 @@
   align-items: center;
   padding-top: 6px;
 }
-.theatre-footlights i {
-  width: 6px;
-  height: 6px;
-  background: #f3d978;
-  border: 1px solid #92735f;
-  transform: rotate(45deg);
+.theatre-footlights > .theatre-image {
+  width: 10px;
+  height: 10px;
 }
 .theatre-controls {
   display: flex;
@@ -509,8 +503,8 @@
     transform: translateZ(40px);
     filter: none;
   }
-  .paper-keeper svg {
-    filter: drop-shadow(3px 3px 0 #92735f) drop-shadow(6px 7px 0 #120f1855);
+  .paper-keeper > .theatre-image {
+    filter: drop-shadow(2px 2px 0 #120f1844);
   }
   .paper-keeper small {
     font-size: 8px;
@@ -525,16 +519,9 @@
     border-width: 4px;
     gap: 9px;
   }
-  .door-pane {
-    font-size: 34px;
-  }
   .paper-door small {
     font-size: 6px;
     letter-spacing: 1px;
-  }
-  .door-pane i {
-    width: 6px;
-    height: 13px;
   }
   .paper-book {
     width: 24%;
@@ -551,28 +538,8 @@
     width: 26%;
     right: 5%;
     bottom: 7%;
-    height: 57px;
+    height: auto;
     transform: translateZ(50px) rotate(3deg);
-  }
-  .mini-drawer-front {
-    inset: 16px 0 0;
-    font-size: 7px;
-    letter-spacing: 1px;
-    border-width: 3px;
-    padding-top: 20px;
-    outline-offset: -6px;
-  }
-  .mini-drawer-front i {
-    top: 7px;
-    left: calc(50% - 12px);
-    width: 24px;
-    height: 7px;
-  }
-  .drawer-paper {
-    height: 40px;
-    top: 0;
-    font-size: 20px;
-    line-height: 36px;
   }
   .drawer-open .drawer-paper {
     transform: translateY(-25px) rotate(-5deg);
@@ -582,7 +549,7 @@
     --cord: 76px;
     height: 145px;
   }
-  .pendant svg {
+  .pendant > .theatre-image {
     left: 2px;
     width: 48px;
     height: 48px;
@@ -614,9 +581,9 @@
     height: 13px;
     gap: 15px;
   }
-  .theatre-footlights i {
-    width: 5px;
-    height: 5px;
+  .theatre-footlights > .theatre-image {
+    width: 8px;
+    height: 8px;
   }
   .theatre-controls {
     gap: 12px;
@@ -662,8 +629,21 @@
   .pendant.swaying {
     animation: none !important;
   }
-  .paper-keeper svg,
+  .paper-keeper > .theatre-image,
   .drawer-paper {
     transition: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-door > .theatre-image,
+  .paper-book > .theatre-image,
+  .paper-sky > .theatre-image:first-child {
+    transition: none;
+  }
+  .paper-keeper:hover > .theatre-image,
+  .paper-keeper:focus-visible > .theatre-image,
+  .paper-book:hover > .theatre-image {
+    transform: none;
   }
 }
