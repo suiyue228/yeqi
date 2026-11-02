@@ -45,6 +45,41 @@ test("纸艺图片在桌面和手机加载，三种月相与幕后同步", async
     }
     const keeperImage = await page.locator(".paper-keeper > img").boundingBox();
     expect(keeperImage!.height / keeperImage!.width).toBeCloseTo(448 / 256, 2);
+    // Door remains a substantial, independently operable prop at either width.
+    const stage = await page.locator(".paper-stage").boundingBox();
+    const door = await page.locator(".paper-door").boundingBox();
+    expect(door!.height / stage!.height).toBeGreaterThan(0.4);
+    const moonImage = await page.locator(".sky-moon").boundingBox();
+    expect(moonImage!.width / stage!.width).toBeLessThan(0.2);
+    const planes = await page.evaluate(() => {
+      const depth = (selector: string) =>
+        new DOMMatrix(
+          getComputedStyle(document.querySelector(selector)!).transform,
+        ).m43;
+      return [
+        depth(".night-distance"),
+        depth(".paper-window"),
+        depth(".paper-door"),
+        depth(".paper-front"),
+      ];
+    });
+    expect(planes[0]).toBeLessThan(planes[1]);
+    expect(planes[1]).toBeLessThan(planes[2]);
+    expect(planes[2]).toBeLessThan(planes[3]);
+    // A real opening, not a moon painted over an opaque pane.
+    const apertureAlpha = await page
+      .locator(".paper-window > img")
+      .evaluate((element) => {
+        const image = element as HTMLImageElement;
+        const canvas = document.createElement("canvas");
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+        const context = canvas.getContext("2d")!;
+        context.drawImage(image, 0, 0);
+        return context.getImageData(canvas.width / 2, canvas.height / 2, 1, 1)
+          .data[3];
+      });
+    expect(apertureAlpha).toBe(0);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,

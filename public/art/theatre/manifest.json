@@ -288,6 +288,31 @@
         }
       ],
       "prompt": "Use case: illustration-story. Asset for an existing interactive 2D paper miniature theatre in a private moonlit diary website. ORIGINAL elegant dark fairytale, gothic picture-book cut-paper art. CLEAN SIMPLIFIED graphic shapes, graceful slightly hand-cut curves, large uninterrupted matte color blocks, no more than 2 or 3 fold planes per object, a thin dark outline and one thin pale edge. Refinement through proportions and silhouette, NOT dense ornament. Extremely subtle paper grain only. Palette restricted to ink #120F18, night purple #30204C, plum #49306F, dusty lilac #D8BCE8, ivory #FFF5E9, muted moon yellow #F3D978, old mauve #927B91, tiny red #B83D43. No realistic material, no 3D render, no glossy metal/glass, no ornate engraving, no dense foliage, no flowers covering objects, no gradient or glow or halo, no text, letters, numbers, labels, logos or watermark. Not a UI mockup. TRUE transparent background alpha zero outside the subject; no external glow, shadows or background. Centered clean silhouette with 8% safe transparent margin. Square. One FULL MOON paper ornament: a clean perfectly round paper disk, matte ivory surface and one slim muted-gold cut edge. One subtle paper fold plane, no crescent cutout, face, craters, patterns, holes, loop, cord, stars, glow or shadow. Centered circle within square safe margin."
+    },
+    {
+      "name": "window-cutout",
+      "generatedOn": "2026-11-03",
+      "transparent": true,
+      "sourceSHA256": "52dda9ea96e2288146f9f972c0c0e56692ab6cc82a7a248533cc81e493f778de",
+      "derivedFromSourceSHA256": "fb36fbdcb9fc038bf36bff06f46cb0a2ee47896dce2e4af69a8cf2dd57b6d989",
+      "files": [
+        {
+          "file": "window-cutout-1x.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 36440,
+          "sha256": "e72d3c14d5c396127337fce53e1dad7727d862c4d4cd8b0363fd9ff95ccc4a82"
+        },
+        {
+          "file": "window-cutout-2x.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 93510,
+          "sha256": "eea0583d06d93893afb7386b65ba86ec5732ca8498ce5044ce27e00efefa5268"
+        }
+      ],
+      "prompt": "Use case: precise-object-edit. Edit target: the attached existing ORIGINAL 3:2 purple gothic cut-paper theatre window backdrop. Preserve the same pointed gothic arch, three elegant ivory/lilac tracery arcs, their original positions and restrained flat paper-grain picture-book style. Preserve purple outer wall and the two broad muted mauve rolling paper floor panels along bottom 20%. CHANGE ONLY: cut away ALL lavender filled panes inside the gothic window so every enclosed window opening, including the narrow upper tracery openings, is TRUE alpha-zero TRANSPARENT. They must be genuinely empty holes to reveal a separate distant dark night sky and moon drawn behind this panel by the website. Keep mullions and outer wall opaque, no glass at all. Darken and soften the near-white window trim to dusty pale lilac #BEA8C7, use a slim ink-purple inner recess with at most 2 simple paper edge planes to show cut depth, no intricate detail. Keep wall deep muted purple #30243F, floor mauve #806B89; no new objects. Entire composition and bottom floor shapes must remain aligned with the input, edge-to-edge 3:2. No moon, stars, clouds, character, curtains, text, watermarks, white background or checkerboard. No painted lighting beams, glow, gradients, realistic 3D or thick bevels. All window panes transparent; ONLY the physical wall/frame/floor remain. This is an independent alpha foreground panel in a multi-layer paper theatre, not a flattened scene."
     }
-  ]
+  ],
+  "updatedOn": "2026-11-03"
 }

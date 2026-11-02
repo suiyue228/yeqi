@@ -67,22 +67,62 @@
 .paper-layer > .theatre-image {
   object-fit: fill;
 }
-.paper-sky > .theatre-image.sky-moon {
+.night-distance {
   position: absolute;
-  left: 40%;
-  top: 26%;
-  width: 20%;
-  height: 30%;
+  inset: 0;
+  pointer-events: none;
+  background: #252238;
+  transform: translateZ(-320px) scale(1.3);
+  transition: background-color 0.45s;
+}
+.night-distance::before {
+  content: "";
+  position: absolute;
+  left: 39%;
+  top: 23%;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #d8d3e7;
+  opacity: 0.45;
+  box-shadow:
+    104px -23px #d8d3e7,
+    -33px 103px #d8d3e7,
+    213px 54px #d8d3e7,
+    162px 160px #d8d3e7;
+}
+.night-distance > .theatre-image.sky-moon {
+  position: absolute;
+  left: 50%;
+  top: 23%;
+  width: 11%;
+  height: 17%;
   object-fit: contain;
+  filter: grayscale(1) brightness(1.12);
+  opacity: 0.85;
 }
-.paper-sky > .theatre-image:first-child {
-  transition: filter 0.45s;
+.paper-stage[data-phase="1"] .night-distance {
+  background-color: #2a273f;
 }
-.paper-stage[data-phase="1"] .paper-sky > .theatre-image:first-child {
-  filter: brightness(1.07);
+.paper-stage[data-phase="2"] .night-distance {
+  background-color: #302c46;
 }
-.paper-stage[data-phase="2"] .paper-sky > .theatre-image:first-child {
-  filter: brightness(1.14);
+.paper-floor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translateZ(20px) scale(0.98);
+  filter: drop-shadow(0 -9px 0 #120f1877) drop-shadow(0 -18px 5px #120f1833);
+}
+.paper-floor-cut {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(81% 0 0);
+}
+.paper-floor-cut > .theatre-image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 .paper-keeper > .theatre-image {
   aspect-ratio: 256 / 448;
@@ -101,16 +141,17 @@
   height: 100%;
   display: block;
 }
-.paper-sky {
-  transform: translateZ(-65px) scale(1.13);
+.paper-window {
+  transform: translateZ(-100px) scale(1.09);
+  filter: drop-shadow(4px 7px 0 #120f1899);
 }
 .paper-woods {
-  transform: translateZ(10px);
-  filter: drop-shadow(2px 3px 0 #120f1844);
+  transform: translateZ(-5px) scale(0.96);
+  filter: drop-shadow(6px 8px 0 #120f1880);
 }
 .paper-front {
-  transform: translateZ(65px) scale(0.94);
-  filter: drop-shadow(2px 3px 0 #120f1844);
+  transform: translateZ(115px) scale(0.9);
+  filter: drop-shadow(0 10px 3px #120f18a0);
 }
 .stage-mechanism {
   position: absolute;
@@ -118,7 +159,7 @@
   padding: 0;
   border: 0;
   color: #f3d7df;
-  transform: translateZ(40px);
+  transform: translateZ(60px);
   font-family: var(--serif);
 }
 .stage-mechanism > small {
@@ -152,10 +193,10 @@
   letter-spacing: 2px;
 }
 .paper-door {
-  width: 14%;
-  height: 47%;
-  left: 34%;
-  bottom: 17%;
+  width: 26%;
+  left: 23%;
+  bottom: 11%;
+  transform: translateZ(40px);
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -164,7 +205,8 @@
 }
 .paper-door > .theatre-image {
   width: 100%;
-  height: calc(100% - 15px);
+  height: auto;
+  filter: drop-shadow(6px 5px 0 #120f1899);
   transition: filter 0.3s;
 }
 .paper-door small {
@@ -173,14 +215,14 @@
   padding-top: 2px;
 }
 .paper-door:hover > .theatre-image {
-  filter: brightness(1.12);
+  filter: brightness(1.12) drop-shadow(6px 5px 0 #120f1899);
 }
 .paper-book {
   width: 15%;
   left: 15%;
   bottom: 7%;
   z-index: 3;
-  transform: translateZ(70px) rotate(-7deg);
+  transform: translateZ(90px) rotate(-7deg);
   filter: none;
 }
 .paper-book > .theatre-image {
@@ -198,7 +240,7 @@
   bottom: 7%;
   aspect-ratio: 1.6;
   z-index: 3;
-  transform: translateZ(75px) rotate(3deg);
+  transform: translateZ(95px) rotate(3deg);
 }
 .drawer-body {
   position: relative;
@@ -231,7 +273,8 @@
   padding: 0;
   background: transparent;
   color: #f3d7df;
-  transform: translateZ(100px);
+  --pendant-depth: 140px;
+  transform: translateZ(var(--pendant-depth));
   transform-origin: 50% 0;
   z-index: 4;
   --cord: 105px;
@@ -394,25 +437,25 @@
 }
 @keyframes paper-pendulum {
   0% {
-    transform: translateZ(100px) rotate(0);
+    transform: translateZ(var(--pendant-depth)) rotate(0);
   }
   12% {
-    transform: translateZ(100px) rotate(6deg);
+    transform: translateZ(var(--pendant-depth)) rotate(6deg);
   }
   34% {
-    transform: translateZ(100px) rotate(-3.6deg);
+    transform: translateZ(var(--pendant-depth)) rotate(-3.6deg);
   }
   56% {
-    transform: translateZ(100px) rotate(2deg);
+    transform: translateZ(var(--pendant-depth)) rotate(2deg);
   }
   76% {
-    transform: translateZ(100px) rotate(-0.9deg);
+    transform: translateZ(var(--pendant-depth)) rotate(-0.9deg);
   }
   90% {
-    transform: translateZ(100px) rotate(0.3deg);
+    transform: translateZ(var(--pendant-depth)) rotate(0.3deg);
   }
   100% {
-    transform: translateZ(100px) rotate(0);
+    transform: translateZ(var(--pendant-depth)) rotate(0);
   }
 }
 @media (max-width: 1000px) {
@@ -429,9 +472,8 @@
     left: 52%;
   }
   .paper-door {
-    width: 17%;
-    left: 30%;
-    height: 45%;
+    width: 29%;
+    left: 21%;
   }
   .pendant-left {
     left: 12%;
@@ -487,14 +529,23 @@
     aspect-ratio: auto;
     min-height: 425px;
   }
-  .paper-sky {
-    transform: translateZ(-45px) scale(1.12);
+  .night-distance {
+    transform: translateZ(-230px) scale(1.22);
+  }
+  .night-distance > .theatre-image.sky-moon {
+    left: 45%;
+    top: 28%;
+    width: 17%;
+    height: 12%;
+  }
+  .paper-window {
+    transform: translateZ(-80px) scale(1.08);
   }
   .paper-woods {
-    transform: translateZ(8px) scale(0.96);
+    transform: translateZ(-5px) scale(0.94);
   }
   .paper-front {
-    transform: translateZ(35px) scale(0.95);
+    transform: translateZ(75px) scale(0.94);
   }
   .paper-keeper {
     width: 30%;
@@ -512,12 +563,10 @@
     margin-top: 2px;
   }
   .paper-door {
-    left: 21%;
-    width: 24%;
-    height: 41%;
-    bottom: 21%;
-    border-width: 4px;
-    gap: 9px;
+    left: 10%;
+    width: 45%;
+    bottom: 14%;
+    transform: translateZ(25px);
   }
   .paper-door small {
     font-size: 6px;
@@ -545,6 +594,7 @@
     transform: translateY(-25px) rotate(-5deg);
   }
   .pendant {
+    --pendant-depth: 100px;
     width: 52px;
     --cord: 76px;
     height: 145px;
@@ -638,7 +688,7 @@
 @media (prefers-reduced-motion: reduce) {
   .paper-door > .theatre-image,
   .paper-book > .theatre-image,
-  .paper-sky > .theatre-image:first-child {
+  .night-distance {
     transition: none;
   }
   .paper-keeper:hover > .theatre-image,

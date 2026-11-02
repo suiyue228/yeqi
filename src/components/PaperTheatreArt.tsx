@@ -1,6 +1,7 @@
 /** Generated paper cutouts; interaction remains on the surrounding HTML buttons. */
 const ART = {
   backdrop: [768, 512],
+  "window-cutout": [768, 512],
   woods: [768, 512],
   curtain: [768, 512],
   keeper: [256, 448],
@@ -26,13 +27,13 @@ export function TheatreImage({
   const [width, height] = ART[name];
   const sizes =
     className === "sky-moon"
-      ? "(max-width: 760px) 100px, 260px"
+      ? "(max-width: 760px) 56px, 150px"
       : width === 768
         ? "(max-width: 760px) 100vw, 1200px"
         : name === "keeper"
           ? "(max-width: 760px) 120px, 230px"
           : name === "door"
-            ? "(max-width: 760px) 96px, 180px"
+            ? "(max-width: 760px) 160px, 320px"
             : width === 96 || name.startsWith("moon-")
               ? "(max-width: 760px) 48px, 68px"
               : "(max-width: 760px) 100px, 210px";
@@ -52,11 +53,16 @@ export function TheatreImage({
   );
 }
 export function PaperSky({ phase }: { phase: number }) {
+  return <TheatreImage name={MOONS[phase]} className="sky-moon" />;
+}
+export function PaperWindow() {
+  return <TheatreImage name="window-cutout" />;
+}
+export function PaperFloor() {
   return (
-    <>
+    <div className="paper-floor-cut">
       <TheatreImage name="backdrop" />
-      <TheatreImage name={MOONS[phase]} className="sky-moon" />
-    </>
+    </div>
   );
 }
 export function PaperWoods() {

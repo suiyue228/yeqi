@@ -5,6 +5,8 @@ import type { Draft, Wish } from "../lib/workspace";
 import { RoomHeader } from "../components/RoomHeader";
 import {
   PaperSky,
+  PaperWindow,
+  PaperFloor,
   PaperWoods,
   PaperProscenium,
   KeeperArt,
@@ -112,8 +114,14 @@ export function Theatre({
           onPointerLeave={resetTilt}
         >
           <div className="stage-volume">
-            <div className="paper-layer paper-sky">
+            <div className="night-distance" aria-hidden="true">
               <PaperSky phase={phase} />
+            </div>
+            <div className="paper-layer paper-window">
+              <PaperWindow />
+            </div>
+            <div className="paper-floor" aria-hidden="true">
+              <PaperFloor />
             </div>
             <div className="paper-layer paper-woods">
               <PaperWoods />
