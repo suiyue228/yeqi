@@ -6,6 +6,7 @@ import { EntrySlip } from "../components/EntrySlip";
 import { CabinetCrest } from "../components/SceneArt";
 import { audio } from "../lib/audio";
 import { SceneTitle } from "../components/TitleArt";
+import { DecorativeArt } from "../components/DecorativeArt";
 export function Archive({
   entries,
   navigate,
@@ -155,7 +156,11 @@ export function Archive({
           </div>
         ) : (
           <div className="full-empty">
-            <span aria-hidden="true">{entries.length ? "⌕" : "✉"}</span>
+            {entries.length ? (
+              <span aria-hidden="true">⌕</span>
+            ) : (
+              <DecorativeArt kind="sealed-letter" className="empty-letter" lazy />
+            )}
             <h2>
               {entries.length
                 ? "这条线索，暂时没有回音。"

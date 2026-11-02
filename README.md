@@ -1,5 +1,10 @@
 # 夜栖 · 月下树洞
 
+## 本轮图形升级（2026-11-02）
+书写页右上道具、档案馆柜徽、首页/档案/草稿空状态已换为三组同风格生成插画；主体场景和功能保持。public/art下有六张透明WebP（普通/高清各一档，共约166KB），浏览器按尺寸选图，运行不请求外部生图或图库。完整提示词、来源、尺寸和SHA在public/art/manifest.json，维护说明在public/art/README.md；清单和验收见docs/GRAPHICS_UPGRADE.md。无需安装额外运行依赖。心愿瓶候选光晕不符，未采用。
+
+已运行14项数据测试、39项Edge浏览器回归与严格构建；检查桌面/手机截图、新图深浅背景和加载失败仍能保存。真实手机及其他浏览器未实测。本轮只提交图形相关修改，之前未提交的目录迁移兼容修改保留。
+
 > 当前统一任务书为 docs/MASTER_TASK.md，阶段执行索引为 docs/EXECUTION_PLAN.md。阶段0—6已完成实现与本机验收；具体审美待用户验收，跨浏览器与人工听检限制见 PROGRESS.md。
 
 本次字体专项原文为docs/TYPE_TASK.md，已完成中文字体分层、手写信笺与少量专属题字；最新结果以PROGRESS顶部为准。
@@ -124,6 +129,7 @@ PowerShell 检查与构建：
 │   ├── DESIGN_SPEC.md           配色、构图、原创性、响应式、待确认决策
 │   └── INTERACTION_SPEC.md      页面关系、数据、流程、异常和无障碍
 ├── public/moon.svg              原创月亮 favicon
+├── public/art/                  透明生成插画、来源/完整提示词与SHA清单
 ├── public/audio/                许可钢琴MP3与README署名/许可/校验说明
 ├── public/fonts/                同源WOFF2分片、OFL许可、来源与SHA清单
 ├── src/
@@ -133,6 +139,7 @@ PowerShell 检查与构建：
 │   ├── types.ts                 Entry 类型和心情定义
 │   ├── styles.css               CSS 变量、布局、动画、响应式
 │   ├── fonts.css                生成的字体声明与Unicode按需范围
+│   ├── art.css                  生成图道具/空状态布局与移动尺寸
 │   ├── typography.css           文字五角色、专属题字、手写与移动排版
 │   ├── scenes.css               场景增量样式与仪式过渡
 │   ├── ritual.css               慢速刺绣帷幕
@@ -145,7 +152,8 @@ PowerShell 检查与构建：
 │   │   ├── StageArt.tsx         原创 SVG 舞台
 │   │   ├── EntrySlip.tsx        可打开的梦笺
 │   │   ├── ConfirmDialog.tsx    删除/离开确认与焦点管理
-│   │   ├── SceneArt.tsx         原创场景道具与星盘
+│   │   ├── DecorativeArt.tsx     同源响应式装饰图片
+│   │   ├── SceneArt.tsx         场景道具与星盘
 │   │   ├── RitualTransition.tsx 五类过渡的显示层
 │   │   ├── AudioControls.tsx    音景开关/音量/恢复
 │   │   ├── RoomHeader.tsx       独立模块标题与地图返回

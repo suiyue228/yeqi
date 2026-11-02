@@ -1,0 +1,71 @@
+{
+  "generatedOn": "2026-11-02",
+  "tool": "OpenAI built-in image_gen",
+  "processing": "Pillow 12.3: preserve alpha, contain with 5% safe inset, WebP quality90 method6, no color or content editing.",
+  "assets": [
+    {
+      "name": "writing-relic",
+      "sourceSHA256": "b808750b91cc7a4be1026e34c3e9300c1d8dcb8001007ea8ec164e1eb735098d",
+      "files": [
+        {
+          "file": "writing-relic-2x.webp",
+          "width": 528,
+          "height": 396,
+          "bytes": 63974,
+          "sha256": "242b8f3f5b31dcce1699a2b3d815e4b98b75fa9fdc8363fc5e2109a539004ae3"
+        },
+        {
+          "file": "writing-relic-1x.webp",
+          "width": 264,
+          "height": 198,
+          "bytes": 20714,
+          "sha256": "bda4047c97b46c524f752698fb74c03af4bee6da3ae0ebb07419db6106f562c3"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset type: transparent decorative cutout for an existing Chinese moonlit diary website, not a standalone scene or UI mockup. Original refined gothic fairytale picture-book, flat 2D cut-paper and fine linocut linework, elegant hand-cut irregular contours, restrained delicate ornamental engraving, faint printed-paper grain. Palette strictly ink black #120F18, night purple #30204C, deep purple #49306F, lilac #D8BCE8, ivory #FFF5E9, old bronze #92735F, muted moon gold #F3D978 with tiny vermilion #B83D43 accents. Crisp silhouettes, mostly flat color with minimal tonal variation. No realism, photography, 3D, gradients, neon, glow, cast shadow on background, floating random symbols, letters, text, numbers, watermark, border enclosing the whole image. Genuine transparent background, no checkerboard baked in. Compact readable composition, subject fills about 85% of canvas, everything fully in frame with safe transparent margins. Subject: Landscape 4:3 composition. One small writing-desk still life: an ivory feather quill with delicate engraved vanes seated in a squat purple ink bottle, a slim closed plum-colored journal with moon and botanical embossed cover, and a small ivory candle in an ornate old-bronze holder with a tiny warm flat gold flame. Three objects form one coherent asymmetric silhouette. Medium-detail engraving that remains readable displayed at 240px. No table, room, background, loose excessive ornaments."
+    },
+    {
+      "name": "archive-cabinet",
+      "sourceSHA256": "b856836859ac1e7333059a3928132b83a2dbb9826e483716482dec539c6a69b5",
+      "files": [
+        {
+          "file": "archive-cabinet-2x.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 41346,
+          "sha256": "99c38717b7719e83ea9404b8ff59accd5ca101c4eb1df548e28af8ea7b55342d"
+        },
+        {
+          "file": "archive-cabinet-1x.webp",
+          "width": 180,
+          "height": 180,
+          "bytes": 13576,
+          "sha256": "26433e89faf1d666adcafcd02ce190d44cf8c1cf07e5be0e3ea519bbc643877c"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset type: transparent decorative cutout for an existing Chinese moonlit diary website, not a standalone scene or UI mockup. Original refined gothic fairytale picture-book, flat 2D cut-paper and fine linocut linework, elegant hand-cut irregular contours, restrained delicate ornamental engraving, faint printed-paper grain. Palette strictly ink black #120F18, night purple #30204C, deep purple #49306F, lilac #D8BCE8, ivory #FFF5E9, old bronze #92735F, muted moon gold #F3D978 with tiny vermilion #B83D43 accents. Crisp silhouettes, mostly flat color with minimal tonal variation. No realism, photography, 3D, gradients, neon, glow, cast shadow on background, floating random symbols, letters, text, numbers, watermark, border enclosing the whole image. Genuine transparent background, no checkerboard baked in. Compact readable composition, subject fills about 85% of canvas, everything fully in frame with safe transparent margins. Subject: Nearly square composition. One small frontal gothic secret archive cabinet, ornate pointed-arch crown with crescent inlay, two columns of miniature labeled-but-blank drawers, restrained engraved twig corners, old bronze pulls and ivory inset details on plum/ink flat wood panels. A tiny red wax seal at bottom center. Clearly a cabinet with drawers, not a house or cathedral. Designed readable displayed at 170px, no supporting scenery."
+    },
+    {
+      "name": "sealed-letter",
+      "sourceSHA256": "4a41e84978801bebaa9ab210eac7c5341b0c8c603ce320e26fa242c6868d4e13",
+      "files": [
+        {
+          "file": "sealed-letter-2x.webp",
+          "width": 256,
+          "height": 192,
+          "bytes": 19210,
+          "sha256": "2a71a804221ee94d200877ffcaf7cabdb7b62ff82d907cbfc5d8570982ae6104"
+        },
+        {
+          "file": "sealed-letter-1x.webp",
+          "width": 128,
+          "height": 96,
+          "bytes": 6898,
+          "sha256": "4655e0cf8fa15472d5b44841be6d52899697ca1432345f5d7acdbd58fa0fd4cd"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Asset type: transparent decorative cutout for an existing Chinese moonlit diary website, not a standalone scene or UI mockup. Original refined gothic fairytale picture-book, flat 2D cut-paper and fine linocut linework, elegant hand-cut irregular contours, restrained delicate ornamental engraving, faint printed-paper grain. Palette strictly ink black #120F18, night purple #30204C, deep purple #49306F, lilac #D8BCE8, ivory #FFF5E9, old bronze #92735F, muted moon gold #F3D978 with tiny vermilion #B83D43 accents. Crisp silhouettes, mostly flat color with minimal tonal variation. No realism, photography, 3D, gradients, neon, glow, cast shadow on background, floating random symbols, letters, text, numbers, watermark, border enclosing the whole image. Genuine transparent background, no checkerboard baked in. Compact readable composition, subject fills about 85% of canvas, everything fully in frame with safe transparent margins. Subject: Landscape 4:3 composition. One slightly asymmetric ivory envelope seen front-on with folded triangular flap, fine old-bronze botanical engraving at corners, scalloped lilac lace edge, a small vermilion wax seal embossed with ivory crescent at flap point, and short plum ribbon tails. The envelope reads immediately at 80px, restrained detail with no scene, flowers outside, text or other props."
+    }
+  ],
+  "notSelected": "Wish bottle candidates rejected: persistent exterior halo, keep current SVG."
+}

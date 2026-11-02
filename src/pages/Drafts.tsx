@@ -4,6 +4,7 @@ import { RoomHeader } from "../components/RoomHeader";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { formatDate } from "../lib/entries";
 import { audio } from "../lib/audio";
+import { DecorativeArt } from "../components/DecorativeArt";
 export function Drafts({
   drafts,
   save,
@@ -123,7 +124,7 @@ export function Drafts({
             ))
           ) : (
             <div className="room-empty">
-              <span aria-hidden="true">✉</span>
+              <DecorativeArt kind="sealed-letter" className="empty-letter" lazy />
               <p>
                 匣子还空着。
                 <br />

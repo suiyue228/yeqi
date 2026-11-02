@@ -5,6 +5,7 @@ import { StageArt } from "../components/StageArt";
 import { EntrySlip } from "../components/EntrySlip";
 import { MoonPhases, TheaterFrame } from "../components/SceneArt";
 import { MoonlitWordmark } from "../components/TitleArt";
+import { DecorativeArt } from "../components/DecorativeArt";
 export function Home({
   entries,
   navigate,
@@ -146,7 +147,7 @@ export function Home({
         ) : (
           <div className="home-empty">
             <span className="empty-envelope" aria-hidden="true">
-              ✉
+              <DecorativeArt kind="sealed-letter" lazy />
             </span>
             <div>
               <h3>第一封信，还在等你。</h3>

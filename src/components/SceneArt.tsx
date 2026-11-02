@@ -1,3 +1,4 @@
+import { DecorativeArt } from "./DecorativeArt";
 /** Original scene props, kept decorative so all controls stay in semantic HTML. */
 export function MoonPhases() {
   return (
@@ -67,97 +68,10 @@ export function TheaterFrame() {
   );
 }
 export function DeskRelic() {
-  return (
-    <svg
-      className="desk-relic"
-      viewBox="0 0 300 220"
-      aria-hidden="true"
-      fill="none"
-    >
-      <ellipse cx="165" cy="190" rx="117" ry="12" fill="#120f18" />
-      <path
-        d="m28 179 109-22 111 25-108 24Z"
-        fill="#92735f"
-        stroke="#120f18"
-        strokeWidth="3"
-      />
-      <path
-        d="m33 168 107-19 108 24-108 20Z"
-        fill="#d8bce8"
-        stroke="#120f18"
-        strokeWidth="3"
-      />
-      <path
-        d="m37 173 103 18 103-17m-102 19v10m-84-33 84-14 72 17-72 14Z"
-        stroke="#49306f"
-      />
-      <path
-        d="M181 99h37v65q-18 13-37 0Z"
-        fill="#fff5e9"
-        stroke="#120f18"
-        strokeWidth="3"
-      />
-      <path d="M185 99q5 17 10 3 3-6 7 3t12-6" stroke="#92735f" />
-      <path d="M199 94V75" stroke="#120f18" strokeWidth="3" />
-      <path d="M199 34q-22 26 0 41 21-11 0-41Z" fill="#f3d978" />
-      <path d="M199 51q-9 15 0 22 9-5 0-22Z" fill="#b83d43" />
-      <path d="M166 168h68l-13 12h-41Z" fill="#120f18" />
-      <path
-        d="m86 145 33-5 11 15-1 20-42 1-9-19Z"
-        fill="#120f18"
-        stroke="#92735f"
-      />
-      <ellipse cx="103" cy="144" rx="16" ry="6" fill="#49306f" />
-      <path
-        d="M104 143Q93 76 153 17q9 73-44 109"
-        fill="#f3d7df"
-        stroke="#120f18"
-        strokeWidth="2"
-      />
-      <path
-        d="m104 143 47-121m-37 89-15-15m23-7-16-15m26-9-8-12m-16 72 25-11m-17-11 25-14m-16-7 23-15"
-        stroke="#92735f"
-      />
-      <path
-        d="M245 68v53m-12-17 12 17 12-17m-19 27h14m-11 7h8"
-        stroke="#d8bce8"
-      />
-      <circle cx="245" cy="62" r="9" stroke="#d8bce8" />
-      <path d="m36 65 4 11 12 4-12 4-4 12-4-12-11-4 11-4Z" fill="#d8bce8" />
-    </svg>
-  );
+  return <DecorativeArt kind="writing-relic" className="desk-relic" />;
 }
 export function CabinetCrest() {
-  return (
-    <svg
-      className="cabinet-crest"
-      viewBox="0 0 220 180"
-      aria-hidden="true"
-      fill="none"
-    >
-      <path
-        d="M25 166V62L55 31l22 25 33-44 34 44 22-25 29 31v104Z"
-        fill="#120f18"
-        stroke="#92735f"
-      />
-      <path
-        d="M38 153V68l17-18 22 24 33-44 34 44 22-24 16 18v85Z"
-        stroke="#d8bce8"
-      />
-      <path
-        d="M51 95h118m-118 28h118m-59-48v73"
-        stroke="#49306f"
-        strokeWidth="2"
-      />
-      <circle cx="110" cy="88" r="22" fill="#49306f" stroke="#92735f" />
-      <path d="M116 75a12 12 0 1 0 6 21c-14 2-20-12-6-21Z" fill="#f3d978" />
-      <path d="M102 124v17h17v-7h-8v-10" stroke="#f3d978" strokeWidth="3" />
-      <path
-        d="m23 17 4 11 11 4-11 4-4 11-4-11-11-4 11-4Zm171 8 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"
-        fill="#d8bce8"
-      />
-    </svg>
-  );
+  return <DecorativeArt kind="archive-cabinet" className="cabinet-crest" />;
 }
 export function EchoDial({ empty = false }: { empty?: boolean }) {
   return (
