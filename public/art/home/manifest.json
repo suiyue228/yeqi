@@ -60,25 +60,29 @@
     {
       "name": "gate-boughs",
       "source": {
-        "sha256": "6d73473b5916aeaf46ec67110605a7f57e809460b85e191fe7aabad09a3a40ff",
-        "prompt": "Use case: precise-object-edit. Input image is an exact placement and style reference for a separate registered layer of the same flat handmade paper stage. Output a SQUARE 1:1 image; do not reframe, recenter or zoom any elements. Keep the same screen positions, silhouettes and scale as the reference. Transparent pixels must be genuine zero-alpha where empty, no backdrop color, no checkerboard, no text or marks. Produce only the FOREGROUND layer: two independent small dark plum hand-cut thorn branches framing the original composition at the far left and far right, with the few ivory blossoms where each branch meets its base. Match the reference left taller, right shorter, with narrow clean curves and very few forks. Branches should read as paper shapes. Branches and flowers must remain as separate disconnected silhouettes on opposite sides with a wide EMPTY transparent center; do not join them with ground or a border. Left branch occupies x=8–29%, right branch x=71–89%, both grounded near y=86%, keeping original asymmetric height. All other pixels transparent, including the area between branches and outside. Remove the oval, architecture, moth, stars, steps, moon, hills and sky."
+        "sha256": "5efd78498dc5db1ed1429bbceb174c2974dacfa5f8b1453dd79bd3035677bdd7",
+        "prompt": "Use case: precise-object-edit. Edit only the two existing foreground branch silhouettes for the paper theatre journal website. Keep the exact square canvas registration, true transparent alpha, left tall/right short asymmetry, their bases and the tiny ivory flowers exactly where they are, so this layer fits the existing doorway. Retain each main curved stem, but simplify dramatically: the tall left stem has exactly two short tapered side forks (each single and unbranched), the shorter right stem has just one short tapered side fork, with no tiny thorns elsewhere. Give each main stem TWO clearly distinct matte cut-paper planes separated by a crisp long seam following the curve: a narrow dusty plum or muted lilac-facing facet on the upper-left, and a broader ink-plum shaded face. The brighter facet takes about one quarter of the stem width, is visibly different at thumbnail size, yet muted enough for the gothic palette. Think folded paper, not gloss or gradients. No other objects, no text, no outlines drawn outside the stems, no shadow outside the silhouettes, no leaf clusters. Center and exterior remain fully transparent."
       },
       "files": [
         {
           "file": "gate-boughs-1x.webp",
           "width": 640,
           "height": 630,
-          "bytes": 15880,
-          "sha256": "8379f88dfe8cb45bbc1861fc7a582021c22978373b4f8ac1472cbda4289dc0de"
+          "bytes": 16184,
+          "sha256": "a4ae2179832a23d45489036d521c1ace77ec463837ce6cc461ff0ac37029d01e"
         },
         {
           "file": "gate-boughs-2x.webp",
           "width": 1280,
           "height": 1260,
-          "bytes": 40488,
-          "sha256": "1510c361e3faf8f5119211e80fa2620fcaf3f74a7a17d256b0699542796455b0"
+          "bytes": 47004,
+          "sha256": "902b92f10450b6a160661c5f01394f6e68fada2ab69a08fc2362c2d4d5792e3a"
         }
-      ]
+      ],
+      "intermediate": {
+        "sha256": "6d73473b5916aeaf46ec67110605a7f57e809460b85e191fe7aabad09a3a40ff",
+        "prompt": "Use case: precise-object-edit. Input image is an exact placement and style reference for a separate registered layer of the same flat handmade paper stage. Output a SQUARE 1:1 image; do not reframe, recenter or zoom any elements. Keep the same screen positions, silhouettes and scale as the reference. Transparent pixels must be genuine zero-alpha where empty, no backdrop color, no checkerboard, no text or marks. Produce only the FOREGROUND layer: two independent small dark plum hand-cut thorn branches framing the original composition at the far left and far right, with the few ivory blossoms where each branch meets its base. Match the reference left taller, right shorter, with narrow clean curves and very few forks. Branches should read as paper shapes. Branches and flowers must remain as separate disconnected silhouettes on opposite sides with a wide EMPTY transparent center; do not join them with ground or a border. Left branch occupies x=8–29%, right branch x=71–89%, both grounded near y=86%, keeping original asymmetric height. All other pixels transparent, including the area between branches and outside. Remove the oval, architecture, moth, stars, steps, moon, hills and sky."
+      }
     }
   ]
 }
