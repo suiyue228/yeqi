@@ -427,8 +427,147 @@
         }
       ],
       "prompt": "Use case: illustration-story. Original artwork for the same website's layered miniature paper theatre. Input image is only a STYLE reference; make a new design. Match handmade matte flat 2D cut paper, clean gothic picture-book forms, restrained cut edge shadows, 2–3 defined color planes, ink black and deep plum with muted lavender, warm ivory and a little old gold. No photorealism, render gloss, neon, text, numbers, watermark, interface. One small freestanding octagonal gothic porthole from the paper theatre, FRONT view, complete centered silhouette. An open shutter on the right, large plain dark dusty teal-purple pane in the middle, one thin ivory cut-edge and muted gold tiny latch. Recognizable as a window that opens, wide geometric octagonal shape rather than a vertical door. Paper-edge layering and very clean bold silhouette. Suitable at thumbnail size. Nearly square aspect, only the object on fully transparent alpha, no wall or scenery, no floor or outside shadow."
+    },
+    {
+      "name": "keeper-moths",
+      "transparent": true,
+      "sourceSHA256": "c3660ded2574896850bbf0d88815d07a7e416433fad69f70afdec36b86e40691",
+      "styleReferenceSHA256": "ab2e6f3121b81245f8f3af78aee724f25b52d25abaf2b116ac4b277ff57f162e",
+      "files": [
+        {
+          "file": "keeper-moths-1x.webp",
+          "width": 224,
+          "height": 224,
+          "bytes": 10488,
+          "sha256": "d3229f18d4985191583bfac591aa96fd7e659f83bab069889bbd0ed4c79990d3"
+        },
+        {
+          "file": "keeper-moths-2x.webp",
+          "width": 448,
+          "height": 448,
+          "bytes": 26020,
+          "sha256": "d63ec227c54774f76585e2820fe325bb45ba14e904d16cc39c86bb5802aeb550"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Generate a single isolated prop for the existing gothic cut-paper theatre. The input screenshot is STYLE reference ONLY. Match its flat matte paper, clearly cut edges, two or three color planes and very restrained highlights. Deep plum, dusty lilac, ivory, faded bronze; use named accent sparingly. Bold silhouette, medium contrast, readable at 90px. True transparent alpha outside silhouette with a little margin. No scene, floor, curtain, lettering, watermark, realistic metal, 3D or exterior cast shadow. Square format. A small asymmetric hanging mobile with exactly two ivory and dusty-lilac paper moths, one larger, suspended under a single shallow curved plum paper crossbar, on two fine antique-gold thread strokes. Closed clean silhouettes with broad wing surfaces and tiny punctures. The whole object is a single hanging decoration, modest scale, no extra stars, no moon."
+    },
+    {
+      "name": "keeper-candles",
+      "transparent": true,
+      "sourceSHA256": "de5a8483c3f2117f7591c82dd88cb71f8f646356d6fd6a92c3e5e047636a6394",
+      "styleReferenceSHA256": "ab2e6f3121b81245f8f3af78aee724f25b52d25abaf2b116ac4b277ff57f162e",
+      "files": [
+        {
+          "file": "keeper-candles-1x.webp",
+          "width": 224,
+          "height": 224,
+          "bytes": 6062,
+          "sha256": "a7fd7256d5140e335a74351a364af877da9e4b197407ac5ccd9e6e66e113fdf9"
+        },
+        {
+          "file": "keeper-candles-2x.webp",
+          "width": 448,
+          "height": 448,
+          "bytes": 13104,
+          "sha256": "a9c7b79d816ebf1f6ee0697d6f7cd68bee2ed7cbc0265a511a1d4656a4c0ac53"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Generate a single isolated prop for the existing gothic cut-paper theatre. The input screenshot is STYLE reference ONLY. Match its flat matte paper, clearly cut edges, two or three color planes and very restrained highlights. Deep plum, dusty lilac, ivory, faded bronze; use named accent sparingly. Bold silhouette, medium contrast, readable at 90px. True transparent alpha outside silhouette with a little margin. No scene, floor, curtain, lettering, watermark, realistic metal, 3D or exterior cast shadow. Square format. A low compact still life of three ivory paper candles of unequal heights, a tiny gold paper flame on each and an ink plum scalloped brass tray under them. Restrained warm gold detail and geometric wax folds, warm moody and quiet. Frontal, wider than tall. No floor or glow."
+    },
+    {
+      "name": "tide-vane",
+      "transparent": true,
+      "sourceSHA256": "b1032ad1a61a563ff590e29bef8db6945bee8d077dace63b228e7f2def7d5137",
+      "styleReferenceSHA256": "b1c080b2db6bfeb4444293b5f6da0ace3d2ff117f87bc425809efa2ebe080681",
+      "files": [
+        {
+          "file": "tide-vane-1x.webp",
+          "width": 224,
+          "height": 224,
+          "bytes": 12346,
+          "sha256": "2f9f1ea5d52e430c1cfe559c07b565c8c3b046e5dca763e2f351e79cf6bef17e"
+        },
+        {
+          "file": "tide-vane-2x.webp",
+          "width": 448,
+          "height": 448,
+          "bytes": 32116,
+          "sha256": "bb85ed59abcf93caeac0b2ce96bd9ca6803c0464d6f9c121b9612e1e2b47f92e"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Generate a single isolated prop for the existing gothic cut-paper theatre. The input screenshot is STYLE reference ONLY. Match its flat matte paper, clearly cut edges, two or three color planes and very restrained highlights. Deep plum, dusty lilac, ivory, faded bronze; use named accent sparingly. Bold silhouette, medium contrast, readable at 90px. True transparent alpha outside silhouette with a little margin. No scene, floor, curtain, lettering, watermark, realistic metal, 3D or exterior cast shadow. Square format. A compact paper wind vane for a tide tailor: one pleated fog-teal sail and one smaller ivory folded pennant hanging from a slim dark curved bar, with a single pin drop. Airy, clean asymmetry and two folds, cool fog teal accent. Readable as a tiny suspended sail ornament, not a boat. No waves or scenery."
+    },
+    {
+      "name": "tide-kit",
+      "transparent": true,
+      "sourceSHA256": "5f3f743418512adf33185551c11826234ae424454ea4c97fda89fa7d44a074b2",
+      "styleReferenceSHA256": "b1c080b2db6bfeb4444293b5f6da0ace3d2ff117f87bc425809efa2ebe080681",
+      "files": [
+        {
+          "file": "tide-kit-1x.webp",
+          "width": 224,
+          "height": 224,
+          "bytes": 8974,
+          "sha256": "321ff299aaafa45c6e20613d2fccb2f61788613cb8ca0698bd3cb06bbc9770c0"
+        },
+        {
+          "file": "tide-kit-2x.webp",
+          "width": 448,
+          "height": 448,
+          "bytes": 20130,
+          "sha256": "1bfce2974fdc301acf2a79ddbe564807fddcbc48894a921b0c9bf4ff52621634"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Generate a single isolated prop for the existing gothic cut-paper theatre. The input screenshot is STYLE reference ONLY. Match its flat matte paper, clearly cut edges, two or three color planes and very restrained highlights. Deep plum, dusty lilac, ivory, faded bronze; use named accent sparingly. Bold silhouette, medium contrast, readable at 90px. True transparent alpha outside silhouette with a little margin. No scene, floor, curtain, lettering, watermark, realistic metal, 3D or exterior cast shadow. Square format. A compact low group of two oversized paper thread spools, one smoky teal and one ink lavender, with a single ivory scalloped fabric strip draped off the right onto the stack and one old-gold folded tailor's rule tucked across the front. Three clearly separated folded planes. Wider than tall and framed close. No table, no floor."
+    },
+    {
+      "name": "post-instrument",
+      "transparent": true,
+      "sourceSHA256": "41912b491cae3bfdb106cb2d8e6a6e59ab9a0f6d87cb44643dc7b771909385aa",
+      "styleReferenceSHA256": "84825a2b309154af0d673f1fdd305a687dd017508def3829d543fc7326e661c3",
+      "files": [
+        {
+          "file": "post-instrument-1x.webp",
+          "width": 224,
+          "height": 224,
+          "bytes": 10972,
+          "sha256": "59dfe4887cd9a0b53324d8e88d58f4e04921727ef39ee617d4dcc09c73509099"
+        },
+        {
+          "file": "post-instrument-2x.webp",
+          "width": 448,
+          "height": 448,
+          "bytes": 25572,
+          "sha256": "adf3cfccc39c3bab4e1f1f78d7a702fa505fa0bce3dfa8978f9ff044ef3d6d6f"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Generate a single isolated prop for the existing gothic cut-paper theatre. The input screenshot is STYLE reference ONLY. Match its flat matte paper, clearly cut edges, two or three color planes and very restrained highlights. Deep plum, dusty lilac, ivory, faded bronze; use named accent sparingly. Bold silhouette, medium contrast, readable at 90px. True transparent alpha outside silhouette with a little margin. No scene, floor, curtain, lettering, watermark, realistic metal, 3D or exterior cast shadow. Square format. A small suspended star compass for a constellation post office: one ivory four-point needle within a thin old-gold octagonal paper ring, a short plum bracket above and a single faded oxblood teardrop weight below. Flat whimsical geometric silhouette, no second ring, no labels, no numerals. A single complete device."
+    },
+    {
+      "name": "post-satchel",
+      "transparent": true,
+      "sourceSHA256": "d154c40415bc25e1ee981edba5c44154a538e01150ac8578f401710c6b0bb9df",
+      "styleReferenceSHA256": "84825a2b309154af0d673f1fdd305a687dd017508def3829d543fc7326e661c3",
+      "files": [
+        {
+          "file": "post-satchel-1x.webp",
+          "width": 224,
+          "height": 224,
+          "bytes": 10872,
+          "sha256": "c7d0560cf9be27f4f0ac04298708174f8232ec48622bebde329706a4497bc6f0"
+        },
+        {
+          "file": "post-satchel-2x.webp",
+          "width": 448,
+          "height": 448,
+          "bytes": 24504,
+          "sha256": "afbdb7cee55422fb68fbb49787127e66af35be32f6358de226521797956a58fe"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Generate a single isolated prop for the existing gothic cut-paper theatre. The input screenshot is STYLE reference ONLY. Match its flat matte paper, clearly cut edges, two or three color planes and very restrained highlights. Deep plum, dusty lilac, ivory, faded bronze; use named accent sparingly. Bold silhouette, medium contrast, readable at 90px. True transparent alpha outside silhouette with a little margin. No scene, floor, curtain, lettering, watermark, realistic metal, 3D or exterior cast shadow. Square format. A compact low folded oxblood and deep plum paper mail satchel with a plain muted bronze strap clasp. Two distinct cream envelopes peek out, one lower and one higher, and one envelope rests angled against the satchel. Thick matte paper edges and one muted-gold accent. Frontal three-quarter only enough to show a broad folded side plane, no logos or writing."
     }
   ],
   "updatedOn": "2026-11-03",
-  "additionalActProcessing": "Resize and center transparent cutouts with preserved alpha; center-crop opaque panels to 3:2. WebP quality 86, method 6."
+  "additionalActProcessing": "Resize and center transparent cutouts with preserved alpha; center-crop opaque panels to 3:2. WebP quality 86, method 6.",
+  "sceneryProcessing": "Resize and center transparent cutouts with preserved alpha. WebP quality 86, method 6."
 }

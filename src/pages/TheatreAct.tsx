@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { RoomHeader } from "../components/RoomHeader";
-import { PaperProscenium, TheatreImage } from "../components/PaperTheatreArt";
+import {
+  PaperProscenium,
+  PaperScenery,
+  TheatreImage,
+} from "../components/PaperTheatreArt";
 import { TheatrePassage } from "../components/TheatrePassage";
 import { usePaperTilt } from "../hooks/usePaperTilt";
 import { audio } from "../lib/audio";
@@ -66,6 +70,21 @@ const ACTS = {
   },
 } as const;
 
+const TIDE_FOLDS = [
+  {
+    plane: "far",
+    edge: "M0 53Q65 24 128 49T260 44T390 34T520 37L600 23V118H0Z",
+  },
+  {
+    plane: "mid",
+    edge: "M0 79Q70 51 139 76T275 68T412 62T540 58L600 47V118H0Z",
+  },
+  {
+    plane: "near",
+    edge: "M0 98Q62 73 127 97T260 90T392 82T523 83L600 72V118H0Z",
+  },
+] as const;
+
 export function TheatreAct({
   act,
   navigate,
@@ -109,18 +128,20 @@ export function TheatreAct({
               <TheatreImage name={scene.backdrop} />
             </div>
             {act === "tide" ? (
-              <svg
-                className="act-tide-folds"
-                viewBox="0 0 600 118"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <path d="M0 49Q65 22 128 48T260 45T390 34T520 37L600 23V118H0Z" />
-                <path d="M0 80Q70 57 139 78T275 73T412 63T540 60L600 48V118H0Z" />
-                <path d="M0 96Q62 75 127 97T260 93T392 83T523 84L600 74V118H0Z" />
-              </svg>
+              TIDE_FOLDS.map(({ plane, edge }) => (
+                <svg
+                  key={plane}
+                  className={`act-tide-fold tide-fold-${plane}`}
+                  viewBox="0 0 600 118"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path d={edge} />
+                </svg>
+              ))
             ) : (
               <>
+                <div className="act-post-apron" aria-hidden="true" />
                 <svg
                   className="act-post-chart"
                   viewBox="0 0 180 110"
@@ -141,6 +162,7 @@ export function TheatreAct({
                 </div>
               </>
             )}
+            <PaperScenery scene={act} />
             <TheatrePassage
               kind="door"
               destination={scene.previous.title}

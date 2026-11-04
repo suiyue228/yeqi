@@ -9,6 +9,7 @@ import {
   PaperFloor,
   PaperWoods,
   PaperProscenium,
+  PaperScenery,
   KeeperArt,
   PaperBook,
   TheatreImage,
@@ -107,6 +108,7 @@ export function Theatre({
             <div className="paper-layer paper-woods">
               <PaperWoods />
             </div>
+            <PaperScenery scene="keeper" />
             <button
               className="paper-door stage-mechanism"
               aria-label="推开纸门，寻找一封旧信"

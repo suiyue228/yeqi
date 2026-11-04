@@ -19,6 +19,12 @@ const ART = {
   "tide-tailor": [288, 432],
   "star-postmaster": [288, 432],
   "passage-window": [224, 224],
+  "keeper-moths": [224, 224],
+  "keeper-candles": [224, 224],
+  "tide-vane": [224, 224],
+  "tide-kit": [224, 224],
+  "post-instrument": [224, 224],
+  "post-satchel": [224, 224],
 } as const;
 export type TheatreAsset = keyof typeof ART;
 const MOONS = ["moon-crescent", "moon-half", "moon-full"] as const;
@@ -84,4 +90,24 @@ export function PaperBook() {
 }
 export function HangingMoon({ phase }: { phase: number }) {
   return <TheatreImage name={MOONS[phase]} />;
+}
+
+const SCENERY = {
+  keeper: { hanging: "keeper-moths", floor: "keeper-candles" },
+  tide: { hanging: "tide-vane", floor: "tide-kit" },
+  post: { hanging: "post-instrument", floor: "post-satchel" },
+} as const;
+
+export function PaperScenery({ scene }: { scene: keyof typeof SCENERY }) {
+  const { hanging, floor } = SCENERY[scene];
+  return (
+    <>
+      <div className={`scenery-hanging scenery-${scene}`} aria-hidden="true">
+        <TheatreImage name={hanging} />
+      </div>
+      <div className={`scenery-floor scenery-${scene}`} aria-hidden="true">
+        <TheatreImage name={floor} />
+      </div>
+    </>
+  );
 }
