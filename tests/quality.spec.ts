@@ -41,6 +41,8 @@ test("全部独立模块在六档宽度可达且不溢出，无浏览器错误�
       "/wishes",
       "/collection",
       "/theatre",
+      "/theatre/tide",
+      "/theatre/post",
       "/privacy",
     ]) {
       await page.goto("/#" + path);

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { PointerEvent, CSSProperties } from "react";
+import type { CSSProperties } from "react";
 import type { Entry } from "../types";
 import type { Draft, Wish } from "../lib/workspace";
 import { RoomHeader } from "../components/RoomHeader";
@@ -16,6 +16,8 @@ import {
 } from "../components/PaperTheatreArt";
 import { audio } from "../lib/audio";
 import { STAR_SWING_MS } from "../lib/soundDesign";
+import { usePaperTilt } from "../hooks/usePaperTilt";
+import { TheatrePassage } from "../components/TheatrePassage";
 const sayings = [
   "我是缄，替没说完的话守一盏灯。你可以只坐一会儿。",
   "没写完的句子，也有留下来的资格。",
@@ -44,13 +46,11 @@ export function Theatre({
     [message, setMessage] = useState(
       "轻碰星铃、月亮或纸艺道具。这里不需要完成任何事。",
     );
-  const stage = useRef<HTMLDivElement>(null),
-    frame = useRef<number | null>(null),
-    timers = useRef<Record<string, number>>({});
+  const { stage, tilt, resetTilt } = usePaperTilt();
+  const timers = useRef<Record<string, number>>({});
   const lastSway = useRef<Record<string, number>>({});
   useEffect(
     () => () => {
-      if (frame.current !== null) cancelAnimationFrame(frame.current);
       Object.values(timers.current).forEach(clearTimeout);
     },
     [],
@@ -71,33 +71,13 @@ export function Theatre({
         strength: 0.85,
       });
   }
-  function tilt(event: PointerEvent<HTMLDivElement>) {
-    if (
-      event.pointerType === "touch" ||
-      matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
-    const bounds = event.currentTarget.getBoundingClientRect(),
-      x = (event.clientX - bounds.left) / bounds.width - 0.5,
-      y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    if (frame.current !== null) cancelAnimationFrame(frame.current);
-    frame.current = requestAnimationFrame(() => {
-      stage.current?.style.setProperty("--tilt-x", `${-y * 3}deg`);
-      stage.current?.style.setProperty("--tilt-y", `${x * 4}deg`);
-    });
-  }
-  function resetTilt() {
-    if (frame.current !== null) cancelAnimationFrame(frame.current);
-    stage.current?.style.setProperty("--tilt-x", "0deg");
-    stage.current?.style.setProperty("--tilt-y", "0deg");
-  }
   return (
     <div className="page module-page theatre-page">
       <RoomHeader
         titleArt="theatre"
         chapter="THE THEATRE OF FOLDED NIGHT · 纸艺小剧场"
         title="月下，有人替微光守夜。"
-        intro="一座可以轻轻拨动的纸景。每一层剪影，都为你的停留留出一点深度。"
+        intro="第一幕 · 守灯人的房间。右边的八角窗通往另一处纸景。"
         navigate={navigate}
       />
       <section className="theatre-shell" aria-label="月下秘密纸艺剧院">
@@ -112,6 +92,7 @@ export function Theatre({
           data-phase={phase}
           onPointerMove={tilt}
           onPointerLeave={resetTilt}
+          onPointerCancel={resetTilt}
         >
           <div className="stage-volume">
             <div className="night-distance" aria-hidden="true">
@@ -185,6 +166,11 @@ export function Theatre({
             <div className="paper-layer paper-front">
               <PaperProscenium />
             </div>
+            <TheatrePassage
+              kind="window"
+              destination="潮汐裁纸间"
+              onEnter={() => navigate("/theatre/tide")}
+            />
             {["left", "right"].map((id) => (
               <button
                 key={id}

@@ -697,3 +697,228 @@
     transform: none;
   }
 }
+
+.theatre-passage {
+  --passage-depth: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 44px;
+  transform: translateZ(var(--passage-depth));
+}
+.theatre-passage > .theatre-image {
+  width: 100%;
+  filter: drop-shadow(4px 6px 0 #120f187a);
+  transition: transform 220ms ease-out, filter 220ms ease-out;
+}
+.theatre-passage:is(:hover, :focus-visible) > .theatre-image {
+  transform: translateY(-4px);
+  filter: brightness(1.18) drop-shadow(4px 8px 0 #120f187a);
+}
+.theatre-passage > small,
+.act-puppet > small {
+  padding: 5px 8px;
+  background: #181320;
+  border: 1px solid #ac8c80;
+  line-height: 1.45;
+  letter-spacing: 0.06em;
+}
+.theatre-passage small span {
+  display: block;
+  color: #dcc0a4;
+  font-size: 8px;
+}
+.theatre-passage small strong {
+  color: #fff5e9;
+  font-size: 10px;
+  font-weight: 400;
+}
+.theatre-passage i {
+  font-style: normal;
+}
+.paper-stage:not(.paper-act) .passage-window {
+  width: 13%;
+  right: 9%;
+  top: 36%;
+}
+.act-back {
+  transform: translateZ(-100px) scale(1.1);
+}
+.paper-act .passage-door {
+  width: 17%;
+  max-width: 158px;
+  left: 14%;
+  bottom: 13%;
+}
+.paper-act .passage-window {
+  width: 16%;
+  max-width: 170px;
+  right: 14%;
+  top: 39%;
+}
+.act-puppet {
+  width: 29%;
+  max-width: 360px;
+  left: 50%;
+  bottom: 10%;
+  transform: translate3d(-50%, 0, 60px);
+}
+.act-puppet > .theatre-image {
+  width: 100%;
+  max-height: 51cqh;
+  filter: drop-shadow(5px 7px 0 #120f1877);
+  transform-origin: 50% 92%;
+  transition: transform 240ms ease-out, filter 240ms ease-out;
+}
+.paper-act {
+  container-type: size;
+}
+.act-puppet:is(:hover, :focus-visible) > .theatre-image {
+  transform: rotate(-2deg) translateY(-5px);
+  filter: brightness(1.1) drop-shadow(5px 7px 0 #120f1877);
+}
+.act-puppet > small {
+  width: fit-content;
+  margin-inline: auto;
+  color: #fff5e9;
+}
+.act-tide-folds {
+  position: absolute;
+  left: 1%;
+  bottom: 6%;
+  width: 98%;
+  height: 25%;
+  pointer-events: none;
+  filter: drop-shadow(0 5px 0 #17182799);
+  transform: translateZ(30px) scaleY(0.58);
+  transform-origin: center bottom;
+  transition: transform 430ms ease-out;
+}
+.act-tide-folds path:nth-child(1) { fill: #6c939e; }
+.act-tide-folds path:nth-child(2) { fill: #536978; }
+.act-tide-folds path:nth-child(3) { fill: #353f5a; }
+.paper-act-tide[data-beat="1"] .act-tide-folds {
+  transform: translateZ(30px) scaleY(1.15);
+}
+.paper-act-tide[data-beat="2"] .act-tide-folds {
+  transform: translateZ(30px) scaleY(0.3);
+}
+.act-post-chart {
+  position: absolute;
+  left: 37%;
+  top: 16%;
+  width: 26%;
+  height: 33%;
+  transform: translateZ(-50px);
+  pointer-events: none;
+}
+.star-route {
+  fill: none;
+  stroke: #e6c198;
+  stroke-width: 2;
+  stroke-dasharray: 2 5;
+  opacity: 0;
+  transition: opacity 320ms;
+}
+.paper-act-post[data-beat="1"] .star-route-moon,
+.paper-act-post[data-beat="2"] .star-route-star {
+  opacity: 1;
+}
+.act-post-letter {
+  position: absolute;
+  right: 18%;
+  bottom: 10%;
+  width: 14%;
+  transform: translateZ(90px) rotate(6deg);
+  pointer-events: none;
+}
+.act-post-letter i {
+  position: absolute;
+  top: 43%;
+  left: 48%;
+  display: grid;
+  place-items: center;
+  width: clamp(18px, 2.4vw, 32px);
+  aspect-ratio: 1;
+  background: #782f40;
+  color: #fff5e9;
+  border: 1px solid #e7b3a0;
+  border-radius: 50%;
+  box-shadow: 1px 2px #441a32;
+  font-style: normal;
+  animation: press-postmark 220ms ease-out both;
+}
+@keyframes press-postmark {
+  from { transform: scale(1.45); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@media (max-width: 1000px) {
+  .paper-stage:not(.paper-act) .passage-window {
+    width: 15%;
+    right: 8%;
+  }
+}
+@media (max-width: 760px) {
+  .theatre-passage {
+    --passage-depth: 45px;
+  }
+  .theatre-passage > small,
+  .act-puppet > small {
+    padding: 4px 5px;
+  }
+  .theatre-passage small strong {
+    font-size: 9px;
+  }
+  .paper-stage:not(.paper-act) .passage-window {
+    width: 20%;
+    right: 6%;
+    top: 38%;
+  }
+  .paper-act .act-back > .theatre-image {
+    object-fit: cover;
+  }
+  .paper-act .passage-door {
+    width: 24%;
+    left: 8%;
+    bottom: 13%;
+  }
+  .paper-act .passage-window {
+    width: 25%;
+    right: 8%;
+    top: 36%;
+  }
+  .act-puppet {
+    width: 39%;
+    bottom: 12.5%;
+    transform: translate3d(-50%, 0, 46px);
+  }
+  .act-puppet > .theatre-image {
+    max-height: none;
+  }
+  .act-post-chart {
+    left: 24%;
+    width: 52%;
+    top: 15%;
+  }
+  .act-post-letter {
+    right: 11%;
+    width: 20%;
+    bottom: 13%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .theatre-passage > .theatre-image,
+  .act-puppet > .theatre-image,
+  .act-tide-folds,
+  .star-route {
+    transition: none;
+  }
+  .theatre-passage:is(:hover, :focus-visible) > .theatre-image,
+  .act-puppet:is(:hover, :focus-visible) > .theatre-image {
+    transform: none;
+  }
+  .act-post-letter i {
+    animation: none;
+  }
+}

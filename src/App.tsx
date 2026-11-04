@@ -18,6 +18,7 @@ import { Drafts } from "./pages/Drafts";
 import { Wishes } from "./pages/Wishes";
 import { Collection } from "./pages/Collection";
 import { Theatre } from "./pages/Theatre";
+import { TheatreAct } from "./pages/TheatreAct";
 export default function App() {
   const data = useEntries();
   const workspace = useWorkspace();
@@ -168,6 +169,14 @@ export default function App() {
       />
     );
   else if (path === "/privacy") page = <Privacy backup={backup} />;
+  else if (path === "/theatre/tide" || path === "/theatre/post")
+    page = (
+      <TheatreAct
+        key={path}
+        act={path === "/theatre/tide" ? "tide" : "post"}
+        navigate={navigate}
+      />
+    );
   else if (path === "/theatre")
     page = (
       <Theatre

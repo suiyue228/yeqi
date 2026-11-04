@@ -1,5 +1,61 @@
 import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
+
+test("纸艺三幕通过门窗往返，角色改变各自的布景", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/#/theatre");
+  const title = page.locator("#page-title");
+  const windowToTide = page.getByRole("button", {
+    name: "推开窗扇，前往潮汐裁纸间",
+  });
+  await windowToTide.focus();
+  await page.keyboard.press("Enter");
+  await expect(title).toHaveText("潮汐裁纸间");
+  await expect(title).toBeFocused();
+  const tide = page.getByRole("button", { name: "请线轴裁缝折一层纸浪" });
+  expect((await tide.locator("img").boundingBox())?.height).toBeGreaterThan(90);
+  await tide.click();
+  await expect(
+    page.getByRole("status").filter({ hasText: "涨潮" }),
+  ).toBeVisible();
+  await expect(page.locator(".paper-act-tide")).toHaveAttribute(
+    "data-beat",
+    "1",
+  );
+  await tide.click();
+  await expect(page.locator(".prop-notes")).toContainText("落潮");
+
+  await page.getByRole("button", { name: "推开窗扇，前往星图邮局" }).click();
+  await expect(title).toHaveText("星图邮局");
+  const postmaster = page.getByRole("button", { name: "请星图邮差为信笺盖戳" });
+  expect(
+    (await postmaster.locator("img").boundingBox())?.height,
+  ).toBeGreaterThan(90);
+  await postmaster.click();
+  await expect(page.locator(".act-post-letter i")).toHaveText("☾");
+  await postmaster.click();
+  await expect(page.locator(".act-post-letter i")).toHaveText("✧");
+  await page.getByRole("button", { name: "复位纸景", exact: false }).click();
+  await expect(page.locator(".act-post-letter i")).toHaveCount(0);
+  await page.reload();
+  await expect(title).toHaveText("星图邮局");
+
+  await page
+    .getByRole("button", { name: "打开返场门，前往潮汐裁纸间" })
+    .click();
+  await expect(title).toHaveText("潮汐裁纸间");
+  await page.goBack();
+  await expect(title).toHaveText("星图邮局");
+  await page
+    .getByRole("button", { name: "推开窗扇，前往守灯人的房间" })
+    .click();
+  await expect(windowToTide).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "推开纸门，寻找一封旧信" }),
+  ).toBeVisible();
+});
+
 test("剧场纸门读取真实旧信，抽屉进入真实草稿", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/#/write");

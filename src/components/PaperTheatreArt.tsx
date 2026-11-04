@@ -14,6 +14,11 @@ const ART = {
   "moon-crescent": [192, 192],
   "moon-half": [192, 192],
   "moon-full": [192, 192],
+  "tide-room": [768, 512],
+  "post-room": [768, 512],
+  "tide-tailor": [288, 432],
+  "star-postmaster": [288, 432],
+  "passage-window": [224, 224],
 } as const;
 export type TheatreAsset = keyof typeof ART;
 const MOONS = ["moon-crescent", "moon-half", "moon-full"] as const;

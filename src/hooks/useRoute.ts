@@ -16,7 +16,7 @@ function kindFor(path: string): RitualKind {
     path.startsWith("/write") ||
     path.startsWith("/edit") ||
     path.startsWith("/draft/") ||
-    path === "/theatre"
+    (path === "/theatre" || path.startsWith("/theatre/"))
   )
     return "curtain";
   if (

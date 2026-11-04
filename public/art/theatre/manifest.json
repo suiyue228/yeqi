@@ -312,7 +312,123 @@
         }
       ],
       "prompt": "Use case: precise-object-edit. Edit target: the attached existing ORIGINAL 3:2 purple gothic cut-paper theatre window backdrop. Preserve the same pointed gothic arch, three elegant ivory/lilac tracery arcs, their original positions and restrained flat paper-grain picture-book style. Preserve purple outer wall and the two broad muted mauve rolling paper floor panels along bottom 20%. CHANGE ONLY: cut away ALL lavender filled panes inside the gothic window so every enclosed window opening, including the narrow upper tracery openings, is TRUE alpha-zero TRANSPARENT. They must be genuinely empty holes to reveal a separate distant dark night sky and moon drawn behind this panel by the website. Keep mullions and outer wall opaque, no glass at all. Darken and soften the near-white window trim to dusty pale lilac #BEA8C7, use a slim ink-purple inner recess with at most 2 simple paper edge planes to show cut depth, no intricate detail. Keep wall deep muted purple #30243F, floor mauve #806B89; no new objects. Entire composition and bottom floor shapes must remain aligned with the input, edge-to-edge 3:2. No moon, stars, clouds, character, curtains, text, watermarks, white background or checkerboard. No painted lighting beams, glow, gradients, realistic 3D or thick bevels. All window panes transparent; ONLY the physical wall/frame/floor remain. This is an independent alpha foreground panel in a multi-layer paper theatre, not a flattened scene."
+    },
+    {
+      "name": "tide-room",
+      "transparent": false,
+      "sourceSHA256": "09f1614094bc80b2d5631738dfa3fc99e7929dc57cd103cab88ad07aa7a7c1fe",
+      "styleReferenceSHA256": "5e12649e8b3815ce9e39e685c4e434f21d9bc1f297affbdf64400396e8fdf891",
+      "files": [
+        {
+          "file": "tide-room-1x.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 25298,
+          "sha256": "f0494ad302a9daeac5f67971f2b2f95ad0e9eefd354e275364f0160689bc5cd4"
+        },
+        {
+          "file": "tide-room-2x.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 77254,
+          "sha256": "8850ea455482c48ef41b10ba80221c5052798d02eb85afb94918f4ab91b614fb"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Original artwork for the same website's layered miniature paper theatre. Input image is only a STYLE reference; make a new design. Match handmade matte flat 2D cut paper, clean gothic picture-book forms, restrained cut edge shadows, 2–3 defined color planes, ink black and deep plum with muted lavender, warm ivory and a little old gold. No photorealism, render gloss, neon, text, numbers, watermark, interface. Wide landscape 3:2 back panel of a moonlit tide seamstress's workshop, frontal stage view. Deep violet wall, a simple tall arched view onto flat blue-gray paper waves below a violet horizon, low pale-lilac workshop floor with two broad angular folds, one modest spool rack low in the back on the left. Keep bottom foreground entirely open for cutout actors and interactive props. Moonlit slate, muted teal-purple and violet accents, one small ivory edge on architectural trim. Large quiet blocks, narrow cut edges. Strong scenery silhouette; space in center for our character and both sides for buttons. No characters, curtains, stage borders, separate doors or portals, hanging ornaments, moon disk, exterior floor perspective. Floor begins around 80% down canvas. Artwork fills the canvas to all four edges."
+    },
+    {
+      "name": "post-room",
+      "transparent": false,
+      "sourceSHA256": "1b180fd478af9df2b4e87323fa9dca2205fd64d1f7ddb2c0ed5bc6019c8095af",
+      "styleReferenceSHA256": "5e12649e8b3815ce9e39e685c4e434f21d9bc1f297affbdf64400396e8fdf891",
+      "files": [
+        {
+          "file": "post-room-1x.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 37522,
+          "sha256": "96f061c3107216879fc3000b38736edb698b47e04d7240ef0a2c31d683a9a64e"
+        },
+        {
+          "file": "post-room-2x.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 112358,
+          "sha256": "2cc3d4c97872d80579e7c45df5aa5045f85f472d43ed2266bbafa20690b9f3d4"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Original artwork for the same website's layered miniature paper theatre. Input image is only a STYLE reference; make a new design. Match handmade matte flat 2D cut paper, clean gothic picture-book forms, restrained cut edge shadows, 2–3 defined color planes, ink black and deep plum with muted lavender, warm ivory and a little old gold. No photorealism, render gloss, neon, text, numbers, watermark, interface. Wide landscape 3:2 back panel of a secret constellation post office, frontal stage view. Dominant black plum wall with an inset large, dark dusty-red celestial circular chart in the upper center and three loosely linked ivory pin stars. Flanking stepped silhouettes of a small antique pigeonhole letter shelf integrated into walls, few clean cream folded paper envelopes; deep purple wooden floor made from two angular folded paper planes. A touch of faded oxblood and smoky amber distinct from the other room. Keep central foreground and both bottom corners calm and empty for props and an actor added later. No characters, curtains, stage borders, separate doors or portals, hanging ornaments, moon disk, titles or numbers. Floor begins around 80% down canvas. Artwork fills all edges."
+    },
+    {
+      "name": "tide-tailor",
+      "transparent": true,
+      "sourceSHA256": "c0a22c40e94435c02672055fd5987c9771f1dde77a0f676f16611bcd1d19a079",
+      "styleReferenceSHA256": "3a8f625a64865a0dfc8ee2332a4a40d9b3a735a7819c90509d9bd4a18e96411f",
+      "files": [
+        {
+          "file": "tide-tailor-1x.webp",
+          "width": 288,
+          "height": 432,
+          "bytes": 24124,
+          "sha256": "f32e541f1f126bedb1cc728a68b3d474a34649dda7450e9f749e0116b1688a88"
+        },
+        {
+          "file": "tide-tailor-2x.webp",
+          "width": 576,
+          "height": 864,
+          "bytes": 59036,
+          "sha256": "2198bb15670d2a42df448fe5e4e6f95a70fc6309831e5de7d0c9b5f9ba4e6adb"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Original artwork for the same website's layered miniature paper theatre. Input image is only a STYLE reference; make a new design. Match handmade matte flat 2D cut paper, clean gothic picture-book forms, restrained cut edge shadows, 2–3 defined color planes, ink black and deep plum with muted lavender, warm ivory and a little old gold. No photorealism, render gloss, neon, text, numbers, watermark, interface. A single original full-body paper puppet called the Tide Tailor. Similar whimsy and proportions as the lantern-headed puppet reference, different silhouette and identity. Their head is an upright vintage oval thread spool with two tiny closed eyes on the ivory windings, a slanted dusky teal paper cap and one loose loop of silver thread. Wearing a black-plum coat with narrow muted teal edges and broad folded sleeves, hem cut into two paper wave arcs; one hand holds a large tiny ivory folding ruler and the other holds a blue-gray pleated paper wave swatch. Slight bowed playful stance with both black boots visible. Portrait 2:3, framed to fill ~85% height with all extremities within the canvas. True transparent alpha, subject only. No floor, shadow outside, no border, no extras."
+    },
+    {
+      "name": "star-postmaster",
+      "transparent": true,
+      "sourceSHA256": "a1301218fe38d9eb7487decf713456491785cc83baf5ae798537054b73041930",
+      "styleReferenceSHA256": "3a8f625a64865a0dfc8ee2332a4a40d9b3a735a7819c90509d9bd4a18e96411f",
+      "files": [
+        {
+          "file": "star-postmaster-1x.webp",
+          "width": 288,
+          "height": 432,
+          "bytes": 20894,
+          "sha256": "ed8fabbd6f60e9fc69909846de4b0d1fc3d4ee59635807ceffeb8aee869abc8e"
+        },
+        {
+          "file": "star-postmaster-2x.webp",
+          "width": 576,
+          "height": 864,
+          "bytes": 50092,
+          "sha256": "4c3feb2a26c5cba3ae3483344672c637415e629d6bdd8a9b50fd2bc4f17a0a6f"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Original artwork for the same website's layered miniature paper theatre. Input image is only a STYLE reference; make a new design. Match handmade matte flat 2D cut paper, clean gothic picture-book forms, restrained cut edge shadows, 2–3 defined color planes, ink black and deep plum with muted lavender, warm ivory and a little old gold. No photorealism, render gloss, neon, text, numbers, watermark, interface. One original full-body paper puppet called the Star Postmaster. Similar scale and quiet whimsy as the lantern-headed reference, clearly different. Their head is a softly folded cream envelope with a small round dusty-red wax seal centered near the flap and two tiny ink eyes. A dark plum swallowtail coat with a wide muted-oxblood lapel, a small ivory folded paper wing motif on the back, slim black boots. One hand extends a sealed little letter toward the viewer, the other holds a tiny stamp handle. Clean readable silhouette with broad planes and subtle paper seams. Portrait 2:3, entire subject inside canvas with safe margins and about 85% height. Genuine transparent background, no floor or shadow outside silhouette, no loose pieces."
+    },
+    {
+      "name": "passage-window",
+      "transparent": true,
+      "sourceSHA256": "407a8c52ee5e0d0705e1d21decfb04703f3f6ab61d68efb61684b14d7bc95b8d",
+      "styleReferenceSHA256": "c96212095241e7d337be95eb4be0036a27989d1b0c818e808b70827d15d8ca7a",
+      "files": [
+        {
+          "file": "passage-window-1x.webp",
+          "width": 224,
+          "height": 224,
+          "bytes": 8482,
+          "sha256": "adf48576e8528672c1666da10b49b9e6a38107aa751b96db0652d77b91bc33a5"
+        },
+        {
+          "file": "passage-window-2x.webp",
+          "width": 448,
+          "height": 448,
+          "bytes": 19484,
+          "sha256": "90ad47608422f45bb99ac1877da75d925db09aff13615f701bf32e069415840e"
+        }
+      ],
+      "prompt": "Use case: illustration-story. Original artwork for the same website's layered miniature paper theatre. Input image is only a STYLE reference; make a new design. Match handmade matte flat 2D cut paper, clean gothic picture-book forms, restrained cut edge shadows, 2–3 defined color planes, ink black and deep plum with muted lavender, warm ivory and a little old gold. No photorealism, render gloss, neon, text, numbers, watermark, interface. One small freestanding octagonal gothic porthole from the paper theatre, FRONT view, complete centered silhouette. An open shutter on the right, large plain dark dusty teal-purple pane in the middle, one thin ivory cut-edge and muted gold tiny latch. Recognizable as a window that opens, wide geometric octagonal shape rather than a vertical door. Paper-edge layering and very clean bold silhouette. Suitable at thumbnail size. Nearly square aspect, only the object on fully transparent alpha, no wall or scenery, no floor or outside shadow."
     }
   ],
-  "updatedOn": "2026-11-03"
+  "updatedOn": "2026-11-03",
+  "additionalActProcessing": "Resize and center transparent cutouts with preserved alpha; center-crop opaque panels to 3:2. WebP quality 86, method 6."
 }
