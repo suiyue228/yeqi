@@ -170,9 +170,6 @@
   max-width: 650px;
   z-index: 1;
 }
-.stage-art {
-  filter: none;
-}
 .gate-key {
   position: absolute;
   left: 49.8%;
@@ -216,14 +213,7 @@
 }
 .gate-key:focus-visible {
   outline: 3px solid var(--red);
-  outline-offset: 0;
-}
-.gate-moth {
-  transform-origin: 318px 115px;
-  transition: transform 0.4s;
-}
-.art-window:hover .gate-moth {
-  transform: translateY(-3px);
+  outline-offset: -4px;
 }
 .stage-actions {
   left: 48px;
@@ -2040,8 +2030,6 @@
   .ritual-transition {
     display: none;
   }
-  .gate-moth,
-  .floating-letter,
   .oracle-orbit {
     animation: none !important;
     transition: none !important;

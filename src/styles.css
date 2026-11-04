@@ -348,22 +348,6 @@ p {
   top: 2%;
   z-index: 0;
 }
-.stage-art {
-  width: 100%;
-  display: block;
-  overflow: visible;
-}
-.art-caption {
-  position: absolute;
-  left: 48%;
-  top: 64%;
-  transform: translateX(-50%) rotate(-6deg);
-  font-family: var(--serif);
-  font-size: 10px;
-  color: var(--paper);
-  white-space: nowrap;
-  letter-spacing: 2px;
-}
 .stage-actions {
   position: absolute;
   bottom: 75px;
@@ -1306,22 +1290,6 @@ textarea::placeholder {
   font-size: 11px;
   letter-spacing: 1px;
 }
-.floating-letter {
-  animation: float 7s ease-in-out infinite;
-}
-.floating-letter.second {
-  animation-delay: -3s;
-  animation-duration: 9s;
-}
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-7px);
-  }
-}
 @keyframes arrive {
   from {
     opacity: 0;
@@ -1669,9 +1637,6 @@ textarea::placeholder {
     top: 240px;
     width: 92%;
     max-width: 490px;
-  }
-  .art-caption {
-    font-size: 8px;
   }
   .stage-actions {
     bottom: 125px;

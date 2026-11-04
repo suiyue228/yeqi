@@ -34,20 +34,7 @@ export function Home({
           <p className="wordmark-invitation">今夜，让心事有处栖息。</p>
           <p className="wordmark-note">月亮会替你，好好收藏。</p>
         </div>
-        <div className="art-window">
-          <StageArt />
-          <button
-            className="gate-key"
-            onClick={() => navigate("/write")}
-            aria-label="推开月影门，写下心情"
-          >
-            <svg viewBox="0 0 50 50" aria-hidden="true">
-              <circle cx="25" cy="13" r="8" />
-              <path d="M25 21v23h10v-7H25m0-7h7" />
-            </svg>
-            <small>推 开 月 影 门</small>
-          </button>
-        </div>
+        <StageArt onOpen={() => navigate("/write")} />
         <div className="stage-actions">
           <button
             className="button ink-button"

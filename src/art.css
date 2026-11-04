@@ -1,10 +1,79 @@
-/* Generated art is confined to existing ornament slots, never behind text. */
+/* Generated art occupies its own slots; copy and controls remain HTML. */
 .decorative-art {
   display: block;
   object-fit: contain;
   max-width: 100%;
   pointer-events: none;
   user-select: none;
+}
+.stage-art {
+  position: relative;
+  aspect-ratio: 640 / 630;
+  pointer-events: none;
+  user-select: none;
+}
+.stage-art-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  translate: calc(var(--gate-x, 0) * var(--gate-travel))
+    calc(var(--gate-y, 0) * var(--gate-travel) * 0.55);
+  transition: translate 260ms ease-out;
+}
+.gate-night {
+  --gate-travel: -5px;
+}
+.gate-moon {
+  --gate-travel: -7px;
+  inset: 31% auto auto 41%;
+  width: 18%;
+  opacity: 0.93;
+  filter: saturate(0.68);
+}
+.gate-arch {
+  --gate-travel: 3px;
+  filter: drop-shadow(3px 7px 4px #2d143c45);
+}
+.gate-boughs {
+  --gate-travel: 8px;
+  filter: drop-shadow(2px 3px 2px #25133254);
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage-art-layer {
+    translate: none;
+    transition: none;
+  }
+}
+.stage-art-caption {
+  position: absolute;
+  inset: 91% 0 auto;
+  text-align: center;
+  color: var(--purple);
+  font: clamp(6px, 0.65vw, 9px) var(--font-accent);
+  letter-spacing: 0.3em;
+}
+.stage-art-caption > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6%;
+  margin: 1.8% auto 0;
+  width: 43%;
+  height: 8px;
+}
+.stage-art-caption i {
+  width: 6px;
+  aspect-ratio: 1;
+  background: var(--red);
+  rotate: 45deg;
+}
+.stage-art-caption > div::before,
+.stage-art-caption > div::after {
+  content: "";
+  height: 1px;
+  width: 37%;
+  background: #92735f;
 }
 .empty-envelope {
   display: block;

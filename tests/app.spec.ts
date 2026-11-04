@@ -186,16 +186,20 @@ test("桌面、平板、手机布局和减少动态效果、键盘入口", async
   }
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
-  expect(
-    await page
-      .locator(".floating-letter")
-      .first()
-      .evaluate((el) => getComputedStyle(el).animationName),
-  ).toBe("none");
+  // A fresh document starts before the first tab stop, unlike hash navigation.
+  await page.reload();
+  const gate = page.getByRole("button", { name: "推开月影门，写下心情" });
+  await expect(gate).toBeVisible();
   await page.keyboard.press("Tab");
   await expect(page.locator(".skip-link")).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.locator("#page-title")).toBeFocused();
+  await gate.focus();
+  await page.keyboard.press("Enter");
+  await expect(
+    page.getByLabel("心情正文（必填）", { exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".ritual-transition")).toBeHidden();
 });
 test("视觉检查截图（无预设记录）", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });

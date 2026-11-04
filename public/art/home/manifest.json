@@ -1,0 +1,84 @@
+{
+  "tool": "OpenAI built-in image_gen",
+  "registration": "Square master layers proportionally resized to 570x570 and placed at (35, 12) on a transparent 640x630 canvas; dimensions and offsets doubled for 2x. Preserve generated alpha. WebP quality 87, method 6.",
+  "concept": {
+    "sha256": "07aa9f442efc8e5a69b1d7ac4a8a4f3946ff2ee40326545ef917e27a9b6b8518",
+    "prompt": "Use case: illustration-story. Asset type: one transparent home-page hero cutout for the original gothic fairytale journal 夜栖. Input image 1 is style reference ONLY (the plum paper double door from the same site's miniature theatre); input image 2 is layout and subject reference ONLY (the current webpage; replace only the middle illustration, never recreate the webpage). Generate a refined moon gate vignette with the clean, restrained flat cut-paper craft of image 1. Near-square frontal silhouette centered in the frame. An imposing tall pointed Gothic portal with dark plum hand-cut paper arch layers, restrained ivory and antique-gold edge lines; inside its opening a quiet dusky purple sky with a distinct soft ivory-gold crescent in the upper middle and low layered lavender hills. The bottom of the opening should remain visually quiet so a separate website control can sit over the lower center. Three broad shallow paper steps grounding the arch. On the sides, one or two graceful asymmetrical ink-plum thorn branches with very few ivory blooms at their feet, contained within a soft dusty-lavender die-cut oval or rounded-arch backing roughly like the central silhouette in image 2. One tiny pale moth-shaped carved crest over the arch, a few tiny star punctures. Aim for clear silhouette, generous simple solid planes, just a suggestion of paper thickness along cut edges and very light paper grain; composition feels like a handcrafted storybook stage prop. No realistic wood, photorealism, rendered 3D, volumetric lighting, grunge, ornate dense filigree, external ground, shadow outside silhouette, text, typography, numbers, UI, button or badge. No pink rectangular backdrop; the existing website supplies the pink behind the cutout. Actual transparent alpha outside the illustration, not a printed checkerboard. Everything fully in frame with 5% safety margin; central portal visually dominant, broad silhouette about 0.94 times as wide as tall."
+  },
+  "sharedLayer": "/art/theatre/moon-crescent; see ../theatre/manifest.json",
+  "assets": [
+    {
+      "name": "gate-night",
+      "source": {
+        "sha256": "b51e60d1b88689edcb9b3bff34797644a0f3fb0491b5ba59d577489e2f26c410",
+        "prompt": "Use case: precise-object-edit. The input is the exact distant backing layer for a paper theatre website. Keep its exact 1:1 framing, dusty lavender oval and transparent alpha beyond it, keep the purple night field and its tiny stars and two low lavender hill contours. Remove the golden crescent completely and fill its place with seamless dark violet sky matching the surroundings; a separately animated moon will go there. Widen only the inner dark-purple night field about 13% around its center, preserving its pointed shape, paper texture and flat palette so the separately animated foreground door frame can overlap it safely. Keep all outside the oval truly transparent. No new ornament, no frame, no ground outside, no text, no checkerboard."
+      },
+      "files": [
+        {
+          "file": "gate-night-1x.webp",
+          "width": 640,
+          "height": 630,
+          "bytes": 23662,
+          "sha256": "edf51a884c89d2bdb30b6b4a432b3100df16f7d4861025cfb08ed13252f36bd1"
+        },
+        {
+          "file": "gate-night-2x.webp",
+          "width": 1280,
+          "height": 1260,
+          "bytes": 65646,
+          "sha256": "eb5373a1b4bc073151eec3e80d36d73910fb78e631e26fbf0858822c9dbbe09b"
+        }
+      ],
+      "intermediate": {
+        "sha256": "0714d10e34cc9fc932846ab1dad492242f62701e589214bd86dea6e182b61f69",
+        "prompt": "Use case: precise-object-edit. Input image is an exact placement and style reference for a separate registered layer of the same flat handmade paper stage. Output a SQUARE 1:1 image; do not reframe, recenter or zoom any elements. Keep the same screen positions, silhouettes and scale as the reference. Transparent pixels must be genuine zero-alpha where empty, no backdrop color, no checkerboard, no text or marks. Produce only the BACKDROP and DISTANT SKY layer of this illustration. Keep the dusty lavender paper oval silhouette in its original position, and place the dark purple night with the gold crescent, a few specks and the two flat lavender hill contours exactly where they were in the open arch (moon center around x=50%, y=46%). Let the dark night field extend a little beyond the inner opening so that the separate door frame will overlap the edges even when moving. No visible trim or edging around that dark field: a simple solid backdrop plane. Fill in dusty lavender behind the removed branches and white flowers. Completely remove architecture, all steps, all metallic edge lines, moth, diamond, branches and flowers. Genuine transparency beyond the lavender oval, no floor."
+      }
+    },
+    {
+      "name": "gate-arch",
+      "source": {
+        "sha256": "a2a30c37a40d567b7609228b8ff0dd66bc536de8f2c5fb568650e0e5cd31ed2f",
+        "prompt": "Use case: precise-object-edit. Input image is an exact placement and style reference for a separate registered layer of the same flat handmade paper stage. Output a SQUARE 1:1 image; do not reframe, recenter or zoom any elements. Keep the same screen positions, silhouettes and scale as the reference. Transparent pixels must be genuine zero-alpha where empty, no backdrop color, no checkerboard, no text or marks. Produce only the ARCHITECTURE layer: the pointed deep-plum arch border, the thin antique-gold cut edge, ivory moth crest, small gold diamond at the apex, and its three broad gold paper steps attached at the base. Remove the lavender oval, black branches, flowers, stars, hills and moon completely. The entire tall interior aperture under the arch above the steps must be fully TRANSPARENT alpha=0, an actual cut-through hole, as we will position the moon and sky behind it in a browser. Exterior is also fully transparent. Preserve the arch coordinates: apex around (50%,3%), side pillars at roughly 27% and 73%, and steps at bottom 96%. Do not add doors or backing inside the opening."
+      },
+      "files": [
+        {
+          "file": "gate-arch-1x.webp",
+          "width": 640,
+          "height": 630,
+          "bytes": 22906,
+          "sha256": "e27317323c8398370efdcbb440c0b0d3b3e04c5b1647178e913b78daab3da124"
+        },
+        {
+          "file": "gate-arch-2x.webp",
+          "width": 1280,
+          "height": 1260,
+          "bytes": 63220,
+          "sha256": "0b9052a73cc84fd3a3ef8d7da7c44e73c2bf0974fc0c460c35af7960c74f771a"
+        }
+      ]
+    },
+    {
+      "name": "gate-boughs",
+      "source": {
+        "sha256": "6d73473b5916aeaf46ec67110605a7f57e809460b85e191fe7aabad09a3a40ff",
+        "prompt": "Use case: precise-object-edit. Input image is an exact placement and style reference for a separate registered layer of the same flat handmade paper stage. Output a SQUARE 1:1 image; do not reframe, recenter or zoom any elements. Keep the same screen positions, silhouettes and scale as the reference. Transparent pixels must be genuine zero-alpha where empty, no backdrop color, no checkerboard, no text or marks. Produce only the FOREGROUND layer: two independent small dark plum hand-cut thorn branches framing the original composition at the far left and far right, with the few ivory blossoms where each branch meets its base. Match the reference left taller, right shorter, with narrow clean curves and very few forks. Branches should read as paper shapes. Branches and flowers must remain as separate disconnected silhouettes on opposite sides with a wide EMPTY transparent center; do not join them with ground or a border. Left branch occupies x=8–29%, right branch x=71–89%, both grounded near y=86%, keeping original asymmetric height. All other pixels transparent, including the area between branches and outside. Remove the oval, architecture, moth, stars, steps, moon, hills and sky."
+      },
+      "files": [
+        {
+          "file": "gate-boughs-1x.webp",
+          "width": 640,
+          "height": 630,
+          "bytes": 15880,
+          "sha256": "8379f88dfe8cb45bbc1861fc7a582021c22978373b4f8ac1472cbda4289dc0de"
+        },
+        {
+          "file": "gate-boughs-2x.webp",
+          "width": 1280,
+          "height": 1260,
+          "bytes": 40488,
+          "sha256": "1510c361e3faf8f5119211e80fa2620fcaf3f74a7a17d256b0699542796455b0"
+        }
+      ]
+    }
+  ]
+}
