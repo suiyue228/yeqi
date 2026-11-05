@@ -1,0 +1,396 @@
+.shop-portal.scenery-hanging {
+  --prop-depth: 70px;
+  pointer-events: auto;
+  min-width: 44px;
+}
+.shop-portal > small,
+.shop-counter > small {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 4px 8px;
+  color: var(--paper);
+  background: #181320;
+  border: 1px solid #ac8c80;
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+}
+.shop-portal:hover > img,
+.shop-counter:hover > img {
+  filter: brightness(1.15);
+}
+.oracle-shop .passage-door {
+  max-width: 130px;
+}
+.shop-witch,
+.shop-suspended,
+.shop-candles {
+  position: absolute;
+  pointer-events: none;
+}
+.shop-witch {
+  width: 32%;
+  max-width: 375px;
+  left: 50%;
+  bottom: 14%;
+  transform: translate3d(-50%, 0, 30px);
+  filter: drop-shadow(7px 8px 0 #1e1428a0);
+}
+.shop-witch > img {
+  width: 100%;
+  max-height: 64cqh;
+}
+.shop-counter {
+  width: 39%;
+  max-width: 430px;
+  left: 50%;
+  bottom: 11%;
+  transform: translate3d(-50%, 0, 95px);
+}
+.shop-counter > img {
+  width: 100%;
+  filter: drop-shadow(2px 8px 2px #1a1422a0);
+}
+.shop-suspended {
+  left: 72%;
+  top: 16%;
+  width: 12%;
+  transform: translateZ(-10px);
+  filter: drop-shadow(4px 3px 2px #150f1d80);
+}
+.shop-suspended::before {
+  content: "";
+  position: absolute;
+  bottom: 90%;
+  left: 50%;
+  height: 175%;
+  width: 1px;
+  background: #b7948b88;
+}
+.shop-candles {
+  right: 17%;
+  bottom: 8%;
+  width: 13%;
+  transform: translateZ(98px);
+}
+
+.tarot-page {
+  max-width: 1270px;
+  --tarot-gold: #ceb482;
+  --tarot-ivory: #f0dccc;
+  --tarot-ink: #1b1426;
+}
+.tarot-intro {
+  margin: 0 0 28px;
+  display: grid;
+  justify-items: start;
+  gap: 11px;
+}
+.tarot-intro .text-button,
+.tarot-actions .text-button {
+  color: var(--tarot-gold);
+  min-height: 44px;
+}
+.tarot-intro .eyebrow,
+.tarot-step .eyebrow {
+  color: var(--tarot-gold);
+}
+.tarot-intro h1,
+.tarot-step h2,
+.tarot-readings h2 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  color: var(--tarot-ivory);
+  margin: 0;
+}
+.tarot-intro h1 {
+  font-size: clamp(25px, 4vw, 48px);
+  letter-spacing: 0.08em;
+}
+.tarot-intro p,
+.tarot-step p,
+.tarot-slot-question,
+.tarot-note {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #dac1d5;
+  margin: 0;
+}
+.tarot-table {
+  position: relative;
+  border: 1px solid #896e78;
+  outline: 1px solid #715663;
+  outline-offset: 5px;
+  background: #291b3a url("/art/tarot/tarot-cloth-2x.webp") center / 100% 100%;
+  box-shadow:
+    0 10px #120f18,
+    0 13px #78535f;
+  padding: clamp(22px, 4.5vw, 64px) clamp(12px, 5vw, 78px) 24px;
+}
+.tarot-step {
+  text-align: center;
+  margin: 0 0 clamp(18px, 3vw, 36px);
+  display: grid;
+  gap: 10px;
+}
+.tarot-step h2,
+.tarot-readings h2 {
+  font-size: clamp(18px, 2.5vw, 30px);
+  letter-spacing: 0.08em;
+}
+.tarot-deal,
+.tarot-spread {
+  display: grid;
+  justify-content: center;
+  gap: clamp(8px, 1.6vw, 22px);
+  margin: 0;
+  padding: 0;
+}
+.tarot-deal {
+  grid-template-columns: repeat(6, minmax(0, 135px));
+}
+.tarot-spread {
+  list-style: none;
+  grid-template-columns: repeat(3, minmax(0, 160px));
+}
+.tarot-spread li {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  text-align: center;
+  gap: 8px;
+}
+.tarot-card {
+  position: relative;
+  display: block;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  width: 100%;
+  min-width: 0;
+  perspective: 650px;
+}
+.tarot-card:focus-visible,
+.tarot-gallery summary:focus-visible {
+  outline: 2px solid #f3d978;
+  outline-offset: 4px;
+}
+.tarot-back,
+.tarot-face {
+  display: grid;
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--tarot-gold);
+  box-shadow: 3px 5px #140f1bc0;
+}
+.tarot-back {
+  background: #342245;
+  transition:
+    transform 230ms ease-out,
+    filter 230ms ease-out;
+}
+.tarot-back > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.tarot-pick:hover .tarot-back,
+.tarot-turn:not(.is-open):hover .tarot-back {
+  transform: translateY(-5px);
+  filter: brightness(1.13);
+}
+.tarot-pick[aria-pressed="true"] .tarot-back {
+  transform: translateY(-6px);
+  outline: 2px solid var(--tarot-gold);
+  outline-offset: 2px;
+}
+.tarot-selection,
+.tarot-slot {
+  display: block;
+  color: #f3d978;
+  font-size: clamp(10px, 1.15vw, 13px);
+  text-align: center;
+  line-height: 1.6;
+}
+.tarot-selection {
+  margin-top: 9px;
+}
+.tarot-face {
+  box-sizing: border-box;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  padding: clamp(3px, 0.8vw, 9px);
+  gap: 2px;
+  background: #eddbc3;
+  color: #37243d;
+  text-align: center;
+  font-family: var(--font-heading);
+}
+.tarot-face > img {
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid #795668;
+  background: #342245;
+}
+.tarot-face strong {
+  font-size: clamp(10px, 1.8vw, 19px);
+  font-weight: 400;
+}
+.tarot-number,
+.tarot-face small {
+  font-size: clamp(8px, 1vw, 12px);
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+}
+.tarot-turn.is-open .tarot-face {
+  animation: tarot-turn 380ms cubic-bezier(0.18, 0.68, 0.3, 1) both;
+}
+@keyframes tarot-turn {
+  from {
+    opacity: 0;
+    transform: rotateY(-89deg) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(0) translateY(0);
+  }
+}
+.tarot-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin-top: 14px;
+}
+.tarot-actions .text-button {
+  font-size: 12px;
+}
+.tarot-slot-question {
+  font-size: 11px;
+}
+.tarot-readings,
+.tarot-gallery {
+  margin: 42px 0 0;
+}
+.tarot-reading-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 215px), 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+.tarot-reading-grid article {
+  border-top: 2px solid #a78672;
+  background: #dfcad4;
+  color: #21182c;
+  padding: 16px 18px;
+  box-shadow: 4px 5px #120f18;
+}
+.tarot-reading-grid .eyebrow {
+  color: #60445f;
+}
+.tarot-reading-grid h3 {
+  margin: 8px 0;
+  font: 21px var(--font-heading);
+}
+.tarot-reading-grid p {
+  font: 14px/1.7 var(--font-ui);
+  margin: 7px 0 0;
+}
+.tarot-journal-prompt {
+  border-top: 1px solid #a78693;
+  padding-top: 8px;
+}
+.tarot-gallery {
+  border-block: 1px solid #896e78;
+  color: var(--tarot-ivory);
+}
+.tarot-gallery summary {
+  cursor: pointer;
+  padding: 14px 3px;
+  color: var(--tarot-gold);
+}
+.tarot-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  padding: 8px 4px 18px;
+}
+.tarot-note {
+  margin-top: 16px;
+}
+@media (max-width: 760px) {
+  .oracle-shop .passage-door {
+    width: 19%;
+    left: 7%;
+  }
+  .shop-witch {
+    width: 60%;
+    bottom: 17%;
+  }
+  .shop-witch > img {
+    max-height: none;
+  }
+  .shop-counter {
+    width: 55%;
+    bottom: 11%;
+    transform: translate3d(-50%, 0, 65px);
+  }
+  .shop-suspended {
+    width: 19%;
+    left: 70%;
+    top: 23%;
+  }
+  .shop-candles {
+    width: 22%;
+    right: 9%;
+    bottom: 8%;
+    transform: translateZ(67px);
+  }
+  .shop-portal > small {
+    padding-inline: 4px;
+    font-size: 8px;
+  }
+  .tarot-page {
+    padding-inline: 18px;
+  }
+  .tarot-table {
+    background-image: url("/art/tarot/tarot-cloth-1x.webp");
+  }
+  .tarot-deal {
+    grid-template-columns: repeat(3, minmax(0, 106px));
+    row-gap: 12px;
+  }
+  .tarot-gallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tarot-back {
+    transition: none;
+  }
+  .tarot-turn.is-open .tarot-face {
+    animation: none;
+  }
+  .tarot-pick:hover .tarot-back,
+  .tarot-turn:not(.is-open):hover .tarot-back {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tarot-table {
+    animation: tarot-approach 900ms ease-out both;
+  }
+  @keyframes tarot-approach {
+    from {
+      transform: scale(0.96);
+      opacity: 0.6;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}

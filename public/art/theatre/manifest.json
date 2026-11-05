@@ -565,9 +565,79 @@
         }
       ],
       "prompt": "Use case: illustration-story. Generate a single isolated prop for the existing gothic cut-paper theatre. The input screenshot is STYLE reference ONLY. Match its flat matte paper, clearly cut edges, two or three color planes and very restrained highlights. Deep plum, dusty lilac, ivory, faded bronze; use named accent sparingly. Bold silhouette, medium contrast, readable at 90px. True transparent alpha outside silhouette with a little margin. No scene, floor, curtain, lettering, watermark, realistic metal, 3D or exterior cast shadow. Square format. A compact low folded oxblood and deep plum paper mail satchel with a plain muted bronze strap clasp. Two distinct cream envelopes peek out, one lower and one higher, and one envelope rests angled against the satchel. Thick matte paper edges and one muted-gold accent. Frontal three-quarter only enough to show a broad folded side plane, no logos or writing."
+    },
+    {
+      "name": "astrologer-room",
+      "transparent": false,
+      "sourceSHA256": "fea5ee5abb465bf36f843e0009c17649e6bd3db96915870a668c1df8a574adcf",
+      "styleReferenceSHA256": "c63a05bf036f61dca101cb6bf9e8186b7f2980fbee4f9794a711a797e11ef2df",
+      "files": [
+        {
+          "file": "astrologer-room-1x.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 46048,
+          "sha256": "5f2e0d1f0595a89588a686705f7c810613434f4a58357c000b9e0bca62943198"
+        },
+        {
+          "file": "astrologer-room-2x.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 131718,
+          "sha256": "6d36cd76d883546ab5a9b3ada31808b5946bc22c232e0e2a48244925de6c8fc3"
+        }
+      ],
+      "prompt": "Original artwork for 夜栖, an interactive gothic miniature theatre. Match the project's handmade matte flat cut-paper style: layered plum/violet and muted ivory cutouts, limited clear color planes and crisp edges, restrained antique gold, small worn paper grain. No photos, 3D, glossy effects, text, letters or watermark. The referenced screenshot is a style reference only. Landscape 3:2 edge-to-edge theatre back panel. Frontal view of an exquisite little night astrologer's shop, deep blackberry and ink blue walls, muted old-brass and smoky lavender paper, with a tall softly pointed window looking onto a tiny quiet crescent and dark violet sky. Two asymmetrical built-in shelves are visible at the flanks: folded charts, little dark tincture bottles, some pale paper books and brass orbital instruments. A narrow hanging swathe of embroidered paper near a top edge. Center is quiet dark violet at the lower half, with open space for the central witch and separate counter. Folded paper floor starts 80% down. Sophisticated, subdued back scenery, no character, no crystal ball, no doors, no close-up table, no proscenium or foreground curtains."
+    },
+    {
+      "name": "astrologer-witch",
+      "transparent": true,
+      "sourceSHA256": "6de6eb4c5a3d52bd2abba026eb2b40c0baf6a63ab25b73d11554747d8ec1261a",
+      "styleReferenceSHA256": "3a8f625a64865a0dfc8ee2332a4a40d9b3a735a7819c90509d9bd4a18e96411f",
+      "files": [
+        {
+          "file": "astrologer-witch-1x.webp",
+          "width": 320,
+          "height": 480,
+          "bytes": 23376,
+          "sha256": "e946332dfdadda5a86e5e3ea9f9ca1f316b969bca982c429a4ad4428f5dfa7d8"
+        },
+        {
+          "file": "astrologer-witch-2x.webp",
+          "width": 640,
+          "height": 960,
+          "bytes": 58318,
+          "sha256": "91ab17f67db1718f8b133955893788995f57d4ebf9370165a3f9c994deff41e9"
+        }
+      ],
+      "prompt": "Original artwork for 夜栖, an interactive gothic miniature theatre. Match the project's handmade matte flat cut-paper style: layered plum/violet and muted ivory cutouts, limited clear color planes and crisp edges, restrained antique gold, small worn paper grain. No photos, 3D, glossy effects, text, letters or watermark. The referenced screenshot is a style reference only. One full-body original elegant adult witch shopkeeper, named 岑, standing front three-quarter, approachable and mysterious, wearing a large pointed deep-plum hood framing a softly lit ivory human face with quiet closed eyes, dark little asymmetrical hair fringe, layered ink-purple cape sleeves with thin lilac embroidery and a small antique gold crescent clasp, long angular draped cloak, small amethyst hands visible lowered close to the body. As clean and readable as the lantern keeper reference, especially at small scale. Original character; no familiar IP design. Subject only, vertical 2:3 with all body inside frame, true transparent alpha around her. No props, crystal ball, table, background, large glowing areas or external shadow."
+    },
+    {
+      "name": "astrologer-counter",
+      "transparent": true,
+      "sourceSHA256": "900c5197a937d0f2e6a95ec00e39a2f690021811b7f8361910334bfc0a24dbb8",
+      "styleReferenceSHA256": "c63a05bf036f61dca101cb6bf9e8186b7f2980fbee4f9794a711a797e11ef2df",
+      "files": [
+        {
+          "file": "astrologer-counter-1x.webp",
+          "width": 400,
+          "height": 260,
+          "bytes": 12960,
+          "sha256": "d6bfd4487a32adbc75c82946c68cd3115b20628f001d3fe495a559a769d38d24"
+        },
+        {
+          "file": "astrologer-counter-2x.webp",
+          "width": 800,
+          "height": 520,
+          "bytes": 34430,
+          "sha256": "0e658383957eb4f1a1c535bbdae691fc5c66f9e6fbef15861c4f11eef6f98c00"
+        }
+      ],
+      "prompt": "Original artwork for 夜栖, an interactive gothic miniature theatre. Match the project's handmade matte flat cut-paper style: layered plum/violet and muted ivory cutouts, limited clear color planes and crisp edges, restrained antique gold, small worn paper grain. No photos, 3D, glossy effects, text, letters or watermark. The referenced screenshot is a style reference only. Landscape isolated counter prop as a clean transparent paper cutout. An exquisite single pale smoky lavender crystal ball on a small antique bronze tripod set atop a low and wide carved deep plum paper shop counter with an ivory-and-ochre crescent runner, a pair of tiny folded cards off to one side. The crystal ball reads at small scale, with two understated angular paper reflections and a tiny star trapped inside, no glow beyond the orb. Front view with a visible shallow top ledge; counter has discreet old gold accents. Complete standalone silhouette with generous transparent margin. No character, room, outside cast shadow or ground."
     }
   ],
   "updatedOn": "2026-11-03",
   "additionalActProcessing": "Resize and center transparent cutouts with preserved alpha; center-crop opaque panels to 3:2. WebP quality 86, method 6.",
-  "sceneryProcessing": "Resize and center transparent cutouts with preserved alpha. WebP quality 86, method 6."
+  "sceneryProcessing": "Resize and center transparent cutouts with preserved alpha. WebP quality 86, method 6.",
+  "astrologerProcessing": "Resize, center transparent cutouts and retain alpha. Center-crop opaque backdrop. WebP quality 87, method 6."
 }

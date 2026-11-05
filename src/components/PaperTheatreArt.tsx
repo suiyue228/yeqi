@@ -25,6 +25,9 @@ const ART = {
   "tide-kit": [224, 224],
   "post-instrument": [224, 224],
   "post-satchel": [224, 224],
+  "astrologer-room": [768, 512],
+  "astrologer-witch": [320, 480],
+  "astrologer-counter": [400, 260],
 } as const;
 export type TheatreAsset = keyof typeof ART;
 const MOONS = ["moon-crescent", "moon-half", "moon-full"] as const;
@@ -41,13 +44,17 @@ export function TheatreImage({
       ? "(max-width: 760px) 56px, 150px"
       : width === 768
         ? "(max-width: 760px) 100vw, 1200px"
-        : name === "keeper"
-          ? "(max-width: 760px) 120px, 230px"
-          : name === "door"
-            ? "(max-width: 760px) 160px, 320px"
-            : width === 96 || name.startsWith("moon-")
-              ? "(max-width: 760px) 48px, 68px"
-              : "(max-width: 760px) 100px, 210px";
+        : name === "astrologer-witch"
+          ? "(max-width: 760px) 220px, 380px"
+          : name === "astrologer-counter"
+            ? "(max-width: 760px) 220px, 430px"
+            : name === "keeper"
+              ? "(max-width: 760px) 120px, 230px"
+              : name === "door"
+                ? "(max-width: 760px) 160px, 320px"
+                : width === 96 || name.startsWith("moon-")
+                  ? "(max-width: 760px) 48px, 68px"
+                  : "(max-width: 760px) 100px, 210px";
   return (
     <img
       className={`theatre-image ${className}`}
@@ -98,13 +105,31 @@ const SCENERY = {
   post: { hanging: "post-instrument", floor: "post-satchel" },
 } as const;
 
-export function PaperScenery({ scene }: { scene: keyof typeof SCENERY }) {
+export function PaperScenery({
+  scene,
+  onHangingClick,
+}: {
+  scene: keyof typeof SCENERY;
+  onHangingClick?: () => void;
+}) {
   const { hanging, floor } = SCENERY[scene];
   return (
     <>
-      <div className={`scenery-hanging scenery-${scene}`} aria-hidden="true">
-        <TheatreImage name={hanging} />
-      </div>
+      {onHangingClick ? (
+        <button
+          type="button"
+          className={`stage-mechanism scenery-hanging scenery-${scene} shop-portal`}
+          onClick={onHangingClick}
+          aria-label="拨动星盘吊摆，进入栖星占星小店"
+        >
+          <TheatreImage name={hanging} />
+          <small>占星小店 ↗</small>
+        </button>
+      ) : (
+        <div className={`scenery-hanging scenery-${scene}`} aria-hidden="true">
+          <TheatreImage name={hanging} />
+        </div>
+      )}
       <div className={`scenery-floor scenery-${scene}`} aria-hidden="true">
         <TheatreImage name={floor} />
       </div>

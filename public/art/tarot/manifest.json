@@ -1,0 +1,163 @@
+{
+  "tool": "OpenAI built-in image_gen",
+  "processing": "Four artwork panels in each sheet are split by exact quadrants and reduced to 360x360. Table mat and back resized for 1x/2x. WebP quality 87, method 6.",
+  "assets": [
+    {
+      "name": "tarot-cloth",
+      "transparent": false,
+      "sourceSHA256": "048a5ca6ed4fcf30dbcc73ebed930d46648722e1cb869d35c477e3110d2157c7",
+      "styleReferenceSHA256": "c63a05bf036f61dca101cb6bf9e8186b7f2980fbee4f9794a711a797e11ef2df",
+      "files": [
+        {
+          "file": "tarot-cloth-1x.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 20546,
+          "sha256": "c194a40f89b4d149ad5f6c608f5218cdf17e38d86cea70fb6f243f5e67368f8a"
+        },
+        {
+          "file": "tarot-cloth-2x.webp",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 66766,
+          "sha256": "00b0df1607f57ed9f8f8259e8bb2cf6c01ab2585b27b270cf49813a8901c5a5d"
+        }
+      ],
+      "prompt": "Original artwork for 夜栖, an interactive gothic miniature theatre. Match the project's handmade matte flat cut-paper style: layered plum/violet and muted ivory cutouts, limited clear color planes and crisp edges, restrained antique gold, small worn paper grain. No photos, 3D, glossy effects, text, letters or watermark. The referenced screenshot is a style reference only. Flat overhead landscape 3:2 view of one exquisitely restrained deep aubergine paper divination mat with cut-paper embroidery, subtle fiber texture, thin dull bronze and muted lilac ornaments clustered ONLY at the edges and corners: engraved small stars, orbit ticks, crescent corner medallions. Entire central 80% left very dark and quiet as usable surface for cards added later. Matte paper, no bright center, no objects, no cards, no typography, no hands, no realistic cloth sheen. Edge-to-edge reusable background artwork."
+    },
+    {
+      "name": "tarot-back",
+      "transparent": false,
+      "sourceSHA256": "0c791b7279f6e31e55514d531135a51c25bfdada6f4100254ce259538521b24b",
+      "styleReferenceSHA256": "c63a05bf036f61dca101cb6bf9e8186b7f2980fbee4f9794a711a797e11ef2df",
+      "files": [
+        {
+          "file": "tarot-back-1x.webp",
+          "width": 224,
+          "height": 336,
+          "bytes": 18142,
+          "sha256": "a4472536852470b6a27b1012dc6a19d475fb6f2001cd0ba02fca9fa38ba6c30d"
+        },
+        {
+          "file": "tarot-back-2x.webp",
+          "width": 448,
+          "height": 672,
+          "bytes": 49574,
+          "sha256": "bbb7bbb92161956e6301fe161121e73a0f4282e25f653d2ed9664f3710dc5960"
+        }
+      ],
+      "prompt": "Original artwork for 夜栖, an interactive gothic miniature theatre. Match the project's handmade matte flat cut-paper style: layered plum/violet and muted ivory cutouts, limited clear color planes and crisp edges, restrained antique gold, small worn paper grain. No photos, 3D, glossy effects, text, letters or watermark. The referenced screenshot is a style reference only. Vertical 2:3 deck back artwork edge-to-edge, elegant symmetry, iconic tiny ivory moth with an old gold crescent cradled in its four wings, nested dusty-lilac and old-brass ovals with four tiny stars, ink-plum corners. Little gold foliate paper detail in corners. Strong centered emblem, tidy negative space, no words or numbers, no floating card or outer shadow. Flat print design."
+    },
+    {
+      "name": "tarot-sheet-one",
+      "transparent": false,
+      "sourceSHA256": "ce8efb75f68d4812553c3bb60ae875d5ed15aef30341462ffa70a544525b2c9c",
+      "styleReferenceSHA256": "c63a05bf036f61dca101cb6bf9e8186b7f2980fbee4f9794a711a797e11ef2df",
+      "files": [
+        {
+          "file": "boat.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 7998,
+          "sha256": "edc5eb04d998badb3ae7b8959e3ab234d3882c9d744746b55828474db89a8d0d"
+        },
+        {
+          "file": "key.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 9402,
+          "sha256": "ef4a6ac27b8bf0a140dcb460bf5437ad5d25bde9761f933b1c039dab891a262d"
+        },
+        {
+          "file": "veil.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 10852,
+          "sha256": "81ca9123d2ac41e73a46311a59c3a103868decbd8cb786d704fc9be456a7b6df"
+        },
+        {
+          "file": "lantern.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 5838,
+          "sha256": "ba8c4302f8eb9408e2fa66bdd35814c7df8876afa68313c06893a8382e07fc92"
+        }
+      ],
+      "prompt": "Original artwork for 夜栖, an interactive gothic miniature theatre. Match the project's handmade matte flat cut-paper style: layered plum/violet and muted ivory cutouts, limited clear color planes and crisp edges, restrained antique gold, small worn paper grain. No photos, 3D, glossy effects, text, letters or watermark. The referenced screenshot is a style reference only. An exactly square production contact sheet, divided into four equal square quadrants 2 by 2, no separator lines, FOUR independent full-bleed square flat paper illustrations with distinct objects. Keep all meaningful objects within central 75% of each quadrant; leave quiet dark color at its edges. Quadrant centers at (25%,25%),(75%,25%),(25%,75%),(75%,75%). Fill each quadrant all the way to its edge, no border or card frame, no gutters, no transparent areas, no text or numerals; these are artwork panels for an original tarot deck. Dark, elegant readable silhouettes with no figure needed, common limited colors and tonal range. TOP LEFT: a single ivory folded paper boat with a lilac sail on dark waters, hint of distant horizon. TOP RIGHT: a suspended antique-gold key and three small folded tools under a thin arch on deep burgundy. BOTTOM LEFT: a lilac split curtain revealing a small pale crescent and a delicate pearl, on dark ink-purple. BOTTOM RIGHT: a tiny solitary glowing ivory lantern perched on an indigo ridge with a single far star. Each quadrants' subject is distinct."
+    },
+    {
+      "name": "tarot-sheet-two",
+      "transparent": false,
+      "sourceSHA256": "c3d1b12a188db89135f40059781900fb03da61e1dbbc4b51a8855f15be6d0833",
+      "styleReferenceSHA256": "c63a05bf036f61dca101cb6bf9e8186b7f2980fbee4f9794a711a797e11ef2df",
+      "files": [
+        {
+          "file": "wheel.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 16142,
+          "sha256": "a5c38c6c1653ae7fe9bc954397481380f5a6cedf8b729b8a9a056757bd161800"
+        },
+        {
+          "file": "scale.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 12946,
+          "sha256": "71028b73070810e367d9329125aad3d26cf524b8baf4839ef0eb7d765fee3e28"
+        },
+        {
+          "file": "cups.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 11600,
+          "sha256": "32dd2f701fc166a0a24790c407a6a83fe582a56a3eec5f935eb9b1d226fdbc78"
+        },
+        {
+          "file": "tower.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 10378,
+          "sha256": "0e8b8928fa193f7e90356b3147ce644de2dda16cc76138d00dc1c5e3b07a8f04"
+        }
+      ],
+      "prompt": "Original artwork for 夜栖, an interactive gothic miniature theatre. Match the project's handmade matte flat cut-paper style: layered plum/violet and muted ivory cutouts, limited clear color planes and crisp edges, restrained antique gold, small worn paper grain. No photos, 3D, glossy effects, text, letters or watermark. The referenced screenshot is a style reference only. An exactly square production contact sheet, divided into four equal square quadrants 2 by 2, no separator lines, FOUR independent full-bleed square flat paper illustrations with distinct objects. Keep all meaningful objects within central 75% of each quadrant; leave quiet dark color at its edges. Quadrant centers at (25%,25%),(75%,25%),(25%,75%),(75%,75%). Fill each quadrant all the way to its edge, no border or card frame, no gutters, no transparent areas, no text or numerals; these are artwork panels for an original tarot deck. Dark, elegant readable silhouettes with no figure needed, common limited colors and tonal range. TOP LEFT: an antique bronze spinning wheel with a tiny crescent threaded through the spokes, blackberry and tarnished bronze. TOP RIGHT: an ivory feather balanced against a small purple stone on a brass balance scale, plum and muted mauve. BOTTOM LEFT: two tilted ivory goblets passing a thin blue-gray ribbon of water, dark dusty teal-purple. BOTTOM RIGHT: one cracked paper spire with two clean folded fragments below a tiny white lightning notch, dark desaturated garnet. Each quadrants' subject is distinct."
+    },
+    {
+      "name": "tarot-sheet-three",
+      "transparent": false,
+      "sourceSHA256": "2afa8400ceaf56b5acc1383e2ce695260830baff62691443e1fc18ac33f0e6b2",
+      "styleReferenceSHA256": "c63a05bf036f61dca101cb6bf9e8186b7f2980fbee4f9794a711a797e11ef2df",
+      "files": [
+        {
+          "file": "well.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 10116,
+          "sha256": "f5600ae6df2f052439d3527f7000175149eb377345d966a70825305982cb1988"
+        },
+        {
+          "file": "tide.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 10230,
+          "sha256": "f385a347798295033e4f287ab77d9ed6b8d99fea39208e1f6ef01f06bfb292c7"
+        },
+        {
+          "file": "sun.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 11340,
+          "sha256": "03c9836378b1be41f84b63af27a612c523a027d1a388f1d067bc2eeb21522881"
+        },
+        {
+          "file": "wreath.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 13020,
+          "sha256": "57d028439550db570764c5db17bc72cbdb6796a17cdfde68ed3fc0d44a0a40f7"
+        }
+      ],
+      "prompt": "Original artwork for 夜栖, an interactive gothic miniature theatre. Match the project's handmade matte flat cut-paper style: layered plum/violet and muted ivory cutouts, limited clear color planes and crisp edges, restrained antique gold, small worn paper grain. No photos, 3D, glossy effects, text, letters or watermark. The referenced screenshot is a style reference only. An exactly square production contact sheet, divided into four equal square quadrants 2 by 2, no separator lines, FOUR independent full-bleed square flat paper illustrations with distinct objects. Keep all meaningful objects within central 75% of each quadrant; leave quiet dark color at its edges. Quadrant centers at (25%,25%),(75%,25%),(25%,75%),(75%,75%). Fill each quadrant all the way to its edge, no border or card frame, no gutters, no transparent areas, no text or numerals; these are artwork panels for an original tarot deck. Dark, elegant readable silhouettes with no figure needed, common limited colors and tonal range. TOP LEFT: one radiant four-point ivory star above a small still dark violet well and a circular ripple. TOP RIGHT: one pale crescent moon over two mirrored folded smoky teal tidal waves. BOTTOM LEFT: one muted gold sun showing through an open rose-plum Gothic arched window, no face. BOTTOM RIGHT: one ivory circular leaf wreath forming an elegant portal between two deep plum paper panels, with a small gold point inside. Each quadrants' subject is distinct."
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import "./audio.css";
 import "./rooms.css";
 import "./modules.css";
 import "./theatre.css";
+import "./tarot.css";
 import "./typography.css";
 import "./art.css";
 createRoot(document.getElementById("root")!).render(

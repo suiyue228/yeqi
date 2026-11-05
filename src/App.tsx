@@ -19,6 +19,8 @@ import { Wishes } from "./pages/Wishes";
 import { Collection } from "./pages/Collection";
 import { Theatre } from "./pages/Theatre";
 import { TheatreAct } from "./pages/TheatreAct";
+import { Astrologer } from "./pages/Astrologer";
+import { TarotTable } from "./pages/TarotTable";
 export default function App() {
   const data = useEntries();
   const workspace = useWorkspace();
@@ -169,6 +171,10 @@ export default function App() {
       />
     );
   else if (path === "/privacy") page = <Privacy backup={backup} />;
+  else if (path === "/theatre/astrologer")
+    page = <Astrologer navigate={navigate} />;
+  else if (path === "/theatre/astrologer/table")
+    page = <TarotTable navigate={navigate} />;
   else if (path === "/theatre/tide" || path === "/theatre/post")
     page = (
       <TheatreAct

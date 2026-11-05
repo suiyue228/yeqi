@@ -42,7 +42,7 @@ const ACTS = {
   post: {
     chapter: "ACT III · THE STAR POST",
     title: "星图邮局",
-    intro: "信差迢靠星星认路。点一下迢，看看今晚的信会盖上什么邮戳。",
+    intro: "点邮差迢给信盖戳，或拨动左上方的星盘吊摆，去找隔壁的占星师。",
     backdrop: "post-room",
     actor: "star-postmaster",
     name: "星图邮差 · 迢",
@@ -162,7 +162,14 @@ export function TheatreAct({
                 </div>
               </>
             )}
-            <PaperScenery scene={act} />
+            <PaperScenery
+              scene={act}
+              onHangingClick={
+                act === "post"
+                  ? () => navigate("/theatre/astrologer")
+                  : undefined
+              }
+            />
             <TheatrePassage
               kind="door"
               destination={scene.previous.title}
