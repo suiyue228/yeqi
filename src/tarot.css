@@ -116,8 +116,12 @@
   margin: 0;
 }
 .tarot-table {
+  --tarot-frame: clamp(32px, 4.5vw, 70px);
   position: relative;
-  border: 1px solid #896e78;
+  border: var(--tarot-frame) solid transparent;
+  border-image-source: url("/art/tarot/tarot-cloth-2x.webp");
+  border-image-slice: 24% 17% fill;
+  border-image-repeat: stretch round;
   outline: 1px solid #715663;
   outline-offset: 5px;
   background: #291b3a;
@@ -125,30 +129,7 @@
   box-shadow:
     0 10px #120f18,
     0 13px #78535f;
-  padding: clamp(30px, 4.5vw, 64px) clamp(12px, 5vw, 78px) 44px;
-}
-.tarot-table::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: clamp(42px, 8vw, 100px);
-  background: url("/art/tarot/tarot-cloth-2x.webp") center bottom / 100% auto
-    no-repeat;
-  pointer-events: none;
-  z-index: 0;
-}
-.tarot-table::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: clamp(42px, 8vw, 100px);
-  background: url("/art/tarot/tarot-cloth-2x.webp") center top / 100% auto no-repeat;
-  pointer-events: none;
-  z-index: 0;
-}
-.tarot-table > * {
-  position: relative;
-  z-index: 1;
+  padding: clamp(16px, 2vw, 26px) clamp(10px, 2vw, 28px);
 }
 .tarot-step {
   text-align: center;
@@ -403,13 +384,14 @@
   .tarot-page {
     padding-inline: 18px;
   }
-  .tarot-table::before,
-  .tarot-table::after {
-    background-image: url("/art/tarot/tarot-cloth-1x.webp");
+  .tarot-table {
+    --tarot-frame: 24px;
+    border-image-source: url("/art/tarot/tarot-cloth-1x.webp");
   }
   .tarot-deal {
     grid-template-columns: repeat(5, minmax(44px, 1fr));
     row-gap: 12px;
+    column-gap: 6px;
   }
   .tarot-gallery-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
