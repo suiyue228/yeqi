@@ -10,6 +10,23 @@ for (const width of [1440, 390]) {
     await expect(passage).toHaveAttribute("data-kind", "crystal");
     await expect(passage.locator(".ritual-wing")).toHaveCount(0);
     await expect(passage.locator(".crystal-orbits")).toBeVisible();
+    // Changing the routing phase must not restart the continuous visual score.
+    const veil = await passage.evaluate(root => {
+      const el = root.querySelector(".crystal-orbits")!;
+      const started = el.getAnimations()[0].startTime;
+      return new Promise<{ before: number | null; started: number | null; elapsed: number; opacity: number }>(resolve => {
+        const observer = new MutationObserver(() => {
+          if (!root.classList.contains("ritual-opening")) return;
+          observer.disconnect();
+          resolve({ before: started, started: el.getAnimations()[0].startTime,
+            elapsed: Number(el.getAnimations()[0].currentTime), opacity: Number(getComputedStyle(root.querySelector(".crystal-veil")!).opacity) });
+        });
+        observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+      });
+    });
+    expect(veil.started).toBe(veil.before);
+    expect(veil.elapsed).toBeGreaterThan(1100);
+    expect(veil.opacity).toBeGreaterThan(.97);
     await expect(passage).toHaveCount(0);
     await expect(page.locator("#page-title")).toBeFocused();
 
@@ -95,4 +112,26 @@ test("22张牌义短句在手机和桌面的下方题签内完整排布", async 
     expect(captions[0].text).not.toContain("纸舟");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
+});
+
+test("慢任务延迟切页后仍保留完整的水晶球显露时间", async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem("yeqi.audio.v1", JSON.stringify({
+    music: false, effects: false, musicVolume: .45, effectsVolume: .5,
+  })));
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/#/theatre/astrologer");
+  await page.getByRole("button", { name: "触碰水晶球，坐到占卜桌前" }).click();
+  // Reproduce a decode/render stall spanning the planned route commit.
+  await page.evaluate(() => new Promise<void>(resolve => window.setTimeout(() => {
+    const until = performance.now() + 1300;
+    while (performance.now() < until) { /* simulated synchronous work */ }
+    resolve();
+  }, 900)));
+  const passage = page.getByTestId("ritual-transition");
+  await expect(passage).toHaveClass(/ritual-opening/);
+  expect(await passage.locator(".crystal-veil").evaluate(el => Number(getComputedStyle(el).opacity))).toBeGreaterThan(.97);
+  const start = Date.now();
+  await expect(passage).toHaveCount(0);
+  expect(Date.now() - start).toBeGreaterThan(900);
+  await expect(page.locator("#page-title")).toBeFocused();
 });

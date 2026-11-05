@@ -2,7 +2,7 @@ export type RitualKind = "curtain" | "cabinet" | "letter" | "oracle" | "gate" | 
 export interface RitualState {
   kind: RitualKind;
   phase: "closing" | "opening";
-  origin?: { x: number; y: number };
+  origin?: { x: number; y: number; diameter: number };
 }
 const words: Record<Exclude<RitualKind, "crystal">, [string, string, string]> = {
   curtain: ["II", "展开一张，写给月亮的纸。", "THE WRITING CHAMBER"],
@@ -44,29 +44,30 @@ export function RitualTransition({ state }: { state: RitualState | null }) {
   );
 }
 function CrystalPassage({ state }: { state: RitualState }) {
+  const total = CRYSTAL_TIMING.close + CRYSTAL_TIMING.hold + CRYSTAL_TIMING.reveal;
   return (
     <div className={`ritual-transition ritual-crystal ritual-${state.phase}`}
       data-testid="ritual-transition" data-kind="crystal" aria-hidden="true"
       style={{
         "--crystal-x": state.origin ? `${state.origin.x}px` : "50vw",
         "--crystal-y": state.origin ? `${state.origin.y}px` : "50vh",
-        "--ritual-close": `${RITUAL_TIMING.close}ms`,
-        "--ritual-reveal": `${RITUAL_TIMING.reveal}ms`,
+        "--crystal-diameter": state.origin ? `${state.origin.diameter}px` : "64px",
+        "--crystal-total": `${total}ms`,
+        "--crystal-close": `${CRYSTAL_TIMING.close}ms`,
+        "--crystal-reveal": `${CRYSTAL_TIMING.reveal}ms`,
       } as CSSProperties}>
       <div className="crystal-veil" />
       <div className="crystal-orbits">
         <span className="crystal-orbit" />
         <span className="crystal-orbit" />
-        <span className="crystal-globe">☾</span>
-        <i className="crystal-star">✦</i>
-        <small>THE MOTH ORACLE · XXII</small>
+        <span className="crystal-globe" />
       </div>
     </div>
   );
 }
 import { useId } from "react";
 import type { CSSProperties } from "react";
-import { RITUAL_TIMING } from "../lib/ritual";
+import { CRYSTAL_TIMING, RITUAL_TIMING } from "../lib/ritual";
 function Embroidery() {
   const id = useId();
   return (

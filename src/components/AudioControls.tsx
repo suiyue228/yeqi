@@ -4,23 +4,47 @@ import { MUSIC_TRACK } from "../lib/musicTrack";
 export function AudioControls() {
   const state = useSyncExternalStore(audio.subscribe, audio.getSnapshot);
   useEffect(() => {
+    const firstGesture = (event: Event) => {
+      if (!event.isTrusted || document.hidden) return;
+      // Audio controls must be able to cancel the default without starting it.
+      if (event.target instanceof Element && event.target.closest(".audio-console"))
+        return;
+      if (event instanceof KeyboardEvent && (
+        event.repeat || event.ctrlKey || event.altKey || event.metaKey ||
+        ["Tab", "Shift", "Control", "Alt", "Meta", "Escape"].includes(event.key)
+      )) return;
+      removeGestureListeners();
+      audio.startPreferredMusic();
+    };
+    const removeGestureListeners = () => {
+      document.removeEventListener("click", firstGesture, true);
+      document.removeEventListener("keydown", firstGesture, true);
+    };
+    document.addEventListener("click", firstGesture, true);
+    document.addEventListener("keydown", firstGesture, true);
     const change = () => {
-      if (document.hidden) audio.pause();
+      if (document.hidden) {
+        removeGestureListeners();
+        audio.pause();
+      }
     };
     document.addEventListener("visibilitychange", change);
-    return () => document.removeEventListener("visibilitychange", change);
+    return () => {
+      removeGestureListeners();
+      document.removeEventListener("visibilitychange", change);
+    };
   }, []);
   return (
     <details className="audio-console">
       <summary aria-label="音景设置">
-        ♫ <span>{state.playing ? "月下曲正在流淌" : "音景 · 静候开启"}</span>
+        ♫ <span>{state.playing ? "月下曲正在流淌" : state.autoStartPending ? "月下曲 · 等待轻触" : "音景 · 静候开启"}</span>
       </summary>
       <div className="audio-panel">
         <span className="eyebrow">MOONLIGHT / 月下钢琴</span>
         <p>
           柔和的钢琴，陪你在月光里慢慢写。
           <br />
-          声音由你开启，随时可以关掉。
+          音乐默认开启，首次操作后轻轻响起，随时可以关掉。
         </p>
         <button
           className="button outline-button"
@@ -28,7 +52,7 @@ export function AudioControls() {
         >
           {state.loading
             ? "取消加载背景音乐"
-            : state.playing
+            : state.playing || state.autoStartPending
               ? "关闭背景音乐"
               : state.preferences.music
                 ? "恢复背景音乐"
@@ -91,6 +115,8 @@ export function AudioControls() {
             ? "正在准备月下钢琴，可随时取消。"
             : state.playing
               ? "纯音乐播放中"
+              : state.autoStartPending
+                ? "音乐偏好已记住，首次点击页面或按键后柔和起播；可在此提前关闭。"
               : state.unlocked
                 ? "背景音乐已关闭"
                 : state.preferences.music || state.preferences.effects

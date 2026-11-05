@@ -29,11 +29,12 @@ interface AudioState {
   playing: boolean;
   loading: boolean;
   unlocked: boolean;
+  autoStartPending: boolean;
   error: string;
 }
 const KEY = "yeqi.audio.v1";
 const defaults: Preferences = {
-  music: false,
+  music: true,
   effects: false,
   musicVolume: 0.45,
   effectsVolume: 0.5,
@@ -56,11 +57,13 @@ function load(): Preferences {
   return { ...defaults };
 }
 class Soundscape {
+  private initialPreferences = load();
   private state: AudioState = {
-    preferences: load(),
+    preferences: this.initialPreferences,
     playing: false,
     loading: false,
     unlocked: false,
+    autoStartPending: this.initialPreferences.music,
     error: "",
   };
   private listeners = new Set<() => void>();
@@ -93,7 +96,7 @@ class Soundscape {
   }
   configure(patch: Partial<Preferences>) {
     const preferences = { ...this.state.preferences, ...patch };
-    this.emit({ preferences });
+    this.emit({ preferences, ...(patch.music === false ? { autoStartPending: false } : {}) });
     this.updateLevels();
     try {
       localStorage.setItem(KEY, JSON.stringify(preferences));
@@ -163,7 +166,19 @@ class Soundscape {
         }
       }
   }
+  /** Called once after a trusted gesture; never toggles an already playing track. */
+  startPreferredMusic = () => {
+    if (!this.state.autoStartPending || !this.state.preferences.music || document.hidden)
+      return;
+    this.emit({ autoStartPending: false });
+    if (!this.state.playing && !this.state.loading) void this.toggleMusic();
+  };
   async toggleMusic() {
+    // An enabled-but-waiting default can be turned off before it makes any sound.
+    if (this.state.autoStartPending) {
+      this.configure({ music: false });
+      return;
+    }
     if (this.state.loading) {
       this.musicRequest++;
       this.configure({ music: false });
@@ -310,7 +325,7 @@ class Soundscape {
   }
   pause = () => {
     this.musicRequest++;
-    this.emit({ loading: false });
+    this.emit({ loading: false, autoStartPending: false });
     this.stopMusic();
     for (const [voice, group] of this.voices) {
       try {

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { RitualKind, RitualState } from "../components/RitualTransition";
-import { RITUAL_SWAP, RITUAL_TOTAL } from "../lib/ritual";
+import { CRYSTAL_TIMING, RITUAL_SWAP, RITUAL_TOTAL } from "../lib/ritual";
 import { audio } from "../lib/audio";
 const current = () => window.location.hash.slice(1) || "/";
 interface Destination {
@@ -88,8 +88,14 @@ export function useRoute() {
         : undefined;
       const origin = counter ? {
         x: Math.max(60, Math.min(innerWidth - 60, counter.left + counter.width / 2)),
-        y: Math.max(90, Math.min(innerHeight - 90, counter.top + counter.height * 0.22)),
+        y: Math.max(90, Math.min(innerHeight - 90, counter.top + counter.height * 0.32)),
+        diameter: Math.max(32, counter.width * 0.17),
       } : undefined;
+      const swap = kind === "crystal" ? CRYSTAL_TIMING.close + CRYSTAL_TIMING.hold : RITUAL_SWAP;
+      const finish = () => {
+        setTransition(null);
+        destination.current = null;
+      };
       setTransition({ kind, phase: "closing", origin });
       timers.current.push(
         window.setTimeout(() => {
@@ -97,14 +103,13 @@ export function useRoute() {
           // Finishing early during the reveal must not push this URL twice.
           destination.current = { next, position: position.current };
           setTransition({ kind, phase: "opening", origin });
-        }, RITUAL_SWAP),
+          // A slow music decode/render must not consume the crystal's reveal.
+          if (kind === "crystal")
+            timers.current.push(window.setTimeout(finish, CRYSTAL_TIMING.reveal));
+        }, swap),
       );
-      timers.current.push(
-        window.setTimeout(() => {
-          setTransition(null);
-          destination.current = null;
-        }, RITUAL_TOTAL),
-      );
+      if (kind !== "crystal")
+        timers.current.push(window.setTimeout(finish, RITUAL_TOTAL));
     },
     [clearTimers, commit],
   );

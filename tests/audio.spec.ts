@@ -1,5 +1,15 @@
 import { test, expect } from "@playwright/test";
 test.use({ reducedMotion: "reduce" });
+// Existing explicit-control cases exercise an opted-out user; fresh defaults have
+// their own tests in audio-default.spec.ts.
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    if (!localStorage.getItem("yeqi.audio.v1"))
+      localStorage.setItem("yeqi.audio.v1", JSON.stringify({
+        music: false, effects: false, musicVolume: .45, effectsVolume: .5,
+      }));
+  });
+});
 
 test("配乐与星铃共用控制，切页不重载或叠加音乐，无外部音频请求", async ({
   page,
@@ -240,7 +250,7 @@ test("延迟加载可取消，完成后不会自行开始播放", async ({ page 
   });
 });
 
-test("声音默认静音、用户激活、单实例、音量和偏好恢复", async ({ page }) => {
+test("已关闭偏好下的用户激活、单实例、音量和偏好恢复", async ({ page }) => {
   await page.addInitScript(() => {
     const contexts: AudioContext[] = [];
     Object.defineProperty(window, "__testContexts", { value: contexts });
@@ -278,6 +288,9 @@ test("声音默认静音、用户激活、单实例、音量和偏好恢复", as
   await expect(page.getByLabel("音乐音量", { exact: true })).toHaveValue("23");
   await expect(page.getByLabel("开启交互音效", { exact: true })).toBeChecked();
   await expect(page.locator(".audio-state")).toContainText("偏好已记住");
+  // A remembered enabled track waits for a gesture; turning it off here must
+  // leave the independently enabled effects available.
+  await page.getByRole("button", { name: "关闭背景音乐", exact: true }).click();
   await page.getByRole("button", { name: "恢复交互音效", exact: true }).click();
   expect(await inspect()).toEqual(["running"]);
   await expect(page.locator(".audio-state")).toContainText("背景音乐已关闭");
