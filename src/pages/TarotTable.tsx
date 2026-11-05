@@ -8,6 +8,8 @@ import {
   summarizeReading,
   TAROT_SPREADS,
 } from "../lib/tarot";
+import { useTarotMotion, TAROT_MOTION_MS } from "../hooks/useTarotMotion";
+import type { CSSProperties } from "react";
 import type { DrawnCard, SpreadId } from "../lib/tarot";
 import { downloadText } from "../lib/storage";
 import { audio } from "../lib/audio";
@@ -43,6 +45,7 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
   const [includeReversed, setIncludeReversed] = useState(true);
   const [session, setSession] = useState<Session>(emptySession);
   const [exportError, setExportError] = useState("");
+  const { motion, run, isBusy } = useTarotMotion();
   const heading = useRef<HTMLHeadingElement>(null);
   const previousPhase = useRef(session.phase);
   const spread = TAROT_SPREADS[spreadId];
@@ -57,6 +60,8 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
   }, [session.phase]);
 
   function shuffle() {
+    if (isBusy()) return;
+    run({ kind: "shuffle" });
     const deck = dealNightCards(includeReversed);
     setSession((previous) => ({
       ...previous,
@@ -69,20 +74,24 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
     audio.play("letter");
   }
   function cut(index: number) {
-    setSession((previous) =>
-      previous.phase === "cut"
-        ? {
-            ...previous,
-            phase: "draw",
-            deck: cutNightDeck(previous.deck, [5, 11, 17][index]),
-            cutLabel: ["左叠", "中叠", "右叠"][index],
-          }
-        : previous,
+    if (isBusy() || session.phase !== "cut") return;
+    run({ kind: "cut", index }, () =>
+      setSession((previous) =>
+        previous.phase === "cut"
+          ? {
+              ...previous,
+              phase: "draw",
+              deck: cutNightDeck(previous.deck, [5, 11, 17][index]),
+              cutLabel: ["左叠", "中叠", "右叠"][index],
+            }
+          : previous,
+      ),
     );
     audio.play("letter");
   }
   function pick(index: number) {
-    if (session.phase !== "draw" || session.picks.includes(index)) return;
+    if (isBusy() || session.phase !== "draw" || session.picks.includes(index))
+      return;
     setSession((previous) => {
       if (previous.phase !== "draw" || previous.picks.includes(index))
         return previous;
@@ -96,15 +105,19 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
     audio.play("letter");
   }
   function turn(index: number) {
-    if (session.phase !== "reveal" || index !== session.revealed.length) return;
-    setSession((previous) =>
-      previous.phase === "reveal" && index === previous.revealed.length
-        ? { ...previous, revealed: [...previous.revealed, index] }
-        : previous,
+    if (isBusy() || session.phase !== "reveal" || index !== session.revealed.length)
+      return;
+    run({ kind: "turn", index }, () =>
+      setSession((previous) =>
+        previous.phase === "reveal" && index === previous.revealed.length
+          ? { ...previous, revealed: [...previous.revealed, index] }
+          : previous,
+      ),
     );
     audio.play("letter");
   }
   function restart() {
+    if (isBusy()) return;
     setSession(emptySession());
     setExportError("");
   }
@@ -174,6 +187,13 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
       <section
         className={`tarot-table tarot-phase-${session.phase}`}
         aria-labelledby="tarot-step"
+        aria-busy={!!motion}
+        style={{
+          "--shuffle-ms": `${TAROT_MOTION_MS.shuffle}ms`,
+          "--fan-ms": `${TAROT_MOTION_MS.fan}ms`,
+          "--cut-ms": `${TAROT_MOTION_MS.cut}ms`,
+          "--turn-ms": `${TAROT_MOTION_MS.turn}ms`,
+        } as CSSProperties}
       >
         <header className="tarot-step">
           <span className="eyebrow">
@@ -184,7 +204,13 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
             {titles[session.phase]}
           </h2>
           <p aria-live="polite">
-            {session.phase === "draw"
+            {motion?.kind === "shuffle"
+              ? "牌叠正在交错洗合…"
+              : motion?.kind === "cut"
+                ? "将选中的一叠移到牌顶…"
+                : motion?.kind === "turn"
+                  ? "牌面正在揭示…"
+                  : session.phase === "draw"
               ? `已选 ${session.picks.length} / ${spread.positions.length} 张，选牌顺序就是牌位顺序。`
               : session.phase === "reveal"
                 ? `已翻开 ${session.revealed.length} / ${spread.positions.length} 张`
@@ -249,24 +275,25 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
         {session.phase === "shuffle" && (
           <div className="tarot-shuffle-stage">
             <div
-              className="tarot-shuffling-pack"
+              className={`tarot-shuffling-pack ${motion?.kind === "shuffle" ? "is-shuffling" : ""}`}
               key={session.shuffles}
               aria-hidden="true"
             >
-              <CardBack />
-              <CardBack />
-              <CardBack />
+              {Array.from({ length: 5 }, (_, i) => <CardBack key={i} />)}
             </div>
             <p>让问题停在心里。想再洗一次，也可以。</p>
             <div className="tarot-actions">
-              <button className="text-button" onClick={shuffle}>
+              <button className="text-button" onClick={shuffle} disabled={!!motion}>
                 再洗一次
               </button>
               <button
                 className="button ink-button"
-                onClick={() =>
-                  setSession((previous) => ({ ...previous, phase: "cut" }))
-                }
+                disabled={!!motion}
+                onClick={() => {
+                  if (isBusy()) return;
+                  setSession((previous) => ({ ...previous, phase: "cut" }));
+                  run({ kind: "fan" });
+                }}
               >
                 洗好了，开始切牌
               </button>
@@ -275,10 +302,11 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
         )}
 
         {session.phase === "cut" && (
-          <div className="tarot-cut-piles">
+          <div className={`tarot-cut-piles ${motion?.kind === "cut" ? "is-cutting" : ""}`} data-cut={motion?.kind === "cut" ? motion.index : undefined}>
             {["左叠", "中叠", "右叠"].map((label, index) => (
               <button
-                className="tarot-card"
+                className={`tarot-card ${motion?.kind === "cut" && motion.index === index ? "is-chosen" : ""}`}
+                disabled={!!motion}
                 key={label}
                 onClick={() => cut(index)}
                 aria-label={`选择${label}切牌`}
@@ -299,6 +327,7 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
                   <button
                     className="tarot-card tarot-pick"
                     key={draw.card.id}
+                    style={{ "--deal-order": index } as CSSProperties}
                     aria-label={
                       order < 0
                         ? `选择第 ${index + 1} 张背面牌`
@@ -331,7 +360,7 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
                   收回最后一张
                 </button>
               )}
-              <button className="text-button" onClick={restart}>
+              <button className="text-button" onClick={restart} disabled={!!motion}>
                 重新定意
               </button>
             </div>
@@ -345,24 +374,29 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
             >
               {spread.positions.map((slot, index) => {
                 const draw = draws[index],
-                  open = session.revealed.includes(index);
+                  open = session.revealed.includes(index),
+                  turning = motion?.kind === "turn" && motion.index === index,
+                  faceUp = open || turning;
                 return (
                   <li key={slot.title}>
                     <span className="tarot-slot">
                       {index + 1} · {slot.title}
                     </span>
                     <button
-                      className={`tarot-card tarot-turn ${open ? "is-open" : ""} ${open && draw.reversed ? "is-reversed" : ""}`}
+                      className={`tarot-card tarot-turn ${faceUp ? "is-face-up" : ""} ${open ? "is-open" : ""} ${faceUp && draw.reversed ? "is-reversed" : ""}`}
                       aria-label={
                         open
                           ? `${slot.title}：${draw.card.name} · ${draw.reversed ? "逆位" : "正位"}`
                           : `翻开${slot.title}之牌`
                       }
-                      aria-disabled={open}
-                      disabled={!open && index !== session.revealed.length}
+                      aria-disabled={open || !!motion}
+                      disabled={!faceUp && (!!motion || index !== session.revealed.length)}
                       onClick={() => turn(index)}
                     >
-                      {open ? <CardFace card={draw.card} /> : <CardBack />}
+                      <span className="tarot-flip-body" aria-hidden="true">
+                        <span className="tarot-flip-back"><CardBack /></span>
+                        <span className="tarot-flip-front"><CardFace card={draw.card} /></span>
+                      </span>
                     </button>
                     <span className="tarot-orientation">
                       {open
@@ -377,7 +411,7 @@ export function TarotTable({ navigate }: { navigate: (path: string) => void }) {
               })}
             </ol>
             <div className="tarot-actions">
-              <button className="text-button" onClick={restart}>
+              <button className="text-button" onClick={restart} disabled={!!motion}>
                 开始新一局
               </button>
             </div>

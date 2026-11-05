@@ -47,8 +47,10 @@ export function CardFace({
         draggable={false}
       />
       <span className="tarot-number">{card.number}</span>
-      <strong>{card.name}</strong>
-      <small>{card.motif}</small>
+      <span className="tarot-caption">
+        <strong>{card.name}</strong>
+        <small>{card.essence}</small>
+      </span>
     </span>
   );
 }

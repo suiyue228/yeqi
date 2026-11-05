@@ -12,6 +12,7 @@ interface Departure {
   delta?: number;
 }
 function kindFor(path: string): RitualKind {
+  if (path === "/theatre/astrologer/table") return "crystal";
   if (
     path.startsWith("/write") ||
     path.startsWith("/edit") ||
@@ -71,7 +72,7 @@ export function useRoute() {
           ? "drawer"
           : soundKind === "letter"
             ? "letter"
-            : soundKind === "oracle"
+            : soundKind === "oracle" || soundKind === "crystal"
               ? "chime"
               : "curtain",
       );
@@ -82,13 +83,20 @@ export function useRoute() {
         return;
       }
       const kind = kindFor(next);
-      setTransition({ kind, phase: "closing" });
+      const counter = kind === "crystal"
+        ? document.querySelector(".shop-counter")?.getBoundingClientRect()
+        : undefined;
+      const origin = counter ? {
+        x: Math.max(60, Math.min(innerWidth - 60, counter.left + counter.width / 2)),
+        y: Math.max(90, Math.min(innerHeight - 90, counter.top + counter.height * 0.22)),
+      } : undefined;
+      setTransition({ kind, phase: "closing", origin });
       timers.current.push(
         window.setTimeout(() => {
           commit(next, historyPosition);
           // Finishing early during the reveal must not push this URL twice.
           destination.current = { next, position: position.current };
-          setTransition({ kind, phase: "opening" });
+          setTransition({ kind, phase: "opening", origin });
         }, RITUAL_SWAP),
       );
       timers.current.push(

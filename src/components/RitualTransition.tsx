@@ -1,9 +1,10 @@
-export type RitualKind = "curtain" | "cabinet" | "letter" | "oracle" | "gate";
+export type RitualKind = "curtain" | "cabinet" | "letter" | "oracle" | "gate" | "crystal";
 export interface RitualState {
   kind: RitualKind;
   phase: "closing" | "opening";
+  origin?: { x: number; y: number };
 }
-const words: Record<RitualKind, [string, string, string]> = {
+const words: Record<Exclude<RitualKind, "crystal">, [string, string, string]> = {
   curtain: ["II", "展开一张，写给月亮的纸。", "THE WRITING CHAMBER"],
   cabinet: ["III", "轻启暗柜，让旧日重新有声。", "THE CABINET OF MEMORIES"],
   letter: ["✦", "解开封印，听一封信的低语。", "A SEALED FRAGMENT"],
@@ -12,6 +13,7 @@ const words: Record<RitualKind, [string, string, string]> = {
 };
 export function RitualTransition({ state }: { state: RitualState | null }) {
   if (!state) return null;
+  if (state.kind === "crystal") return <CrystalPassage state={state} />;
   const [mark, label, caption] = words[state.kind];
   return (
     <div
@@ -37,6 +39,27 @@ export function RitualTransition({ state }: { state: RitualState | null }) {
         <i>☾</i>
         <p>{label}</p>
         <small>{caption}</small>
+      </div>
+    </div>
+  );
+}
+function CrystalPassage({ state }: { state: RitualState }) {
+  return (
+    <div className={`ritual-transition ritual-crystal ritual-${state.phase}`}
+      data-testid="ritual-transition" data-kind="crystal" aria-hidden="true"
+      style={{
+        "--crystal-x": state.origin ? `${state.origin.x}px` : "50vw",
+        "--crystal-y": state.origin ? `${state.origin.y}px` : "50vh",
+        "--ritual-close": `${RITUAL_TIMING.close}ms`,
+        "--ritual-reveal": `${RITUAL_TIMING.reveal}ms`,
+      } as CSSProperties}>
+      <div className="crystal-veil" />
+      <div className="crystal-orbits">
+        <span className="crystal-orbit" />
+        <span className="crystal-orbit" />
+        <span className="crystal-globe">☾</span>
+        <i className="crystal-star">✦</i>
+        <small>THE MOTH ORACLE · XXII</small>
       </div>
     </div>
   );

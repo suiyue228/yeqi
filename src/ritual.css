@@ -109,3 +109,83 @@
     display: none;
   }
 }
+
+/* Crystal-only passage: the sphere opens into a quiet star map, without wings. */
+.ritual-crystal::before { display: none; }
+.crystal-veil {
+  position: absolute;
+  inset: 0;
+  background: #20182e;
+}
+.crystal-orbits {
+  position: absolute;
+  left: var(--crystal-x);
+  top: var(--crystal-y);
+  width: min(66vw, 400px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  color: #ddc49a;
+  text-align: center;
+}
+.crystal-orbit, .crystal-globe {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #b89977;
+  border-radius: 50%;
+}
+.crystal-orbit:first-child {
+  inset: 8%;
+  border-style: dashed;
+  transform: rotate(-24deg) scaleY(.65);
+}
+.crystal-orbit:nth-child(2) { transform: rotate(28deg) scaleX(.66); }
+.crystal-globe {
+  inset: 20%;
+  display: grid;
+  place-items: center;
+  background: #382d4a;
+  border: 1px solid #d5bed7;
+  outline: 1px solid #77657e;
+  outline-offset: 8px;
+  font: clamp(36px, 6vw, 70px) var(--font-accent);
+  box-shadow: inset 8px -12px #2a203b;
+}
+.crystal-star { position: absolute; top: 0; left: 47%; font-style: normal; }
+.crystal-orbits small {
+  position: absolute;
+  top: 110%;
+  left: -15%;
+  width: 130%;
+  font: 10px var(--font-accent);
+  letter-spacing: .2em;
+}
+.ritual-crystal.ritual-closing .crystal-veil {
+  animation: crystal-expand var(--ritual-close) cubic-bezier(.4,0,.3,1) both;
+}
+.ritual-crystal.ritual-closing .crystal-orbits {
+  animation: crystal-arrive var(--ritual-close) ease-out both;
+}
+.ritual-crystal.ritual-opening .crystal-veil {
+  animation: crystal-clear var(--ritual-reveal) ease-in both;
+}
+.ritual-crystal.ritual-opening .crystal-orbits {
+  left: 50vw;
+  top: 50vh;
+  animation: crystal-dissolve var(--ritual-reveal) ease-in both;
+}
+@keyframes crystal-expand {
+  from { clip-path: circle(0 at var(--crystal-x) var(--crystal-y)); }
+  to { clip-path: circle(150vmax at var(--crystal-x) var(--crystal-y)); }
+}
+@keyframes crystal-arrive {
+  from { left: var(--crystal-x); top: var(--crystal-y); transform: scale(.18) rotate(-28deg); opacity: 0; }
+  to { left: 50vw; top: 50vh; transform: scale(1) rotate(0); opacity: 1; }
+}
+@keyframes crystal-clear {
+  0%, 15% { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes crystal-dissolve {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(1.4) rotate(18deg); opacity: 0; }
+}

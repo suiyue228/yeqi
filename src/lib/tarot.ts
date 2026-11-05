@@ -8,6 +8,7 @@ export interface NightCard {
   number: string;
   name: string;
   motif: string;
+  essence: string;
   upright: CardMeaning;
   reversed: CardMeaning;
 }
@@ -18,6 +19,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "0",
     name: "愚者",
     motif: "纸舟",
+    essence: "向未知启程",
     upright: {
       keywords: "启程 · 信任 · 好奇",
       message: "纸舟离岸时，岸上的地图还没画完。一个新体验正在邀请你行动。",
@@ -35,6 +37,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "I",
     name: "魔术师",
     motif: "钥匠",
+    essence: "意志与创造",
     upright: {
       keywords: "创造 · 专注 · 运用",
       message: "钥匠把现有工具摆在桌上。你已有的经验和资源可以开始合作。",
@@ -51,6 +54,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "III",
     name: "皇后",
     motif: "花盏",
+    essence: "滋养与丰盛",
     upright: {
       keywords: "滋养 · 丰盛 · 生长",
       message: "花从盛水的盏中长出。成长需要照料，也需要安心接受好的事物。",
@@ -67,6 +71,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "IV",
     name: "皇帝",
     motif: "石座",
+    essence: "秩序与担当",
     upright: {
       keywords: "结构 · 边界 · 承担",
       message: "石座稳稳落地。清晰的规则、范围和责任能让混乱慢慢归位。",
@@ -83,6 +88,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "II",
     name: "女祭司",
     motif: "星帘",
+    essence: "静听内心",
     upright: {
       keywords: "直觉 · 静观 · 潜意识",
       message: "帘后的信息尚未完全显露。安静的感受可能正在补足理性的线索。",
@@ -99,6 +105,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "V",
     name: "教皇",
     motif: "双钥",
+    essence: "传承与信念",
     upright: {
       keywords: "传承 · 学习 · 共识",
       message:
@@ -116,6 +123,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "VI",
     name: "恋人",
     motif: "双蛾",
+    essence: "爱与抉择",
     upright: {
       keywords: "联结 · 选择 · 一致",
       message: "两只飞蛾靠近同一束光。关键是让选择与你真正重视的事一致。",
@@ -132,6 +140,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "VII",
     name: "战车",
     motif: "月辇",
+    essence: "笃定前行",
     upright: {
       keywords: "方向 · 意志 · 推进",
       message: "两只车轮需要同向转动。把分散的力量收拢，可以推动眼前的进展。",
@@ -148,6 +157,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "VIII",
     name: "力量",
     motif: "抚狮",
+    essence: "温柔的勇气",
     upright: {
       keywords: "耐心 · 勇气 · 温柔",
       message:
@@ -165,6 +175,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "IX",
     name: "隐士",
     motif: "守灯",
+    essence: "向内寻光",
     upright: {
       keywords: "独处 · 探索 · 内在指引",
       message: "一盏灯照清脚边。你可能需要暂离喧闹，辨认真正属于自己的方向。",
@@ -181,6 +192,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "X",
     name: "命运之轮",
     motif: "纺月",
+    essence: "转机与循环",
     upright: {
       keywords: "转折 · 周期 · 时机",
       message: "轮子在转，旧阶段与新阶段正在交接。顺着变化观察可行动的窗口。",
@@ -197,6 +209,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "XI",
     name: "正义",
     motif: "羽秤",
+    essence: "诚实与平衡",
     upright: {
       keywords: "公正 · 责任 · 明辨",
       message: "羽毛与石头各有重量。把事实、承诺和后果放在同一张桌上。",
@@ -213,6 +226,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "XII",
     name: "倒吊人",
     motif: "悬灯",
+    essence: "换一个视角",
     upright: {
       keywords: "暂停 · 换位 · 放下",
       message:
@@ -230,6 +244,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "XIII",
     name: "死神",
     motif: "蜕蝶",
+    essence: "告别与新生",
     upright: {
       keywords: "结束 · 蜕变 · 腾出空间",
       message:
@@ -247,6 +262,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "XIV",
     name: "节制",
     motif: "潮杯",
+    essence: "调和与节律",
     upright: {
       keywords: "调和 · 恢复 · 适度",
       message:
@@ -265,6 +281,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "XV",
     name: "恶魔",
     motif: "松链",
+    essence: "看见束缚",
     upright: {
       keywords: "依附 · 诱惑 · 惯性",
       message: "环上的锁链也许比想象中松。留意短暂满足是否让你远离真正的需要。",
@@ -281,6 +298,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "XVI",
     name: "高塔",
     motif: "折塔",
+    essence: "破局与重建",
     upright: {
       keywords: "揭露 · 松动 · 重建",
       message: "裂缝让被遮住的结构显露。一个不再可靠的前提，需要重新检验。",
@@ -298,6 +316,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "XVII",
     name: "星星",
     motif: "星井",
+    essence: "希望与疗愈",
     upright: {
       keywords: "希望 · 抚慰 · 重新相信",
       message: "星光在井里留下回声。真实而微小的慰藉，可以支持恢复中的你。",
@@ -314,6 +333,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "XVIII",
     name: "月亮",
     motif: "双潮",
+    essence: "迷雾与直觉",
     upright: {
       keywords: "朦胧 · 梦境 · 未知",
       message: "两道潮水映出不同月影。感觉很强烈时，更需要区分直觉与猜测。",
@@ -330,6 +350,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "XIX",
     name: "太阳",
     motif: "晨窗",
+    essence: "明朗与喜悦",
     upright: {
       keywords: "明朗 · 活力 · 共享",
       message: "晨窗打开，简单的好事变得可见。允许自己感受成果和联结。",
@@ -347,6 +368,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "XX",
     name: "审判",
     motif: "唤鸟",
+    essence: "觉醒与回应",
     upright: {
       keywords: "觉醒 · 回顾 · 回应",
       message:
@@ -365,6 +387,7 @@ export const NIGHT_ARCANA: NightCard[] = [
     number: "XXI",
     name: "世界",
     motif: "环门",
+    essence: "圆满与整合",
     upright: {
       keywords: "完成 · 整合 · 新周期",
       message: "叶环合拢成门。看见这一程已经积累的经验，给完成一个清楚的仪式。",
