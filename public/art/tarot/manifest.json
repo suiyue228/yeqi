@@ -158,6 +158,123 @@
         }
       ],
       "prompt": "Original artwork for 夜栖, an interactive gothic miniature theatre. Match the project's handmade matte flat cut-paper style: layered plum/violet and muted ivory cutouts, limited clear color planes and crisp edges, restrained antique gold, small worn paper grain. No photos, 3D, glossy effects, text, letters or watermark. The referenced screenshot is a style reference only. An exactly square production contact sheet, divided into four equal square quadrants 2 by 2, no separator lines, FOUR independent full-bleed square flat paper illustrations with distinct objects. Keep all meaningful objects within central 75% of each quadrant; leave quiet dark color at its edges. Quadrant centers at (25%,25%),(75%,25%),(25%,75%),(75%,75%). Fill each quadrant all the way to its edge, no border or card frame, no gutters, no transparent areas, no text or numerals; these are artwork panels for an original tarot deck. Dark, elegant readable silhouettes with no figure needed, common limited colors and tonal range. TOP LEFT: one radiant four-point ivory star above a small still dark violet well and a circular ripple. TOP RIGHT: one pale crescent moon over two mirrored folded smoky teal tidal waves. BOTTOM LEFT: one muted gold sun showing through an open rose-plum Gothic arched window, no face. BOTTOM RIGHT: one ivory circular leaf wreath forming an elegant portal between two deep plum paper panels, with a small gold point inside. Each quadrants' subject is distinct."
+    },
+    {
+      "name": "arcana-four",
+      "sourceSHA256": "a4c84d29b335ceb4125a135b5774ca4cfd5d011491ed0b59ce541bbef288d0da",
+      "styleReferenceSHA256": "879ac1841e8eabb8f132f1f5c55e57565d6f7c8b1666207dca8a01e438be6682",
+      "prompt": "Original night fairytale flat cut-paper illustration for the same 夜栖 website, the input is style reference only. Deep ink-plum, faded antique gold, ivory, dusty lilac, muted oxblood and smoky teal, crisp elegant cut edges, very light paper print texture, refined mostly flat color planes. No 3D, photorealism, neon, text, numerals, watermark or heavy gradients. Exactly square production contact sheet divided into four EQUAL square quadrants in a 2x2 grid, each is an independent full-bleed image. No gutters, lines or picture frames. Center main objects in each quadrant's middle 75%. Quiet dark margins, detailed but readable at 160px. TOP LEFT: Empress, an ivory flower blossoming from a crowned plum chalice on an embroidered cushion. TOP RIGHT: Emperor, a firm angular ivory throne with a small muted-gold crown, deep plum architecture. BOTTOM LEFT: Hierophant, an opened pale book beneath two joined antique-gold keys and a tiny pointed arch. BOTTOM RIGHT: Lovers, two ivory paper moths meeting below a fine gold star, little tangled lilac ribbon between them.",
+      "files": [
+        {
+          "file": "blossom.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 17752,
+          "sha256": "c84308bc22e4c113442571f1cd2dc9f3ae8a67ee8c3f6473f5f0382689168151"
+        },
+        {
+          "file": "throne.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 15996,
+          "sha256": "241bc87cf1be664830c27548feb3ad2c3a734c12c0bbcdeb62d737715824d887"
+        },
+        {
+          "file": "book.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 19118,
+          "sha256": "174a9d0d01b26d526c3d66f0abea9ea40a0bc5d145708cc715628c52d8e71839"
+        },
+        {
+          "file": "moths.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 18162,
+          "sha256": "60c4e95fc581a48002433b57c5518a87a6bdb35bedff2c206b38908fda24ede8"
+        }
+      ]
+    },
+    {
+      "name": "arcana-five",
+      "sourceSHA256": "b376b4d0285fc394ab46a924138a12ccb08b82b58be70ff6afd059abf0269e99",
+      "styleReferenceSHA256": "879ac1841e8eabb8f132f1f5c55e57565d6f7c8b1666207dca8a01e438be6682",
+      "prompt": "Original night fairytale flat cut-paper illustration for the same 夜栖 website, the input is style reference only. Deep ink-plum, faded antique gold, ivory, dusty lilac, muted oxblood and smoky teal, crisp elegant cut edges, very light paper print texture, refined mostly flat color planes. No 3D, photorealism, neon, text, numerals, watermark or heavy gradients. Exactly square production contact sheet divided into four EQUAL square quadrants in a 2x2 grid, each is an independent full-bleed image. No gutters, lines or picture frames. Center main objects in each quadrant's middle 75%. Quiet dark margins, detailed but readable at 160px. TOP LEFT: Chariot, a small moon carriage with two stylized paper wheels and a flying indigo pennant, no horse. TOP RIGHT: Strength, one ivory hand gently resting beside a peaceful stylized plum lion head, gold infinity loop. BOTTOM LEFT: Hanged Man, a small closed paper lantern suspended upside down by one lilac ribbon, a pale halo-shape behind. BOTTOM RIGHT: Death, an ivory chrysalis opening and a fresh pale-gold butterfly leaving it over two withered lilac leaves, hopeful quiet transition, no gore.",
+      "files": [
+        {
+          "file": "carriage.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 19550,
+          "sha256": "c575b52c85e4d40687b9262b797510a85862ecb1fd560e2582cd6dc477fd3546"
+        },
+        {
+          "file": "lion.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 18616,
+          "sha256": "4cd483eac59e248b2f876c37be10ea97231bb4afcc1e55994b5158315ef9c318"
+        },
+        {
+          "file": "hanging.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 15576,
+          "sha256": "3812e9c636a0bcb52a8e497a06ef76ce4ba575f65def0109374f8c54eb4017b1"
+        },
+        {
+          "file": "chrysalis.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 15452,
+          "sha256": "b72af3efce92f584dd981edc5ed505cdea1e516103acbfe5ab83c326c2ae33b5"
+        }
+      ]
+    },
+    {
+      "name": "arcana-six",
+      "sourceSHA256": "0624bfdd7b16cd75114df8f3ac6fbd926f77e4e404b9d97f780e71bea0153cb4",
+      "styleReferenceSHA256": "879ac1841e8eabb8f132f1f5c55e57565d6f7c8b1666207dca8a01e438be6682",
+      "prompt": "Original night fairytale flat cut-paper illustration for the same 夜栖 website, the input is style reference only. Deep ink-plum, faded antique gold, ivory, dusty lilac, muted oxblood and smoky teal, crisp elegant cut edges, very light paper print texture, refined mostly flat color planes. No 3D, photorealism, neon, text, numerals, watermark or heavy gradients. A landscape contact sheet of TWO equal square full-bleed panels side by side, exact 2:1 ratio. No gutter or separators, no border. LEFT: Devil, a delicate purple moth beneath a dark ornamental ring, loose old-gold chains lay open to either side, desire and entanglement, no horned person. RIGHT: Judgement, a muted-gold trumpet suspended above three folded ivory paper birds rising from plum seed pods, awakening and a soft new dawn. Each subject contained within central 75% of its square panel.",
+      "files": [
+        {
+          "file": "chain.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 20966,
+          "sha256": "780944c8fe5ca7f8a64b9f7a40ed92b608618ef539c0c249287c1598ba1c5af6"
+        },
+        {
+          "file": "trumpet.webp",
+          "width": 360,
+          "height": 360,
+          "bytes": 16592,
+          "sha256": "20093da18e7fb7aab06a87d72e974720c10e1c8a751189aa14e10f2e8e1ba136"
+        }
+      ]
+    },
+    {
+      "name": "front-frame",
+      "sourceSHA256": "d07da035d628e9df75fc83ac42f1b78b229cfe796c8a19cb75dbc5a5f6490089",
+      "styleReferenceSHA256": "879ac1841e8eabb8f132f1f5c55e57565d6f7c8b1666207dca8a01e438be6682",
+      "prompt": "Original night fairytale flat cut-paper illustration for the same 夜栖 website, the input is style reference only. Deep ink-plum, faded antique gold, ivory, dusty lilac, muted oxblood and smoky teal, crisp elegant cut edges, very light paper print texture, refined mostly flat color planes. No 3D, photorealism, neon, text, numerals, watermark or heavy gradients. One refined standalone FRONT tarot card border frame, upright 2:3 outer rectangular silhouette, precise straight outer edges. Delicate antique gold lines on ink-black plum, tapered Gothic ivory arch with two lilac paper flourishes at its upper shoulders, small moth crest in top center, two little old gold star pinpoints in bottom corners. The central square artwork aperture occupies x=9% to91%, y=18% to73%, and must be a true transparent alpha hole, so separate square artwork can be positioned behind. Also leave a QUIET SOLID dark plum top label cartouche x30–70% y5–15% and a larger solid dark plum bottom name cartouche x10–90% y76–96%; these empty panels will receive real HTML text. Elegance from hairline borders and clean cut edges, finely proportioned rather than dense curls. Transparent alpha outside the rectangle, no text or numbers, no external shadow. Full frame entirely in view.",
+      "files": [
+        {
+          "file": "front-frame-1x.webp",
+          "width": 240,
+          "height": 360,
+          "bytes": 12232,
+          "sha256": "c2e2dca671f72768d449477e5ec0594c9d96e894fb960666105ead6b37db6e8d"
+        },
+        {
+          "file": "front-frame-2x.webp",
+          "width": 480,
+          "height": 720,
+          "bytes": 29864,
+          "sha256": "a7b08badcccb998e0955ec8574a8fa61bad9280cc4298c1b9c3ff67e496b0a01"
+        }
+      ]
     }
-  ]
+  ],
+  "upgradeProcessing": "Preserve alpha; proportionally resize cutouts. Exact 2x2 or 2x1 crop of panel artwork. WebP quality88 method6."
 }

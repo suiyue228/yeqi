@@ -28,6 +28,9 @@ const ART = {
   "astrologer-room": [768, 512],
   "astrologer-witch": [320, 480],
   "astrologer-counter": [400, 260],
+  "tide-return": [224, 336],
+  "post-return": [224, 336],
+  "oracle-return": [224, 336],
 } as const;
 export type TheatreAsset = keyof typeof ART;
 const MOONS = ["moon-crescent", "moon-half", "moon-full"] as const;

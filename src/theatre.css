@@ -193,9 +193,9 @@
   letter-spacing: 2px;
 }
 .paper-door {
-  width: 26%;
-  left: 23%;
-  bottom: 11%;
+  width: 22%;
+  left: 24%;
+  bottom: 12%;
   transform: translateZ(40px);
   z-index: 1;
   display: flex;
@@ -206,7 +206,7 @@
 .paper-door > .theatre-image {
   width: 100%;
   height: auto;
-  filter: drop-shadow(6px 5px 0 #120f1899);
+  filter: drop-shadow(3px 4px 0 #120f1880);
   transition: filter 0.3s;
 }
 .paper-door small {
@@ -472,8 +472,8 @@
     left: 52%;
   }
   .paper-door {
-    width: 29%;
-    left: 21%;
+    width: 25%;
+    left: 23%;
   }
   .pendant-left {
     left: 12%;
@@ -563,9 +563,9 @@
     margin-top: 2px;
   }
   .paper-door {
-    left: 10%;
-    width: 45%;
-    bottom: 14%;
+    left: 12%;
+    width: 39%;
+    bottom: 15%;
     transform: translateZ(25px);
   }
   .paper-door small {
@@ -724,6 +724,13 @@
   line-height: 1.45;
   letter-spacing: 0.06em;
 }
+.theatre-passage > small {
+  padding: 4px 6px;
+  background: #23192bc4;
+  border: 0;
+  border-bottom: 1px solid #ae8e77;
+  max-width: 125px;
+}
 .theatre-passage small span {
   display: block;
   color: #dcc0a4;
@@ -746,16 +753,20 @@
   transform: translateZ(-100px) scale(1.1);
 }
 .paper-act .passage-door {
-  width: 17%;
-  max-width: 158px;
-  left: 14%;
+  --passage-depth: 40px;
+  width: 21%;
+  max-width: 195px;
+  left: 11%;
   bottom: 13%;
 }
+.paper-act-tide .passage-door {
+  bottom: 16%;
+}
 .paper-act .passage-window {
-  width: 16%;
+  width: 14%;
   max-width: 170px;
   right: 14%;
-  top: 39%;
+  top: 36%;
 }
 .act-puppet {
   width: 29%;
@@ -974,12 +985,12 @@
     object-fit: cover;
   }
   .paper-act .passage-door {
-    width: 24%;
+    width: 27%;
     left: 8%;
-    bottom: 13%;
+    bottom: 14%;
   }
   .paper-act .passage-window {
-    width: 25%;
+    width: 23%;
     right: 8%;
     top: 36%;
   }

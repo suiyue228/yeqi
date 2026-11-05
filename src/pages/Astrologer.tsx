@@ -46,6 +46,7 @@ export function Astrologer({ navigate }: { navigate: (path: string) => void }) {
             </button>
             <TheatrePassage
               kind="door"
+              theme="oracle"
               destination="星图邮局"
               onEnter={() => navigate("/theatre/post")}
             />

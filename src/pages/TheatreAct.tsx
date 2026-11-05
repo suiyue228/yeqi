@@ -172,6 +172,7 @@ export function TheatreAct({
             />
             <TheatrePassage
               kind="door"
+              theme={act}
               destination={scene.previous.title}
               onEnter={() => navigate(scene.previous.path)}
             />
@@ -185,6 +186,7 @@ export function TheatreAct({
             </button>
             <TheatrePassage
               kind="window"
+              theme={act}
               destination={scene.next.title}
               onEnter={() => navigate(scene.next.path)}
             />

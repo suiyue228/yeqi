@@ -5,7 +5,7 @@
       "family": "Moonlit Display",
       "sourceSha256": "558c62730844fe54ba220146ed62f859d4e2880188d92d985f8921c6e3743bc4",
       "sourceCharacters": 12882,
-      "shippedCharacters": 933,
+      "shippedCharacters": 960,
       "files": [
         {
           "file": "display-v1-000.woff2",
@@ -34,6 +34,13 @@
           "sha256": "dac3e40305076db0677003b9269a8df8daf7ac100aef25ce19312f695e3956ce",
           "unicodeRange": "U+4E16,U+4E24,U+4E95,U+4EEA,U+4EEC,U+4F30,U+4F53,U+516C,U+5217,U+529B,U+5316,U+5320,U+5341,U+5355,U+535C,U+5360,U+53CC,U+53F8,U+547D,U+5708,U+5854,U+58EB,U+592A,U+594F,U+5973,U+5BDF,U+5BF9,U+5C3E,U+5C40,U+5C91,U+5DE5,U+5DEE,U+5E03,U+5E08,U+5E18,U+5E26,U+5E97,U+5F62,U+600E,U+611A,U+6170,U+627F,U+6298,U+62E2,U+638C,U+63E1,U+6491,U+6597,U+65C1,U+65E9,U+6668,U+6676,U+6726,U+672F,U+676F,U+684C,U+6905,U+6C34,U+6D17,U+7167,U+724C,U+731C,U+7403,U+754C,U+773C,U+77E5,U+77E9,U+796D,U+79E4,U+7B80,U+7BF7,U+7EB9,U+7EBA,U+7FBD,U+8005,U+800C,U+80E7,U+811A,U+821E,U+821F,U+8282,U+85C9,U+89C2,U+89C4,U+8C22,U+8C61,U+8DB3,U+8DEF,U+8F6E,U+90AE,U+91CA,U+94A5,U+9633,U+9635,U+987A,U+9AD8,U+9B54,U+9ED8",
           "characters": 98
+        },
+        {
+          "file": "display-ritual-v2.woff2",
+          "bytes": 11424,
+          "sha256": "df908783a8bf1c03126ff0c7654198991098e716a3f32b8ae568dc338bea8abe",
+          "unicodeRange": "U+5012,U+53E0,U+540A,U+5524,U+5BA1,U+5C94,U+5E1D,U+604B,U+6076,U+6218,U+629A,U+6559,U+6B7B,U+6CB3,U+72EE,U+7687,U+77F3,U+795E,U+82B1,U+86FE,U+8715,U+8776,U+8F66,U+8F87,U+9047,U+94FE,U+9E1F",
+          "characters": 27
         }
       ]
     },

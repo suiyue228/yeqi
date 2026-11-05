@@ -11,6 +11,8 @@
 
 ## 分片与维护
 
+22张牌升级另补 `display-ritual-v2.woff2`，同一朱雀源文件提取27个新牌名及阶段标题字形，11,424字节。与既有片的unicode-range互斥，校验值随manifest记录。
+
 2026-11-05为占星小店与牌桌新增 `display-oracle-v1.woff2`，由同版本朱雀仿宋源文件提取缺少的98个界面字形，共34,232字节。unicode-range与原分片互斥，沿用Moonlit Display和OFL许可，记录在manifest.json。以后运行完整字体分片脚本时，新字会随源码统一纳入，需核对并清理已经被新分片取代的补充文件。
 
 仅发布WOFF2；原始TTF/候选字体不进入public或Git。display为当前源码中实际界面字与标点的子集；hand保留原字体全部Unicode映射，按字符分组，unicode-range使浏览器只读取当前文字所需分片，罕见字出现时再读取对应文件。不是只保留演示句子的“假中文字体”。缺少的扩展汉字、emoji由系统字库回退。

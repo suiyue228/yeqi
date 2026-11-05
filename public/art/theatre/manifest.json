@@ -634,10 +634,77 @@
         }
       ],
       "prompt": "Original artwork for 夜栖, an interactive gothic miniature theatre. Match the project's handmade matte flat cut-paper style: layered plum/violet and muted ivory cutouts, limited clear color planes and crisp edges, restrained antique gold, small worn paper grain. No photos, 3D, glossy effects, text, letters or watermark. The referenced screenshot is a style reference only. Landscape isolated counter prop as a clean transparent paper cutout. An exquisite single pale smoky lavender crystal ball on a small antique bronze tripod set atop a low and wide carved deep plum paper shop counter with an ivory-and-ochre crescent runner, a pair of tiny folded cards off to one side. The crystal ball reads at small scale, with two understated angular paper reflections and a tiny star trapped inside, no glow beyond the orb. Front view with a visible shallow top ledge; counter has discreet old gold accents. Complete standalone silhouette with generous transparent margin. No character, room, outside cast shadow or ground."
+    },
+    {
+      "name": "tide-return",
+      "sourceSHA256": "7bddd7c05d519702f9a4a8387e5869daefd2c5a605246590a4c866d5cc4ff2f2",
+      "styleReferenceSHA256": "31f5a9fe7923f2b0a53a6e0cc61e5bb683bca4f37f25d528271071229f6d3e4d",
+      "prompt": "Original night fairytale flat cut-paper illustration for the same 夜栖 website, the input is style reference only. Deep ink-plum, faded antique gold, ivory, dusty lilac, muted oxblood and smoky teal, crisp elegant cut edges, very light paper print texture, refined mostly flat color planes. No 3D, photorealism, neon, text, numerals, watermark or heavy gradients. One return passage scenery prop for the tide tailor workshop, frontal upright 2:3 cutout. A modest weathered plum recessed arch whose opening is covered by a half-drawn smoky teal pleated paper curtain tied at the left with a short pale ribbon. One small old-gold spool-shaped pin at the top; muted dark violet opening visible on the right. Broad low angular threshold integrated into the base. A subdued contextual wall niche rather than showy grand door. No moon emblem. Enough paper side surround to attach to scenery without a hard sticker rectangle. True transparent alpha around complete subject, no room or outside shadow.",
+      "files": [
+        {
+          "file": "tide-return-1x.webp",
+          "width": 224,
+          "height": 336,
+          "bytes": 14418,
+          "sha256": "0ef11b3423ddcb5a0e8029bb20e58423b4514c279de737629f4b608a942258d2"
+        },
+        {
+          "file": "tide-return-2x.webp",
+          "width": 448,
+          "height": 672,
+          "bytes": 32916,
+          "sha256": "12ec777d1804da7bd46396726c47c59d78a0c54e6f35f6632ea1bf3fd558e452"
+        }
+      ]
+    },
+    {
+      "name": "post-return",
+      "sourceSHA256": "6cbd4478d3b3dab59fc0d7e4b3a012b6c943ae554133b1210f8a5998172c539a",
+      "styleReferenceSHA256": "c63a05bf036f61dca101cb6bf9e8186b7f2980fbee4f9794a711a797e11ef2df",
+      "prompt": "Original night fairytale flat cut-paper illustration for the same 夜栖 website, the input is style reference only. Deep ink-plum, faded antique gold, ivory, dusty lilac, muted oxblood and smoky teal, crisp elegant cut edges, very light paper print texture, refined mostly flat color planes. No 3D, photorealism, neon, text, numerals, watermark or heavy gradients. One return passage built into a miniature star post office letter-sorting cabinet. Frontal upright 2:3, dark plum and muted oxblood cut paper. A low angular arched cabinet opening with one open narrow lattice shutter at the right, simple dark interior opening visible, two tiny cream envelopes tucked in a little slot in its left edge, old brass corners and a small step beneath. No moon emblem, no round sky window, no extraneous room. Quiet refined geometry, integrate side planks and threshold into a complete paper silhouette. Genuine transparent alpha around object, no outside shadow.",
+      "files": [
+        {
+          "file": "post-return-1x.webp",
+          "width": 224,
+          "height": 336,
+          "bytes": 15408,
+          "sha256": "57aa721ae8ec528883c9602899ef2de4a70f9b2cd84327d56faee9326636230b"
+        },
+        {
+          "file": "post-return-2x.webp",
+          "width": 448,
+          "height": 672,
+          "bytes": 33898,
+          "sha256": "14fae2806c662b312f7bf06708d9957103fea52eb739fe1245f4fda19c0926d1"
+        }
+      ]
+    },
+    {
+      "name": "oracle-return",
+      "sourceSHA256": "46221fbc0b6fd25e8aaf2ff2357ac2f0efa02c9a6e2e9a95c550f0d9abe6eea5",
+      "styleReferenceSHA256": "09f01fd01acbfce3f0e9280c030a6196ada8dc1f962cf9e830103dcd8174504b",
+      "prompt": "Original night fairytale flat cut-paper illustration for the same 夜栖 website, the input is style reference only. Deep ink-plum, faded antique gold, ivory, dusty lilac, muted oxblood and smoky teal, crisp elegant cut edges, very light paper print texture, refined mostly flat color planes. No 3D, photorealism, neon, text, numerals, watermark or heavy gradients. One small return passage for a mysterious astrologer shop, front-facing vertical 2:3 cut-paper scene component. A slim deep-plum pointed frame containing drawn-back dusty-lilac curtains with tiny gold star stitch marks and a dark burgundy opening. A tiny ivory moth-shaped tie on one side and single low fold-paper threshold at the bottom. Graceful restrained vertical composition, no door slab and no moon medallion. True transparent alpha around the complete object, no room, no external cast shadows, no caption.",
+      "files": [
+        {
+          "file": "oracle-return-1x.webp",
+          "width": 224,
+          "height": 336,
+          "bytes": 13290,
+          "sha256": "c04249fbb9a361c78df238f9e8ace5ef34354e32be09953b2af2c8adb163b992"
+        },
+        {
+          "file": "oracle-return-2x.webp",
+          "width": 448,
+          "height": 672,
+          "bytes": 33408,
+          "sha256": "13fd76e38bbf664ef204bc8af0b8e079734dc695da3ba1b97f250ec685e42e86"
+        }
+      ]
     }
   ],
   "updatedOn": "2026-11-03",
   "additionalActProcessing": "Resize and center transparent cutouts with preserved alpha; center-crop opaque panels to 3:2. WebP quality 86, method 6.",
   "sceneryProcessing": "Resize and center transparent cutouts with preserved alpha. WebP quality 86, method 6.",
-  "astrologerProcessing": "Resize, center transparent cutouts and retain alpha. Center-crop opaque backdrop. WebP quality 87, method 6."
+  "astrologerProcessing": "Resize, center transparent cutouts and retain alpha. Center-crop opaque backdrop. WebP quality 87, method 6.",
+  "upgradeProcessing": "Preserve alpha; proportionally resize cutouts. Exact 2x2 or 2x1 crop of panel artwork. WebP quality88 method6."
 }
