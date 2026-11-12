@@ -42,6 +42,7 @@ export function TheatreImage({
   className?: string;
 }) {
   const [width, height] = ART[name];
+  const image = `${import.meta.env.BASE_URL}art/theatre/${name}`;
   const sizes =
     className === "sky-moon"
       ? "(max-width: 760px) 56px, 150px"
@@ -61,8 +62,8 @@ export function TheatreImage({
   return (
     <img
       className={`theatre-image ${className}`}
-      src={`/art/theatre/${name}-1x.webp`}
-      srcSet={`/art/theatre/${name}-1x.webp ${width}w, /art/theatre/${name}-2x.webp ${width * 2}w`}
+      src={`${image}-1x.webp`}
+      srcSet={`${image}-1x.webp ${width}w, ${image}-2x.webp ${width * 2}w`}
       sizes={sizes}
       width={width}
       height={height}

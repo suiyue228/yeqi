@@ -1,11 +1,13 @@
 import type { NightCard } from "../lib/tarot";
 
+const ART = `${import.meta.env.BASE_URL}art/tarot`;
+
 export function CardBack() {
   return (
     <span className="tarot-back" aria-hidden="true">
       <img
-        src="/art/tarot/tarot-back-1x.webp"
-        srcSet="/art/tarot/tarot-back-1x.webp 224w, /art/tarot/tarot-back-2x.webp 448w"
+        src={`${ART}/tarot-back-1x.webp`}
+        srcSet={`${ART}/tarot-back-1x.webp 224w, ${ART}/tarot-back-2x.webp 448w`}
         sizes="(max-width: 760px) 90px, 160px"
         width="224"
         height="336"
@@ -27,7 +29,7 @@ export function CardFace({
     <span className="tarot-face">
       <img
         className="tarot-face-art"
-        src={`/art/tarot/${card.id}.webp`}
+        src={`${ART}/${card.id}.webp`}
         width="360"
         height="360"
         alt=""
@@ -37,8 +39,8 @@ export function CardFace({
       />
       <img
         className="tarot-face-frame"
-        src="/art/tarot/front-frame-1x.webp"
-        srcSet="/art/tarot/front-frame-1x.webp 240w, /art/tarot/front-frame-2x.webp 480w"
+        src={`${ART}/front-frame-1x.webp`}
+        srcSet={`${ART}/front-frame-1x.webp 240w, ${ART}/front-frame-2x.webp 480w`}
         sizes="(max-width: 760px) 115px, 190px"
         width="240"
         height="360"

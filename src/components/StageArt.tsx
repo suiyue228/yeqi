@@ -3,10 +3,10 @@ import type { PointerEvent } from "react";
 const SIZES =
   "(max-width: 760px) min(97vw, 360px), (max-width: 1000px) min(68vw, 500px), min(55vw, 650px)";
 const LAYERS = [
-  ["gate-night", "/art/home/gate-night", 640, 630, SIZES],
-  ["gate-moon", "/art/theatre/moon-crescent", 192, 192, "118px"],
-  ["gate-arch", "/art/home/gate-arch", 640, 630, SIZES],
-  ["gate-boughs", "/art/home/gate-boughs", 640, 630, SIZES],
+  ["gate-night", "art/home/gate-night", 640, 630, SIZES],
+  ["gate-moon", "art/theatre/moon-crescent", 192, 192, "118px"],
+  ["gate-arch", "art/home/gate-arch", 640, 630, SIZES],
+  ["gate-boughs", "art/home/gate-boughs", 640, 630, SIZES],
 ] as const;
 
 function moveLayers(event: PointerEvent<HTMLDivElement>) {
@@ -41,8 +41,8 @@ export function StageArt({ onOpen }: { onOpen: () => void }) {
           <img
             key={layer}
             className={`stage-art-layer ${layer}`}
-            src={`${file}-1x.webp`}
-            srcSet={`${file}-1x.webp ${width}w, ${file}-2x.webp ${width * 2}w`}
+            src={`${import.meta.env.BASE_URL}${file}-1x.webp`}
+            srcSet={`${import.meta.env.BASE_URL}${file}-1x.webp ${width}w, ${import.meta.env.BASE_URL}${file}-2x.webp ${width * 2}w`}
             sizes={sizes}
             width={width}
             height={height}

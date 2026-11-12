@@ -28,11 +28,12 @@ export function DecorativeArt({
   lazy?: boolean;
 }) {
   const art = ART[kind];
+  const image = `${import.meta.env.BASE_URL}art/${kind}`;
   return (
     <img
       className={`decorative-art ${className}`}
-      src={`/art/${kind}-1x.webp`}
-      srcSet={`/art/${kind}-1x.webp ${art.width}w, /art/${kind}-2x.webp ${art.width * 2}w`}
+      src={`${image}-1x.webp`}
+      srcSet={`${image}-1x.webp ${art.width}w, ${image}-2x.webp ${art.width * 2}w`}
       sizes={art.sizes}
       width={art.width}
       height={art.height}
