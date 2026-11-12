@@ -24,7 +24,7 @@ export function loadMusicBuffer(): Promise<AudioBuffer> {
 
 async function readRecording() {
   const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), 20000);
+  const timeout = window.setTimeout(() => controller.abort(), 60_000);
   try {
     const response = await fetch(MUSIC_TRACK.url, {
       signal: controller.signal,
@@ -40,7 +40,7 @@ async function readRecording() {
     return prepareMusicLoop(decoder, recording);
   } catch {
     throw new Error(
-      "月下钢琴暂时无法读取，请检查本地服务后重试；仍可静音记录。",
+      "月下钢琴暂时无法读取，请检查连接后重试；仍可静音记录。",
     );
   } finally {
     window.clearTimeout(timeout);

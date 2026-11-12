@@ -24,6 +24,7 @@
 - 工作流未启动时，检查提交是否已推送到 `main`，并确认 **Settings → Pages → Source** 选择 **GitHub Actions**。
 - 构建失败时，展开 Actions 中失败的步骤。用 `pnpm install --frozen-lockfile` 和 `pnpm run build --base /yeqi/` 复现安装或构建错误。
 - 发布失败时，检查 `github-pages` 环境和 Pages 来源设置。发布成功但出现资源 404 时，在浏览器 Network 中检查请求是否带 `/yeqi/` 前缀，并核对文件名大小写。
+- 钢琴配乐在首次可信操作后加载。音频原文件约 7.38 MB，首次加载时间取决于连接速度。播放失败时，在 Network 中检查 `audio/sleep-piano-scott-buckley.mp3`，随后通过音景面板重试。
 - 页面直接访问使用带 `#` 的路由，例如 [纸艺小剧场](https://suiyue228.github.io/yeqi/#/theatre)。
 
 ## 回退
